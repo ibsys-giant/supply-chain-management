@@ -72,7 +72,7 @@ namespace SupplyChainManagement
             Items.Add(new ProducedItem { Id = 56, Value = 142.67, Stock = 100 });
             Items.Add(new ProcurementItem { Id = 57, Value = 22.0, Stock = 600, OrderCosts = 0.3, ProcureLeadTimeDeviation=0.3 });
             Items.Add(new ProcurementItem { Id = 58, Value = 0.1, Stock = 22000, OrderCosts = 0.5, ProcureLeadTimeDeviation=0.5 });
-            Items.Add(new ProcurementItem { Id = 50, Value = 0.15, Stock = 1800, OrderCosts = 0.2, ProcureLeadTimeDeviation=0.2 });
+            Items.Add(new ProcurementItem { Id = 59, Value = 0.15, Stock = 1800, OrderCosts = 0.2, ProcureLeadTimeDeviation=0.2 });
         }
     }
 }
