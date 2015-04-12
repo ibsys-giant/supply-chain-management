@@ -22,11 +22,11 @@ namespace SupplyChainManagement
         public DataSourceMock() {
 
             // Create mock items
-            AddNewItem(new ProductItem{ Value = 156.13, Stock = 100 });
-            AddNewItem(new ProductItem{ Value = 163.33, Stock = 100 });
-            AddNewItem(new ProductItem{ Value = 165.08, Stock = 100 });
-            AddNewItem(new ProducedItem{ Value = 40.85, Stock = 100 });
-            AddNewItem(new ProducedItem{ Value = 39.85, Stock = 100  });
+            AddNewItem(new ProductItem { Value = 156.13, Stock = 100 });
+            AddNewItem(new ProductItem { Value = 163.33, Stock = 100 });
+            AddNewItem(new ProductItem { Value = 165.08, Stock = 100 });
+            AddNewItem(new ProducedItem { Value = 40.85, Stock = 100 });
+            AddNewItem(new ProducedItem { Value = 39.85, Stock = 100  });
             AddNewItem(new ProducedItem { Value = 40.85, Stock = 100  });
             AddNewItem(new ProducedItem { Value = 35.85, Stock = 100  });
             AddNewItem(new ProducedItem { Value = 35.85, Stock = 100  });
@@ -102,65 +102,8 @@ namespace SupplyChainManagement
             Console.WriteLine(Workplaces.Count + " Workplaces added");
 
             // Add mock jobs
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
-            AddNewItemJob(new ItemJob { });
+            AddNewItemJob(new ItemJob { Item = Items[1] as ProducedItem, Workplace = Workplaces[4], ProductionTimePerPiece = 6, SetupTime = 30.0 });
+            //..
             Console.WriteLine(ItemJobs.Count + " ItemJobs added");
         }
 
