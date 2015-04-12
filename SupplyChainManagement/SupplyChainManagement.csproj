@@ -60,11 +60,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataSourceMock.cs" />
-    <Compile Include="Models\Item.cs" />
-    <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\ProcurementItem.cs" />
-    <Compile Include="Models\ProducedItem.cs" />
-    <Compile Include="Models\ProductItem.cs" />
+    <Compile Include="Models\ItemJob.cs" />
+    <Compile Include="Models\Item\Item.cs" />
+    <Compile Include="Models\Item\ProcurementItem.cs" />
+    <Compile Include="Models\Item\ProducedItem.cs" />
+    <Compile Include="Models\Item\ProductItem.cs" />
     <Compile Include="Models\Workplace.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

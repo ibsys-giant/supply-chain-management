@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SupplyChainManagement.Models
 {
-
-    enum ItemType { 
+    enum ItemType
+    {
         E, K, P
     }
 

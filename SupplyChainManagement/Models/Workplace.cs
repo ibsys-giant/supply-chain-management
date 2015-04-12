@@ -47,15 +47,5 @@ namespace SupplyChainManagement.Models
         /// Machine costs in idle
         /// </summary>
         public double IdleMachineCosts;
-
-        /// <summary>
-        /// Setup time to switch to another part
-        /// </summary>
-        public double SetupTime;
-
-        /// <summary>
-        /// Production time per piece in minutes
-        /// </summary>
-        public double ProductionTimePerPiece;
     }
 }
