@@ -102,7 +102,51 @@ namespace SupplyChainManagement
             Console.WriteLine(Workplaces.Count + " Workplaces added");
 
             // Add mock jobs
+            // Workplace 4
             AddNewItemJob(new ItemJob { Item = Items[1] as ProducedItem, Workplace = Workplaces[4], ProductionTimePerPiece = 6, SetupTime = 30.0 });
+            AddNewItemJob(new ItemJob { Item = Items[2] as ProducedItem, Workplace = Workplaces[4] });
+            AddNewItemJob(new ItemJob { Item = Items[3] as ProducedItem, Workplace = Workplaces[4] });
+
+            // Workplace 10
+            AddNewItemJob(new ItemJob { Item = Items[4] as ProducedItem, Workplace = Workplaces[10], ProductionTimePerPiece = 4, SetupTime = 20.0 });
+            AddNewItemJob(new ItemJob { Item = Items[5] as ProducedItem, Workplace = Workplaces[10], ProductionTimePerPiece = 4, SetupTime = 20.0 });
+            AddNewItemJob(new ItemJob { Item = Items[6] as ProducedItem, Workplace = Workplaces[10], ProductionTimePerPiece = 4, SetupTime = 20.0 });
+            AddNewItemJob(new ItemJob { Item = Items[7] as ProducedItem, Workplace = Workplaces[10], ProductionTimePerPiece = 4, SetupTime = 20.0 });
+            AddNewItemJob(new ItemJob { Item = Items[8] as ProducedItem, Workplace = Workplaces[10], ProductionTimePerPiece = 4, SetupTime = 20.0 });
+            AddNewItemJob(new ItemJob { Item = Items[9] as ProducedItem, Workplace = Workplaces[10], ProductionTimePerPiece = 4, SetupTime = 20.0 });
+
+            //Workplace 11
+            AddNewItemJob(new ItemJob { Item = Items[4] as ProducedItem, Workplace = Workplaces[11], ProductionTimePerPiece = 3, SetupTime = 10.0 });
+            AddNewItemJob(new ItemJob { Item = Items[5] as ProducedItem, Workplace = Workplaces[11], ProductionTimePerPiece = 3, SetupTime = 10.0 });
+            AddNewItemJob(new ItemJob { Item = Items[6] as ProducedItem, Workplace = Workplaces[11], ProductionTimePerPiece = 3, SetupTime = 20.0 });
+            AddNewItemJob(new ItemJob { Item = Items[7] as ProducedItem, Workplace = Workplaces[11], ProductionTimePerPiece = 3, SetupTime = 10.0 });
+            AddNewItemJob(new ItemJob { Item = Items[8] as ProducedItem, Workplace = Workplaces[11], ProductionTimePerPiece = 3, SetupTime = 10.0 });
+            AddNewItemJob(new ItemJob { Item = Items[9] as ProducedItem, Workplace = Workplaces[11], ProductionTimePerPiece = 3, SetupTime = 20.0 });
+
+
+            //Workplace 7
+            AddNewItemJob(new ItemJob { Item = Items[10] as ProducedItem, Workplace = Workplaces[7], ProductionTimePerPiece = 2, SetupTime = 20.0 });
+            AddNewItemJob(new ItemJob { Item = Items[11] as ProducedItem, Workplace = Workplaces[7], ProductionTimePerPiece = 2, SetupTime = 20.0 });
+            AddNewItemJob(new ItemJob { Item = Items[12] as ProducedItem, Workplace = Workplaces[7], ProductionTimePerPiece = 2, SetupTime = 20.0 });
+            AddNewItemJob(new ItemJob { Item = Items[13] as ProducedItem, Workplace = Workplaces[7], ProductionTimePerPiece = 2, SetupTime = 20.0 });
+            AddNewItemJob(new ItemJob { Item = Items[14] as ProducedItem, Workplace = Workplaces[7], ProductionTimePerPiece = 2, SetupTime = 20.0 });
+            AddNewItemJob(new ItemJob { Item = Items[15] as ProducedItem, Workplace = Workplaces[7], ProductionTimePerPiece = 2, SetupTime = 20.0 });
+
+            AddNewItemJob(new ItemJob { Item = Items[18] as ProducedItem, Workplace = Workplaces[7], ProductionTimePerPiece = 2, SetupTime = 20.0 });
+            AddNewItemJob(new ItemJob { Item = Items[19] as ProducedItem, Workplace = Workplaces[7], ProductionTimePerPiece = 2, SetupTime = 20.0 });
+            AddNewItemJob(new ItemJob { Item = Items[20] as ProducedItem, Workplace = Workplaces[7], ProductionTimePerPiece = 2, SetupTime = 20.0 });
+
+            AddNewItemJob(new ItemJob { Item = Items[26] as ProducedItem, Workplace = Workplaces[7], ProductionTimePerPiece = 2, SetupTime = 30.0 });
+
+            // Workplace 6
+            AddNewItemJob(new ItemJob { Item = Items[16] as ProducedItem, Workplace = Workplaces[6], ProductionTimePerPiece = 2, SetupTime = 15.0 });
+
+            AddNewItemJob(new ItemJob { Item = Items[18] as ProducedItem, Workplace = Workplaces[6], ProductionTimePerPiece = 3, SetupTime = 15.0 });
+            AddNewItemJob(new ItemJob { Item = Items[19] as ProducedItem, Workplace = Workplaces[6], ProductionTimePerPiece = 3, SetupTime = 15.0 });
+            AddNewItemJob(new ItemJob { Item = Items[20] as ProducedItem, Workplace = Workplaces[6], ProductionTimePerPiece = 3, SetupTime = 15.0 });
+
+
+
             //..
             Console.WriteLine(ItemJobs.Count + " ItemJobs added");
         }
