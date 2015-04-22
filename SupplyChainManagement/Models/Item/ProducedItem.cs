@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SupplyChainManagement.Models
 {
-    class ProducedItem : Item
+    public class ProducedItem : Item
     {
         public List<int> UsedInItemIds;
         public List<int> UsedInProducts;

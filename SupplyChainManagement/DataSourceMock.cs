@@ -8,7 +8,7 @@ using SupplyChainManagement.Models;
 
 namespace SupplyChainManagement
 {
-    class DataSourceMock
+    public class DataSourceMock
     {
         private int itemIdSeq = 0;
         public Dictionary<int, Item> Items = new Dictionary<int,Item>();
@@ -81,7 +81,6 @@ namespace SupplyChainManagement
             AddNewItem(new ProcurementItem { Value = 22.0, Stock = 600, OrderCosts = 0.3, ProcureLeadTime=1.7 , ProcureLeadTimeDeviation=0.3 });
             AddNewItem(new ProcurementItem { Value = 0.1, Stock = 22000, OrderCosts = 0.5, ProcureLeadTime=1.6 , ProcureLeadTimeDeviation=0.5 });
             AddNewItem(new ProcurementItem { Value = 0.15, Stock = 1800, OrderCosts = 0.2, ProcureLeadTime=0.7 , ProcureLeadTimeDeviation=0.2 });
-            Console.WriteLine(Items.Count + " Items added");
 
             // Create mock workplaces
             AddNewWorkplace(new Workplace { });
@@ -99,7 +98,6 @@ namespace SupplyChainManagement
             AddNewWorkplace(new Workplace { });
             AddNewWorkplace(new Workplace { });
             AddNewWorkplace(new Workplace { });
-            Console.WriteLine(Workplaces.Count + " Workplaces added");
 
             // Add mock jobs
 
@@ -220,9 +218,6 @@ namespace SupplyChainManagement
             AddNewItemJob(new ItemJob { Item = Items[17] as ProducedItem, Workplace = Workplaces[15], ProductionTimePerPiece = 3, SetupTime = 15.0 });
 
             AddNewItemJob(new ItemJob { Item = Items[26] as ProducedItem, Workplace = Workplaces[15], ProductionTimePerPiece = 3, SetupTime = 15.0 });
-
-            //..
-            Console.WriteLine(ItemJobs.Count + " ItemJobs added");
         }
 
         /// <summary>

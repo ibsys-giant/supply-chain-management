@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SupplyChainManagement.Models
 {
-    class ItemJob
+    public class ItemJob
     {
 
         public int Id;

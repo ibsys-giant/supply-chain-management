@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace SupplyChainManagement.Models
 {
-    enum ItemType
+    public enum ItemType
     {
         E, K, P
     }
 
-    abstract class Item
+    public abstract class Item
     {
         public int Id;
         public String Description;
