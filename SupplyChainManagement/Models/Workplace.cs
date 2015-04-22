@@ -47,5 +47,10 @@ namespace SupplyChainManagement.Models
         /// Machine costs in idle
         /// </summary>
         public double IdleMachineCosts;
+
+        /// <summary>
+        /// All jobs that is done by this workplace
+        /// </summary>
+        public List<ItemJob> Jobs = new List<ItemJob>();
     }
 }

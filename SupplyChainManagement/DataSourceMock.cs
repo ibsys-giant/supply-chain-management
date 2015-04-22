@@ -102,27 +102,44 @@ namespace SupplyChainManagement
             Console.WriteLine(Workplaces.Count + " Workplaces added");
 
             // Add mock jobs
+
+
+            // Workplace 1
+            AddNewItemJob(new ItemJob { Item = Items[29] as ProducedItem, Workplace = Workplaces[2], ProductionTimePerPiece = 6, SetupTime = 20.0 });
+
+            AddNewItemJob(new ItemJob { Item = Items[49] as ProducedItem, Workplace = Workplaces[2], ProductionTimePerPiece = 6, SetupTime = 20.0 });
+
+            AddNewItemJob(new ItemJob { Item = Items[54] as ProducedItem, Workplace = Workplaces[2], ProductionTimePerPiece = 6, SetupTime = 20.0 });
+
+            // Workplace 2
+            AddNewItemJob(new ItemJob { Item = Items[30] as ProducedItem, Workplace = Workplaces[2], ProductionTimePerPiece = 5, SetupTime = 20.0 });
+
+            AddNewItemJob(new ItemJob { Item = Items[50] as ProducedItem, Workplace = Workplaces[2], ProductionTimePerPiece = 5, SetupTime = 30.0 });
+
+            AddNewItemJob(new ItemJob { Item = Items[55] as ProducedItem, Workplace = Workplaces[2], ProductionTimePerPiece = 5, SetupTime = 30.0 });
+            
+
+            // Workplace 3
+            AddNewItemJob(new ItemJob { Item = Items[31] as ProducedItem, Workplace = Workplaces[3], ProductionTimePerPiece = 6, SetupTime = 20.0 });
+
+            AddNewItemJob(new ItemJob { Item = Items[51] as ProducedItem, Workplace = Workplaces[3], ProductionTimePerPiece = 5, SetupTime = 20.0 });
+
+            AddNewItemJob(new ItemJob { Item = Items[56] as ProducedItem, Workplace = Workplaces[3], ProductionTimePerPiece = 6, SetupTime = 20.0 });
+
+
             // Workplace 4
             AddNewItemJob(new ItemJob { Item = Items[1] as ProducedItem, Workplace = Workplaces[4], ProductionTimePerPiece = 6, SetupTime = 30.0 });
             AddNewItemJob(new ItemJob { Item = Items[2] as ProducedItem, Workplace = Workplaces[4] });
             AddNewItemJob(new ItemJob { Item = Items[3] as ProducedItem, Workplace = Workplaces[4] });
 
-            // Workplace 10
-            AddNewItemJob(new ItemJob { Item = Items[4] as ProducedItem, Workplace = Workplaces[10], ProductionTimePerPiece = 4, SetupTime = 20.0 });
-            AddNewItemJob(new ItemJob { Item = Items[5] as ProducedItem, Workplace = Workplaces[10], ProductionTimePerPiece = 4, SetupTime = 20.0 });
-            AddNewItemJob(new ItemJob { Item = Items[6] as ProducedItem, Workplace = Workplaces[10], ProductionTimePerPiece = 4, SetupTime = 20.0 });
-            AddNewItemJob(new ItemJob { Item = Items[7] as ProducedItem, Workplace = Workplaces[10], ProductionTimePerPiece = 4, SetupTime = 20.0 });
-            AddNewItemJob(new ItemJob { Item = Items[8] as ProducedItem, Workplace = Workplaces[10], ProductionTimePerPiece = 4, SetupTime = 20.0 });
-            AddNewItemJob(new ItemJob { Item = Items[9] as ProducedItem, Workplace = Workplaces[10], ProductionTimePerPiece = 4, SetupTime = 20.0 });
+            // There is no workplace 5 
 
-            //Workplace 11
-            AddNewItemJob(new ItemJob { Item = Items[4] as ProducedItem, Workplace = Workplaces[11], ProductionTimePerPiece = 3, SetupTime = 10.0 });
-            AddNewItemJob(new ItemJob { Item = Items[5] as ProducedItem, Workplace = Workplaces[11], ProductionTimePerPiece = 3, SetupTime = 10.0 });
-            AddNewItemJob(new ItemJob { Item = Items[6] as ProducedItem, Workplace = Workplaces[11], ProductionTimePerPiece = 3, SetupTime = 20.0 });
-            AddNewItemJob(new ItemJob { Item = Items[7] as ProducedItem, Workplace = Workplaces[11], ProductionTimePerPiece = 3, SetupTime = 10.0 });
-            AddNewItemJob(new ItemJob { Item = Items[8] as ProducedItem, Workplace = Workplaces[11], ProductionTimePerPiece = 3, SetupTime = 10.0 });
-            AddNewItemJob(new ItemJob { Item = Items[9] as ProducedItem, Workplace = Workplaces[11], ProductionTimePerPiece = 3, SetupTime = 20.0 });
+            // Workplace 6
+            AddNewItemJob(new ItemJob { Item = Items[16] as ProducedItem, Workplace = Workplaces[6], ProductionTimePerPiece = 2, SetupTime = 15.0 });
 
+            AddNewItemJob(new ItemJob { Item = Items[18] as ProducedItem, Workplace = Workplaces[6], ProductionTimePerPiece = 3, SetupTime = 15.0 });
+            AddNewItemJob(new ItemJob { Item = Items[19] as ProducedItem, Workplace = Workplaces[6], ProductionTimePerPiece = 3, SetupTime = 15.0 });
+            AddNewItemJob(new ItemJob { Item = Items[20] as ProducedItem, Workplace = Workplaces[6], ProductionTimePerPiece = 3, SetupTime = 15.0 });
 
             //Workplace 7
             AddNewItemJob(new ItemJob { Item = Items[10] as ProducedItem, Workplace = Workplaces[7], ProductionTimePerPiece = 2, SetupTime = 20.0 });
@@ -137,34 +154,6 @@ namespace SupplyChainManagement
             AddNewItemJob(new ItemJob { Item = Items[20] as ProducedItem, Workplace = Workplaces[7], ProductionTimePerPiece = 2, SetupTime = 20.0 });
 
             AddNewItemJob(new ItemJob { Item = Items[26] as ProducedItem, Workplace = Workplaces[7], ProductionTimePerPiece = 2, SetupTime = 30.0 });
-
-            // Workplace 6
-            AddNewItemJob(new ItemJob { Item = Items[16] as ProducedItem, Workplace = Workplaces[6], ProductionTimePerPiece = 2, SetupTime = 15.0 });
-
-            AddNewItemJob(new ItemJob { Item = Items[18] as ProducedItem, Workplace = Workplaces[6], ProductionTimePerPiece = 3, SetupTime = 15.0 });
-            AddNewItemJob(new ItemJob { Item = Items[19] as ProducedItem, Workplace = Workplaces[6], ProductionTimePerPiece = 3, SetupTime = 15.0 });
-            AddNewItemJob(new ItemJob { Item = Items[20] as ProducedItem, Workplace = Workplaces[6], ProductionTimePerPiece = 3, SetupTime = 15.0 });
-
-            // Workplace 3
-            AddNewItemJob(new ItemJob { Item = Items[31] as ProducedItem, Workplace = Workplaces[3], ProductionTimePerPiece = 6, SetupTime = 20.0 });
-
-            AddNewItemJob(new ItemJob { Item = Items[51] as ProducedItem, Workplace = Workplaces[3], ProductionTimePerPiece = 5, SetupTime = 20.0 });
-
-            AddNewItemJob(new ItemJob { Item = Items[56] as ProducedItem, Workplace = Workplaces[3], ProductionTimePerPiece = 6, SetupTime = 20.0 });
-
-            // Workplace 2
-            AddNewItemJob(new ItemJob { Item = Items[30] as ProducedItem, Workplace = Workplaces[2], ProductionTimePerPiece = 5, SetupTime = 20.0 });
-
-            AddNewItemJob(new ItemJob { Item = Items[50] as ProducedItem, Workplace = Workplaces[2], ProductionTimePerPiece = 5, SetupTime = 30.0 });
-
-            AddNewItemJob(new ItemJob { Item = Items[55] as ProducedItem, Workplace = Workplaces[2], ProductionTimePerPiece = 5, SetupTime = 30.0 });
-            
-            // Workplace 1
-            AddNewItemJob(new ItemJob { Item = Items[29] as ProducedItem, Workplace = Workplaces[2], ProductionTimePerPiece = 6, SetupTime = 20.0 });
-
-            AddNewItemJob(new ItemJob { Item = Items[49] as ProducedItem, Workplace = Workplaces[2], ProductionTimePerPiece = 6, SetupTime = 20.0 });
-
-            AddNewItemJob(new ItemJob { Item = Items[54] as ProducedItem, Workplace = Workplaces[2], ProductionTimePerPiece = 6, SetupTime = 20.0 });
 
             // Workplace 8
             AddNewItemJob(new ItemJob { Item = Items[10] as ProducedItem, Workplace = Workplaces[8], ProductionTimePerPiece = 1, SetupTime = 15.0 });
@@ -190,6 +179,23 @@ namespace SupplyChainManagement
             AddNewItemJob(new ItemJob { Item = Items[18] as ProducedItem, Workplace = Workplaces[9], ProductionTimePerPiece = 2, SetupTime = 15.0 });
             AddNewItemJob(new ItemJob { Item = Items[19] as ProducedItem, Workplace = Workplaces[9], ProductionTimePerPiece = 2, SetupTime = 20.0 });
             AddNewItemJob(new ItemJob { Item = Items[20] as ProducedItem, Workplace = Workplaces[9], ProductionTimePerPiece = 2, SetupTime = 15.0 });
+
+
+            // Workplace 10
+            AddNewItemJob(new ItemJob { Item = Items[4] as ProducedItem, Workplace = Workplaces[10], ProductionTimePerPiece = 4, SetupTime = 20.0 });
+            AddNewItemJob(new ItemJob { Item = Items[5] as ProducedItem, Workplace = Workplaces[10], ProductionTimePerPiece = 4, SetupTime = 20.0 });
+            AddNewItemJob(new ItemJob { Item = Items[6] as ProducedItem, Workplace = Workplaces[10], ProductionTimePerPiece = 4, SetupTime = 20.0 });
+            AddNewItemJob(new ItemJob { Item = Items[7] as ProducedItem, Workplace = Workplaces[10], ProductionTimePerPiece = 4, SetupTime = 20.0 });
+            AddNewItemJob(new ItemJob { Item = Items[8] as ProducedItem, Workplace = Workplaces[10], ProductionTimePerPiece = 4, SetupTime = 20.0 });
+            AddNewItemJob(new ItemJob { Item = Items[9] as ProducedItem, Workplace = Workplaces[10], ProductionTimePerPiece = 4, SetupTime = 20.0 });
+
+            //Workplace 11
+            AddNewItemJob(new ItemJob { Item = Items[4] as ProducedItem, Workplace = Workplaces[11], ProductionTimePerPiece = 3, SetupTime = 10.0 });
+            AddNewItemJob(new ItemJob { Item = Items[5] as ProducedItem, Workplace = Workplaces[11], ProductionTimePerPiece = 3, SetupTime = 10.0 });
+            AddNewItemJob(new ItemJob { Item = Items[6] as ProducedItem, Workplace = Workplaces[11], ProductionTimePerPiece = 3, SetupTime = 20.0 });
+            AddNewItemJob(new ItemJob { Item = Items[7] as ProducedItem, Workplace = Workplaces[11], ProductionTimePerPiece = 3, SetupTime = 10.0 });
+            AddNewItemJob(new ItemJob { Item = Items[8] as ProducedItem, Workplace = Workplaces[11], ProductionTimePerPiece = 3, SetupTime = 10.0 });
+            AddNewItemJob(new ItemJob { Item = Items[9] as ProducedItem, Workplace = Workplaces[11], ProductionTimePerPiece = 3, SetupTime = 20.0 });
 
             // Workplace 12
             AddNewItemJob(new ItemJob { Item = Items[10] as ProducedItem, Workplace = Workplaces[12], ProductionTimePerPiece = 3, SetupTime = 0.0 });
@@ -219,20 +225,37 @@ namespace SupplyChainManagement
             Console.WriteLine(ItemJobs.Count + " ItemJobs added");
         }
 
+        /// <summary>
+        /// Adds a new item
+        /// </summary>
+        /// <param name="item"></param>
         public void AddNewItem(Item item) {
             item.Id = ++itemIdSeq;
             Items.Add(item.Id, item);
         }
 
+        /// <summary>
+        /// Adds a new workplace
+        /// </summary>
+        /// <param name="workplace"></param>
         public void AddNewWorkplace(Workplace workplace)
         {
             workplace.Id = ++workplaceIdSeq;
             Workplaces.Add(workplace.Id, workplace);
         }
 
+        /// <summary>
+        /// Adds a new item job
+        /// </summary>
+        /// <param name="job"></param>
         public void AddNewItemJob(ItemJob job)
         {
             job.Id = ++itemJobIdSeq;
+
+            if (job.Workplace != null) {
+                job.Workplace.Jobs.Add(job);
+            }
+
             ItemJobs.Add(job.Id, job);
         }
     }
