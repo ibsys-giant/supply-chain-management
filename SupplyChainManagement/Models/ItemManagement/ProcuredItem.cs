@@ -12,7 +12,5 @@ namespace SupplyChainManagement.Models.ItemManagement
         public double OrderCosts;
         public double ProcureLeadTime;
         public double ProcureLeadTimeDeviation;
-        public List<int> UsedInItemIds;
-        public List<int> UsedInProducts;
     }
 }
