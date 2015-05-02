@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SupplyChainManagement.Models
+namespace SupplyChainManagement.Models.ItemManagement
 {
     public class ProcurementItem : Item
     {

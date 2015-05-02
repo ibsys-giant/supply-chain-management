@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using SupplyChainManagement.Models;
+using SupplyChainManagement.Models.ItemManagement;
 
 namespace SupplyChainManagement
 {
@@ -22,6 +23,7 @@ namespace SupplyChainManagement
         public DataSourceMock() {
 
             // Create mock items
+
             AddNewItem(new ProductItem { Value = 156.13, Stock = 100 });
             AddNewItem(new ProductItem { Value = 163.33, Stock = 100 });
             AddNewItem(new ProductItem { Value = 165.08, Stock = 100 });
@@ -81,6 +83,194 @@ namespace SupplyChainManagement
             AddNewItem(new ProcurementItem { Value = 22.0, Stock = 600, OrderCosts = 0.3, ProcureLeadTime=1.7 , ProcureLeadTimeDeviation=0.3 });
             AddNewItem(new ProcurementItem { Value = 0.1, Stock = 22000, OrderCosts = 0.5, ProcureLeadTime=1.6 , ProcureLeadTimeDeviation=0.5 });
             AddNewItem(new ProcurementItem { Value = 0.15, Stock = 1800, OrderCosts = 0.2, ProcureLeadTime=0.7 , ProcureLeadTimeDeviation=0.2 });
+
+            // 1
+            Items[1].ChildItems.Add(Items[21], 1);
+            Items[1].ChildItems.Add(Items[24], 1);
+            Items[1].ChildItems.Add(Items[27], 1);
+            Items[1].ChildItems.Add(Items[26], 1);
+            Items[1].ChildItems.Add(Items[51], 1);
+
+            // 2
+            Items[2].ChildItems.Add(Items[22], 1);
+            Items[2].ChildItems.Add(Items[24], 1);
+            Items[2].ChildItems.Add(Items[27], 1);
+            Items[2].ChildItems.Add(Items[26], 1);
+            Items[2].ChildItems.Add(Items[56], 1);
+
+            // 3
+            Items[3].ChildItems.Add(Items[23], 1);
+            Items[3].ChildItems.Add(Items[24], 1);
+            Items[3].ChildItems.Add(Items[27], 1);
+            Items[3].ChildItems.Add(Items[26], 1);
+            Items[3].ChildItems.Add(Items[31], 1);
+
+            // 4
+            Items[4].ChildItems.Add(Items[35], 2);
+            Items[4].ChildItems.Add(Items[36], 1);
+            Items[4].ChildItems.Add(Items[52], 1);
+            Items[4].ChildItems.Add(Items[53], 36);
+
+            // 5
+            Items[5].ChildItems.Add(Items[35], 2);
+            Items[5].ChildItems.Add(Items[36], 1);
+            Items[5].ChildItems.Add(Items[57], 1);
+            Items[5].ChildItems.Add(Items[58], 36);
+
+            // 6
+            Items[6].ChildItems.Add(Items[33], 1);
+            Items[6].ChildItems.Add(Items[34], 36);
+            Items[6].ChildItems.Add(Items[35], 2);
+            Items[6].ChildItems.Add(Items[36], 1);
+
+            // 7
+            Items[7].ChildItems.Add(Items[35], 2);
+            Items[7].ChildItems.Add(Items[37], 1);
+            Items[7].ChildItems.Add(Items[38], 1);
+            Items[7].ChildItems.Add(Items[52], 1);
+            Items[7].ChildItems.Add(Items[53], 36);
+
+            // 8
+            Items[8].ChildItems.Add(Items[35], 2);
+            Items[8].ChildItems.Add(Items[37], 1);
+            Items[8].ChildItems.Add(Items[38], 1);
+            Items[8].ChildItems.Add(Items[57], 1);
+            Items[8].ChildItems.Add(Items[58], 36);
+
+            // 9
+            Items[9].ChildItems.Add(Items[33], 1);
+            Items[9].ChildItems.Add(Items[34], 36);
+            Items[9].ChildItems.Add(Items[35], 2);
+            Items[9].ChildItems.Add(Items[37], 1);
+            Items[9].ChildItems.Add(Items[38], 1);
+
+            // 10
+            Items[10].ChildItems.Add(Items[32], 1);
+            Items[10].ChildItems.Add(Items[39], 1);
+
+            // 11
+            Items[11].ChildItems.Add(Items[35], 2);
+            Items[11].ChildItems.Add(Items[36], 1);
+
+            // 12
+            Items[12].ChildItems.Add(Items[32], 1);
+            Items[12].ChildItems.Add(Items[39], 1);
+
+            // 13
+            Items[13].ChildItems.Add(Items[32], 1);
+            Items[13].ChildItems.Add(Items[39], 1);
+
+            // 14
+            Items[14].ChildItems.Add(Items[32], 1);
+            Items[14].ChildItems.Add(Items[39], 1);
+
+            // 15
+            Items[15].ChildItems.Add(Items[32], 1);
+            Items[15].ChildItems.Add(Items[39], 1);
+
+            // 16
+            Items[16].ChildItems.Add(Items[24], 1);
+            Items[16].ChildItems.Add(Items[28], 1);
+            Items[16].ChildItems.Add(Items[40], 1);
+            Items[16].ChildItems.Add(Items[41], 1);
+            Items[16].ChildItems.Add(Items[42], 2);
+
+            // 17
+            Items[17].ChildItems.Add(Items[43], 1);
+            Items[17].ChildItems.Add(Items[44], 1);
+            Items[17].ChildItems.Add(Items[45], 1);
+            Items[17].ChildItems.Add(Items[46], 1);
+
+            // 18
+            Items[18].ChildItems.Add(Items[28], 3);
+            Items[18].ChildItems.Add(Items[32], 1);
+            Items[18].ChildItems.Add(Items[59], 2);
+
+            // 19
+            Items[19].ChildItems.Add(Items[28], 4);
+            Items[19].ChildItems.Add(Items[32], 1);
+            Items[19].ChildItems.Add(Items[59], 2);
+
+            // 20
+            Items[20].ChildItems.Add(Items[28], 5);
+            Items[20].ChildItems.Add(Items[32], 1);
+            Items[20].ChildItems.Add(Items[59], 2);
+
+            // 21-25: Procurement parts
+
+            // 26
+            Items[26].ChildItems.Add(Items[44], 2);
+            Items[26].ChildItems.Add(Items[47], 1);
+            Items[26].ChildItems.Add(Items[48], 2);
+
+            // 27-28: Procurement parts
+
+            // 29
+            Items[29].ChildItems.Add(Items[24], 2);
+            Items[29].ChildItems.Add(Items[25], 2);
+            Items[29].ChildItems.Add(Items[9], 1);
+            Items[29].ChildItems.Add(Items[15], 1);
+            Items[29].ChildItems.Add(Items[20], 1);
+
+            // 30
+            Items[30].ChildItems.Add(Items[24], 2);
+            Items[30].ChildItems.Add(Items[25], 2);
+            Items[30].ChildItems.Add(Items[6], 1);
+            Items[30].ChildItems.Add(Items[12], 1);
+            Items[30].ChildItems.Add(Items[29], 1);
+
+            // 31
+            Items[31].ChildItems.Add(Items[24], 1);
+            Items[31].ChildItems.Add(Items[27], 1);
+            Items[31].ChildItems.Add(Items[16], 1);
+            Items[31].ChildItems.Add(Items[17], 1);
+            Items[31].ChildItems.Add(Items[30], 1);
+
+            // 32 - 48: Procurement parts
+
+            // 49
+            Items[49].ChildItems.Add(Items[24], 2);
+            Items[49].ChildItems.Add(Items[25], 2);
+            Items[49].ChildItems.Add(Items[7], 1);
+            Items[49].ChildItems.Add(Items[13], 1);
+            Items[49].ChildItems.Add(Items[18], 1);
+
+            // 50
+            Items[50].ChildItems.Add(Items[24], 2);
+            Items[50].ChildItems.Add(Items[25], 2);
+            Items[50].ChildItems.Add(Items[4], 1);
+            Items[50].ChildItems.Add(Items[10], 1);
+            Items[50].ChildItems.Add(Items[49], 1);
+
+            // 51
+            Items[51].ChildItems.Add(Items[24], 1);
+            Items[51].ChildItems.Add(Items[27], 1);
+            Items[51].ChildItems.Add(Items[16], 1);
+            Items[51].ChildItems.Add(Items[17], 1);
+            Items[51].ChildItems.Add(Items[50], 1);
+
+            // 52 - 54: Procurement parts
+
+            // 54
+            Items[54].ChildItems.Add(Items[24], 2);
+            Items[54].ChildItems.Add(Items[25], 2);
+            Items[54].ChildItems.Add(Items[8], 1);
+            Items[54].ChildItems.Add(Items[14], 1);
+            Items[54].ChildItems.Add(Items[19], 1);
+
+            // 55
+            Items[55].ChildItems.Add(Items[24], 2);
+            Items[55].ChildItems.Add(Items[25], 2);
+            Items[55].ChildItems.Add(Items[5], 1);
+            Items[55].ChildItems.Add(Items[11], 1);
+            Items[55].ChildItems.Add(Items[54], 1);
+
+            // 56
+            Items[56].ChildItems.Add(Items[24], 1);
+            Items[56].ChildItems.Add(Items[27], 1);
+            Items[56].ChildItems.Add(Items[16], 1);
+            Items[56].ChildItems.Add(Items[17], 1);
+            Items[56].ChildItems.Add(Items[55], 1);
 
             // Create mock workplaces
             AddNewWorkplace(new Workplace { });

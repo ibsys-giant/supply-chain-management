@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+using SupplyChainManagement.Models.ItemManagement;
+
 namespace SupplyChainManagement.Models
 {
     public class ItemJob
