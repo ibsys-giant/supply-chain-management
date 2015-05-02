@@ -47,7 +47,7 @@ namespace SupplyChainManagement
                         select whereUsed.Key;
 
                     var childDemand = demand * product.ItemQuantities[childItem];
-                    //var plannedChildWarehouseStock = ;
+                    //var plannedChildWarehouseStock = ???;
                     var availableWarehouseStock = childItem.Stock / (double) finishedProducts.Count();
                     
                     //CreateProductionOrders(childProduct, 
