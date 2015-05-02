@@ -1,5 +1,6 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using NUnit.Framework;
 
 using System.Diagnostics;
 using System.Collections.Generic;
@@ -10,11 +11,10 @@ using SupplyChainManagement.Models.ItemManagement;
 
 namespace SupplyChainManagementTest
 {
-    [TestClass]
     public class DataSourceMockTest
     {
 
-        [TestMethod]
+        [TestCase]
         public void P1BillOfMaterialShouldBeCorrect()
         {
             DataSource ds = new DataSourceMock();
@@ -60,7 +60,7 @@ namespace SupplyChainManagementTest
             Assert.AreEqual(2, billOfMaterial[ds.Items[59]]);
         }
 
-        [TestMethod]
+        [TestCase]
         public void P2BillOfMaterialShouldBeCorrect()
         {
             DataSource ds = new DataSourceMock();
@@ -108,7 +108,7 @@ namespace SupplyChainManagementTest
 
         }
 
-        [TestMethod]
+        [TestCase]
         public void P3BillOfMaterialShouldBeCorrect()
         {
             DataSource ds = new DataSourceMock();
@@ -155,7 +155,7 @@ namespace SupplyChainManagementTest
         }
 
 
-        [TestMethod]
+        [TestCase]
         public void HasCorrectTotalStock() {
             DataSource ds = new DataSourceMock();
             var expectedTotalStockValue = 289555.0;
@@ -169,7 +169,7 @@ namespace SupplyChainManagementTest
             Assert.AreEqual(expectedTotalStockValue, totalStock);
         }
 
-        [TestMethod]
+        [TestCase]
         public void HasCorrectOrderCostCheckSum()
         {
             DataSource ds = new DataSourceMock();
@@ -188,7 +188,7 @@ namespace SupplyChainManagementTest
             Assert.AreEqual(expectedOrderCostCheckSum, orderCostCheckSum);
         }
 
-        [TestMethod]
+        [TestCase]
         public void HasCorrectProcurementLeadTimeCheckSum()
         {
             DataSource ds = new DataSourceMock();
@@ -207,7 +207,7 @@ namespace SupplyChainManagementTest
             Assert.AreEqual(expectedProcurementLeadTimeCheckSum, procurementLeadTimeCheckSum);
         }
 
-        [TestMethod]
+        [TestCase]
         public void HasCorrectProcurementLeadTimeDeviationCheckSum()
         {
             DataSource ds = new DataSourceMock();
@@ -226,7 +226,7 @@ namespace SupplyChainManagementTest
             Assert.AreEqual(expectedProcurementLeadTimeDeviationCheckSum, procurementLeadTimeDeviationCheckSum);
         }
 
-        [TestMethod]
+        [TestCase]
         public void UsedInWorksCorrectly()
         {
             DataSource ds = new DataSourceMock();
@@ -246,7 +246,7 @@ namespace SupplyChainManagementTest
             }
         }
 
-        [TestMethod]
+        [TestCase]
         public void WhereUsedListWorks()
         {
             DataSource ds = new DataSourceMock();
