@@ -1,4 +1,4 @@
-# supply-chain-management [![Build Status](https://travis-ci.org/ibsys-giant/supply-chain-management.svg?branch=master)](https://travis-ci.org/ibsys-giant/supply-chain-management)
+# supply-chain-management [![ReviewNinja](http://app.review.ninja/assets/images/wereviewninja-32.png)](http://app.review.ninja/ibsys-giant/supply-chain-management) [![Build Status](https://travis-ci.org/ibsys-giant/supply-chain-management.svg?branch=master)](https://travis-ci.org/ibsys-giant/supply-chain-management)
 
 Travis CI Build: https://travis-ci.org/ibsys-giant/supply-chain-management
 
