@@ -63,10 +63,11 @@
     <Compile Include="Calculation.cs" />
     <Compile Include="Models\ItemJob.cs" />
     <Compile Include="Models\ItemManagement\Item.cs" />
-    <Compile Include="Models\ItemManagement\ProcurementItem.cs" />
-    <Compile Include="Models\ItemManagement\ProducedItem.cs" />
-    <Compile Include="Models\ItemManagement\ProductItem.cs" />
+    <Compile Include="Models\ItemManagement\ProcuredItem.cs" />
+    <Compile Include="Models\ItemManagement\UnfinishedProduct.cs" />
+    <Compile Include="Models\ItemManagement\FinishedProduct.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\ItemManagement\Product.cs" />
     <Compile Include="Models\Workplace.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

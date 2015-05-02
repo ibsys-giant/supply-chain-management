@@ -10,14 +10,13 @@ using SupplyChainManagement;
 namespace SupplyChainManagementTest
 {
     [TestClass]
-    public class CalculationModelTest
+    public class CalculationTest
     {
 
         [TestMethod]
-        public void NewModelReturnsNotNull() {
+        public void NewCalcluationReturnsNotNull() {
             Assert.IsNotNull(Calculation.NewCalculation(new DataSourceMock()));
         }
-
 
         [TestMethod]
         public void TraversingWorks()

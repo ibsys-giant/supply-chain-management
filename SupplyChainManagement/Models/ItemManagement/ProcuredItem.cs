@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SupplyChainManagement.Models.ItemManagement
 {
-    public class ProcurementItem : Item
+    public class ProcuredItem : Item
     {
         public int DiscountQuantity;
         public double OrderCosts;

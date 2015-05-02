@@ -11,6 +11,6 @@ namespace SupplyChainManagement
     public class Order<T> where T : Item
     {
         public T Item;
-        public int Amount;
+        public int Quantity;
     }
 }

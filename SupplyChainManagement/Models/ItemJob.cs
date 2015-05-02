@@ -22,7 +22,7 @@ namespace SupplyChainManagement.Models
         /// <summary>
         /// Item to be produced during the job
         /// </summary>
-        public ProducedItem Item;
+        public UnfinishedProduct Item;
 
         /// <summary>
         /// Setup time to switch to another part

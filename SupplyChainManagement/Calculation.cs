@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using SupplyChainManagement.Models;
 using SupplyChainManagement.Models.ItemManagement;
 
 namespace SupplyChainManagement
@@ -17,9 +18,8 @@ namespace SupplyChainManagement
             }
         }
 
-        public List<Order<ProductItem>> ProductDemands = new List<Order<ProductItem>>();
-        public List<Order<ProducedItem>> ProductionOrders = new List<Order<ProducedItem>>();
-        public List<Order<ProcurementItem>> ProcurementOrders = new List<Order<ProcurementItem>>();
+        public List<Order<Product>> ProductionOrders = new List<Order<Product>>();
+        public List<Order<ProcuredItem>> ProcurementOrders = new List<Order<ProcuredItem>>();
 
         private Calculation(DataSource ds) {
             this._DataSource = ds;
@@ -29,22 +29,46 @@ namespace SupplyChainManagement
             return new Calculation(ds);
         }
 
-        public Calculation CalculateMaterial(Item item, int demand, int plannedWarehouseStock)
+        public Calculation CreateProductionOrders(Product product, int demand, int plannedWarehouseStock)
         {
-            if (item is ProductItem)
-            {
-                ProductDemands.Add(new Order<ProductItem> { Item = item as ProductItem, Amount = demand });
-            }
-            if (item is ProducedItem)
-            {
-                ProductionOrders.Add(new Order<ProducedItem> { Item = item as ProducedItem, Amount = demand });
-            }
-            if (item is ProcurementItem)
-            {
-                ProcurementOrders.Add(new Order<ProcurementItem> { Item = item as ProcurementItem, Amount = demand });
+            
+            ProductionOrders.Add(new Order<Product> { Item = product, Quantity = demand - plannedWarehouseStock });
+
+            foreach (Item childItem in product.Items) {
+
+                if (childItem is Product) {
+                    var childProduct = childItem as Product;
+                }
             }
 
             return this;
+        }
+
+
+        public static Dictionary<Item, int> CreateBillOfMaterial(Product product)
+        {
+            return CreateBillOfMaterial(1, product, new Dictionary<Item, int>());
+        }
+
+        public static Dictionary<Item, int> CreateBillOfMaterial(int parentQuantity, Product product, Dictionary<Item, int> bom)
+        {
+            foreach (Item child in product.Items)
+            {
+                var total = parentQuantity * product.ItemQuantities[child];
+                if (bom.ContainsKey(child))
+                {
+                    bom[child] += total;
+                }
+                else
+                {
+                    bom.Add(child, total);
+                }
+
+                if (child is Product) {
+                    bom = CreateBillOfMaterial(product.ItemQuantities[child], child as Product, bom);
+                }
+            }
+            return bom;
         }
     }
 }

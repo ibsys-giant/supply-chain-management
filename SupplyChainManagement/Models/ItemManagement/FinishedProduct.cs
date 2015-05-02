@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SupplyChainManagement.Models.ItemManagement
 {
-    public class ProductItem : Item
+    public class FinishedProduct : Product
     {
     }
 }
