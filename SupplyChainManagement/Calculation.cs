@@ -29,15 +29,28 @@ namespace SupplyChainManagement
             return new Calculation(ds);
         }
 
-        public Calculation CreateProductionOrders(Product product, int demand, int plannedWarehouseStock)
+        public Calculation CreateProductionOrders(FinishedProduct product, int demand, int plannedWarehouseStock)
         {
             
             ProductionOrders.Add(new Order<Product> { Item = product, Quantity = demand - plannedWarehouseStock });
 
             foreach (Item childItem in product.Items) {
 
+                // Only look at products
                 if (childItem is Product) {
                     var childProduct = childItem as Product;
+                    var whereUsedList = CreateWhereUsedList(childProduct);
+
+                    var finishedProducts = 
+                        from whereUsed in whereUsedList
+                        where whereUsed.Key is FinishedProduct
+                        select whereUsed.Key;
+
+                    var childDemand = demand * product.ItemQuantities[childItem];
+                    //var plannedChildWarehouseStock = ;
+                    var availableWarehouseStock = childItem.Stock / (double) finishedProducts.Count();
+                    
+                    //CreateProductionOrders(childProduct, 
                 }
             }
 

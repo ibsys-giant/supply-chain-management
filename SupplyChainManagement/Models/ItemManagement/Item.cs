@@ -6,11 +6,6 @@ using System.Threading.Tasks;
 
 namespace SupplyChainManagement.Models.ItemManagement
 {
-    public enum ItemType
-    {
-        E, K, P
-    }
-
     public abstract class Item
     {
         public int Id;
@@ -23,14 +18,6 @@ namespace SupplyChainManagement.Models.ItemManagement
             get {
                 return new List<Product>(UsageQuantities.Keys).ToArray<Product>();
             }
-        }
-
-
-        public override bool Equals(object obj)
-        {
-            Item item = obj as Item;
-            if (item == null) return false;
-            return item.Id == this.Id;
         }
 
         public override string ToString()
