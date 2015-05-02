@@ -60,7 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataSource.cs" />
-    <Compile Include="DataSourceMock.cs" />
     <Compile Include="Calculation.cs" />
     <Compile Include="Models\ItemJob.cs" />
     <Compile Include="Models\ItemManagement\Item.cs" />

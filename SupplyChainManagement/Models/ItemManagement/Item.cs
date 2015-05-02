@@ -17,29 +17,37 @@ namespace SupplyChainManagement.Models.ItemManagement
         public String Description;
         public double Value;
         public int Stock;
-        public Dictionary<Item, int> ChildItemQuantities = new Dictionary<Item, int>();
+        public Dictionary<Item, int> ItemQuantities = new Dictionary<Item, int>();
 
-        public Dictionary<Item, int> BillOfMaterial {
+        public Dictionary<Item, int> SummarizedItemQuantities {
             get {
-                Dictionary<Item, int> bom = new Dictionary<Item, int>();
-                
-                foreach (Item child in ChildItemQuantities.Keys) {
-                    bom.Add(child, ChildItemQuantities[child]);
-
-                    Dictionary<Item, int> childBom = child.BillOfMaterial;
-
-                    foreach (Item childChild in childBom.Keys) {
-                        if (bom.ContainsKey(childChild))
-                        {
-                            bom[childChild] *= childBom[childChild];
-                        }
-                        else {
-                            bom.Add(childChild, childBom[childChild]);
-                        }
-                    }
-                }
-                return bom;
+                var level = -1;
+                return _CalculateBillOfMaterial(ref level, 1, this, new Dictionary<Item, int>());
             }
+        }
+
+        private Dictionary<Item, int> _CalculateBillOfMaterial(ref int level, int parentQuantity, Item item, Dictionary<Item, int> bom) {
+
+
+            var childs = item.ItemQuantities.Keys;
+            
+            foreach (Item child in childs) {
+
+                var total = parentQuantity * item.ItemQuantities[child];
+                if (bom.ContainsKey(child))
+                {
+                    bom[child] += total;
+                }
+                else 
+                {
+                    bom.Add(child, total);
+                }
+
+                level++;
+                bom = child._CalculateBillOfMaterial(ref level, item.ItemQuantities[child], child, bom);
+                level--;
+            }
+            return bom;
         }
 
         public override bool Equals(object obj)

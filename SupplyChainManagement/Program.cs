@@ -9,7 +9,6 @@ namespace SupplyChainManagement
     class Program
     {
         public static void Main(string[] args) {
-            new DataSourceMock();
         }
     }
 }
