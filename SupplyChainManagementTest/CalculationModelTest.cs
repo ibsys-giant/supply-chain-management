@@ -15,14 +15,14 @@ namespace SupplyChainManagementTest
 
         [TestMethod]
         public void NewModelReturnsNotNull() {
-            Assert.IsNotNull(Calculation.NewModel());
+            Assert.IsNotNull(Calculation.NewCalculation(new DataSourceMock()));
         }
 
 
         [TestMethod]
         public void TraversingWorks()
         {
-            Calculation calc = Calculation.NewModel();
+
         }
 
 

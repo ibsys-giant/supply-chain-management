@@ -59,11 +59,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataSource.cs" />
     <Compile Include="DataSourceMock.cs" />
     <Compile Include="Calculation.cs" />
     <Compile Include="Models\ItemJob.cs" />
     <Compile Include="Models\ItemManagement\Item.cs" />
-    <Compile Include="Models\ItemManagement\ItemList.cs" />
     <Compile Include="Models\ItemManagement\ProcurementItem.cs" />
     <Compile Include="Models\ItemManagement\ProducedItem.cs" />
     <Compile Include="Models\ItemManagement\ProductItem.cs" />

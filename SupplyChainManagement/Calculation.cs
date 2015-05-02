@@ -10,14 +10,23 @@ namespace SupplyChainManagement
 {
     public class Calculation
     {
+        private DataSource _DataSource;
+        public DataSource DataSource {
+            get {
+                return _DataSource;
+            }
+        }
+
         public List<Order<ProductItem>> ProductDemands = new List<Order<ProductItem>>();
         public List<Order<ProducedItem>> ProductionOrders = new List<Order<ProducedItem>>();
         public List<Order<ProcurementItem>> ProcurementOrders = new List<Order<ProcurementItem>>();
 
-        private Calculation() { }
+        private Calculation(DataSource ds) {
+            this._DataSource = ds;
+        }
 
-        public static Calculation NewModel() {
-            return new Calculation();
+        public static Calculation NewCalculation(DataSource ds) {
+            return new Calculation(ds);
         }
 
         public Calculation CalculateMaterial(Item item, int demand, int plannedWarehouseStock)
@@ -33,15 +42,6 @@ namespace SupplyChainManagement
             if (item is ProcurementItem)
             {
                 ProcurementOrders.Add(new Order<ProcurementItem> { Item = item as ProcurementItem, Amount = demand });
-            }
-
-            if (item.ChildItemList == null || item.ChildItemList.Items.Count == 0) { 
-                foreach (Item child in item.ChildItemList.Items.Keys) {
-                    var childAmount = item.ChildItemList.Items[child];
-                    var childDemand = demand * childAmount;
-                    var childPlannedWarehouseStock = plannedWarehouseStock * childAmount;
-                    CalculateMaterial(child, childDemand, childPlannedWarehouseStock);
-                }
             }
 
             return this;
