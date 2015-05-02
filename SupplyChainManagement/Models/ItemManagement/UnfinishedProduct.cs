@@ -8,7 +8,6 @@ namespace SupplyChainManagement.Models.ItemManagement
 {
     public class UnfinishedProduct : Product
     {
-        public List<int> UsedInItemIds;
-        public List<int> UsedInProducts;
+        public List<FinishedProduct> UsedInFinishedProducts = new List<FinishedProduct>();
     }
 }

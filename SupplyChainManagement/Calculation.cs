@@ -44,7 +44,6 @@ namespace SupplyChainManagement
             return this;
         }
 
-
         public static Dictionary<Item, int> CreateBillOfMaterial(Product product)
         {
             return CreateBillOfMaterial(1, product, new Dictionary<Item, int>());
@@ -65,10 +64,35 @@ namespace SupplyChainManagement
                 }
 
                 if (child is Product) {
-                    bom = CreateBillOfMaterial(product.ItemQuantities[child], child as Product, bom);
+                    CreateBillOfMaterial(product.ItemQuantities[child], child as Product, bom);
                 }
             }
             return bom;
+        }
+
+        public static Dictionary<Product, int> CreateWhereUsedList(Item item)
+        {
+            return CreateWhereUsedList(item, new Dictionary<Product, int>());
+        }
+
+        public static Dictionary<Product, int> CreateWhereUsedList(Item item, Dictionary<Product, int> whereUsedList) {
+
+            foreach (Product parent in item.UsedInProducts)
+            {
+                var quantityUsedInParent = item.UsageQuantities[parent];
+                if (whereUsedList.ContainsKey(parent))
+                {
+                    whereUsedList[parent] += quantityUsedInParent;
+                }
+                else
+                {
+                    whereUsedList.Add(parent, quantityUsedInParent);
+                }
+
+                CreateWhereUsedList(parent as Product, whereUsedList);
+            }
+
+            return whereUsedList;
         }
     }
 }

@@ -104,192 +104,196 @@ namespace SupplyChainManagement
             AddNewItem(new ProcuredItem { Id = 59, Description = "Welding wires", Value = 0.15, Stock = 1800, OrderCosts = 50.0, ProcureLeadTime = 0.7, ProcureLeadTimeDeviation = 0.2 });
 
             // 1
-            (Items[1] as Product).ItemQuantities.Add(Items[21], 1);
-            (Items[1] as Product).ItemQuantities.Add(Items[24], 1);
-            (Items[1] as Product).ItemQuantities.Add(Items[27], 1);
-            (Items[1] as Product).ItemQuantities.Add(Items[26], 1);
-            (Items[1] as Product).ItemQuantities.Add(Items[51], 1);
+            (Items[1] as Product).AddItem(Items[21], 1);
+            (Items[1] as Product).AddItem(Items[24], 1);
+            (Items[1] as Product).AddItem(Items[27], 1);
+            (Items[1] as Product).AddItem(Items[26], 1);
+            (Items[1] as Product).AddItem(Items[51], 1);
 
             // 2
-            (Items[2] as Product).ItemQuantities.Add(Items[22], 1);
-            (Items[2] as Product).ItemQuantities.Add(Items[24], 1);
-            (Items[2] as Product).ItemQuantities.Add(Items[27], 1);
-            (Items[2] as Product).ItemQuantities.Add(Items[26], 1);
-            (Items[2] as Product).ItemQuantities.Add(Items[56], 1);
+            (Items[2] as Product).AddItem(Items[22], 1);
+            (Items[2] as Product).AddItem(Items[24], 1);
+            (Items[2] as Product).AddItem(Items[27], 1);
+            (Items[2] as Product).AddItem(Items[26], 1);
+            (Items[2] as Product).AddItem(Items[56], 1);
 
             // 3
-            (Items[3] as Product).ItemQuantities.Add(Items[23], 1);
-            (Items[3] as Product).ItemQuantities.Add(Items[24], 1);
-            (Items[3] as Product).ItemQuantities.Add(Items[27], 1);
-            (Items[3] as Product).ItemQuantities.Add(Items[26], 1);
-            (Items[3] as Product).ItemQuantities.Add(Items[31], 1);
+            (Items[3] as Product).AddItem(Items[23], 1);
+            (Items[3] as Product).AddItem(Items[24], 1);
+            (Items[3] as Product).AddItem(Items[27], 1);
+            (Items[3] as Product).AddItem(Items[26], 1);
+            (Items[3] as Product).AddItem(Items[31], 1);
 
             // 4
-            (Items[4] as Product).ItemQuantities.Add(Items[35], 2);
-            (Items[4] as Product).ItemQuantities.Add(Items[36], 1);
-            (Items[4] as Product).ItemQuantities.Add(Items[52], 1);
-            (Items[4] as Product).ItemQuantities.Add(Items[53], 36);
+            (Items[4] as Product).AddItem(Items[35], 2);
+            (Items[4] as Product).AddItem(Items[36], 1);
+            (Items[4] as Product).AddItem(Items[52], 1);
+            (Items[4] as Product).AddItem(Items[53], 36);
 
             // 5
-            (Items[5] as Product).ItemQuantities.Add(Items[35], 2);
-            (Items[5] as Product).ItemQuantities.Add(Items[36], 1);
-            (Items[5] as Product).ItemQuantities.Add(Items[57], 1);
-            (Items[5] as Product).ItemQuantities.Add(Items[58], 36);
+            (Items[5] as Product).AddItem(Items[35], 2);
+            (Items[5] as Product).AddItem(Items[36], 1);
+            (Items[5] as Product).AddItem(Items[57], 1);
+            (Items[5] as Product).AddItem(Items[58], 36);
 
             // 6
-            (Items[6] as Product).ItemQuantities.Add(Items[33], 1);
-            (Items[6] as Product).ItemQuantities.Add(Items[34], 36);
-            (Items[6] as Product).ItemQuantities.Add(Items[35], 2);
-            (Items[6] as Product).ItemQuantities.Add(Items[36], 1);
+            (Items[6] as Product).AddItem(Items[33], 1);
+            (Items[6] as Product).AddItem(Items[34], 36);
+            (Items[6] as Product).AddItem(Items[35], 2);
+            (Items[6] as Product).AddItem(Items[36], 1);
 
             // 7
-            (Items[7] as Product).ItemQuantities.Add(Items[35], 2);
-            (Items[7] as Product).ItemQuantities.Add(Items[37], 1);
-            (Items[7] as Product).ItemQuantities.Add(Items[38], 1);
-            (Items[7] as Product).ItemQuantities.Add(Items[52], 1);
-            (Items[7] as Product).ItemQuantities.Add(Items[53], 36);
+            (Items[7] as Product).AddItem(Items[35], 2);
+            (Items[7] as Product).AddItem(Items[37], 1);
+            (Items[7] as Product).AddItem(Items[38], 1);
+            (Items[7] as Product).AddItem(Items[52], 1);
+            (Items[7] as Product).AddItem(Items[53], 36);
 
             // 8
-            (Items[8] as Product).ItemQuantities.Add(Items[35], 2);
-            (Items[8] as Product).ItemQuantities.Add(Items[37], 1);
-            (Items[8] as Product).ItemQuantities.Add(Items[38], 1);
-            (Items[8] as Product).ItemQuantities.Add(Items[57], 1);
-            (Items[8] as Product).ItemQuantities.Add(Items[58], 36);
+            (Items[8] as Product).AddItem(Items[35], 2);
+            (Items[8] as Product).AddItem(Items[37], 1);
+            (Items[8] as Product).AddItem(Items[38], 1);
+            (Items[8] as Product).AddItem(Items[57], 1);
+            (Items[8] as Product).AddItem(Items[58], 36);
 
             // 9
-            (Items[9] as Product).ItemQuantities.Add(Items[33], 1);
-            (Items[9] as Product).ItemQuantities.Add(Items[34], 36);
-            (Items[9] as Product).ItemQuantities.Add(Items[35], 2);
-            (Items[9] as Product).ItemQuantities.Add(Items[37], 1);
-            (Items[9] as Product).ItemQuantities.Add(Items[38], 1);
+            (Items[9] as Product).AddItem(Items[33], 1);
+            (Items[9] as Product).AddItem(Items[34], 36);
+            (Items[9] as Product).AddItem(Items[35], 2);
+            (Items[9] as Product).AddItem(Items[37], 1);
+            (Items[9] as Product).AddItem(Items[38], 1);
 
             // 10
-            (Items[10] as Product).ItemQuantities.Add(Items[32], 1);
-            (Items[10] as Product).ItemQuantities.Add(Items[39], 1);
+            (Items[10] as Product).AddItem(Items[32], 1);
+            (Items[10] as Product).AddItem(Items[39], 1);
 
             // 11
-            (Items[11] as Product).ItemQuantities.Add(Items[32], 1);
-            (Items[11] as Product).ItemQuantities.Add(Items[39], 1);
+            (Items[11] as Product).AddItem(Items[32], 1);
+            (Items[11] as Product).AddItem(Items[39], 1);
 
             // 12
-            (Items[12] as Product).ItemQuantities.Add(Items[32], 1);
-            (Items[12] as Product).ItemQuantities.Add(Items[39], 1);
+            (Items[12] as Product).AddItem(Items[32], 1);
+            (Items[12] as Product).AddItem(Items[39], 1);
 
             // 13
-            (Items[13] as Product).ItemQuantities.Add(Items[32], 1);
-            (Items[13] as Product).ItemQuantities.Add(Items[39], 1);
+            (Items[13] as Product).AddItem(Items[32], 1);
+            (Items[13] as Product).AddItem(Items[39], 1);
 
             // 14
-            (Items[14] as Product).ItemQuantities.Add(Items[32], 1);
-            (Items[14] as Product).ItemQuantities.Add(Items[39], 1);
+            (Items[14] as Product).AddItem(Items[32], 1);
+            (Items[14] as Product).AddItem(Items[39], 1);
 
             // 15
-            (Items[15] as Product).ItemQuantities.Add(Items[32], 1);
-            (Items[15] as Product).ItemQuantities.Add(Items[39], 1);
+            (Items[15] as Product).AddItem(Items[32], 1);
+            (Items[15] as Product).AddItem(Items[39], 1);
 
             // 16
-            (Items[16] as Product).ItemQuantities.Add(Items[24], 1);
-            (Items[16] as Product).ItemQuantities.Add(Items[28], 1);
-            (Items[16] as Product).ItemQuantities.Add(Items[40], 1);
-            (Items[16] as Product).ItemQuantities.Add(Items[41], 1);
-            (Items[16] as Product).ItemQuantities.Add(Items[42], 2);
+            (Items[16] as Product).AddItem(Items[24], 1);
+            (Items[16] as Product).AddItem(Items[28], 1);
+            (Items[16] as Product).AddItem(Items[40], 1);
+            (Items[16] as Product).AddItem(Items[41], 1);
+            (Items[16] as Product).AddItem(Items[42], 2);
 
             // 17
-            (Items[17] as Product).ItemQuantities.Add(Items[43], 1);
-            (Items[17] as Product).ItemQuantities.Add(Items[44], 1);
-            (Items[17] as Product).ItemQuantities.Add(Items[45], 1);
-            (Items[17] as Product).ItemQuantities.Add(Items[46], 1);
+            (Items[17] as Product).AddItem(Items[43], 1);
+            (Items[17] as Product).AddItem(Items[44], 1);
+            (Items[17] as Product).AddItem(Items[45], 1);
+            (Items[17] as Product).AddItem(Items[46], 1);
 
             // 18
-            (Items[18] as Product).ItemQuantities.Add(Items[28], 3);
-            (Items[18] as Product).ItemQuantities.Add(Items[32], 1);
-            (Items[18] as Product).ItemQuantities.Add(Items[59], 2);
+            (Items[18] as Product).AddItem(Items[28], 3);
+            (Items[18] as Product).AddItem(Items[32], 1);
+            (Items[18] as Product).AddItem(Items[59], 2);
 
             // 19
-            (Items[19] as Product).ItemQuantities.Add(Items[28], 4);
-            (Items[19] as Product).ItemQuantities.Add(Items[32], 1);
-            (Items[19] as Product).ItemQuantities.Add(Items[59], 2);
+            (Items[19] as Product).AddItem(Items[28], 4);
+            (Items[19] as Product).AddItem(Items[32], 1);
+            (Items[19] as Product).AddItem(Items[59], 2);
 
             // 20
-            (Items[20] as Product).ItemQuantities.Add(Items[28], 5);
-            (Items[20] as Product).ItemQuantities.Add(Items[32], 1);
-            (Items[20] as Product).ItemQuantities.Add(Items[59], 2);
+            (Items[20] as Product).AddItem(Items[28], 5);
+            (Items[20] as Product).AddItem(Items[32], 1);
+            (Items[20] as Product).AddItem(Items[59], 2);
 
             // 21-25: Procurement parts
 
             // 26
-            (Items[26] as Product).ItemQuantities.Add(Items[44], 2);
-            (Items[26] as Product).ItemQuantities.Add(Items[47], 1);
-            (Items[26] as Product).ItemQuantities.Add(Items[48], 2);
+            (Items[26] as Product).AddItem(Items[44], 2);
+            (Items[26] as Product).AddItem(Items[47], 1);
+            (Items[26] as Product).AddItem(Items[48], 2);
 
             // 27-28: Procurement parts
 
             // 29
-            (Items[29] as Product).ItemQuantities.Add(Items[24], 2);
-            (Items[29] as Product).ItemQuantities.Add(Items[25], 2);
-            (Items[29] as Product).ItemQuantities.Add(Items[9], 1);
-            (Items[29] as Product).ItemQuantities.Add(Items[15], 1);
-            (Items[29] as Product).ItemQuantities.Add(Items[20], 1);
+            (Items[29] as Product).AddItem(Items[24], 2);
+            (Items[29] as Product).AddItem(Items[25], 2);
+            (Items[29] as Product).AddItem(Items[9], 1);
+            (Items[29] as Product).AddItem(Items[15], 1);
+            (Items[29] as Product).AddItem(Items[20], 1);
 
             // 30
-            (Items[30] as Product).ItemQuantities.Add(Items[24], 2);
-            (Items[30] as Product).ItemQuantities.Add(Items[25], 2);
-            (Items[30] as Product).ItemQuantities.Add(Items[6], 1);
-            (Items[30] as Product).ItemQuantities.Add(Items[12], 1);
-            (Items[30] as Product).ItemQuantities.Add(Items[29], 1);
+            (Items[30] as Product).AddItem(Items[24], 2);
+            (Items[30] as Product).AddItem(Items[25], 2);
+            (Items[30] as Product).AddItem(Items[6], 1);
+            (Items[30] as Product).AddItem(Items[12], 1);
+            (Items[30] as Product).AddItem(Items[29], 1);
 
             // 31
-            (Items[31] as Product).ItemQuantities.Add(Items[24], 1);
-            (Items[31] as Product).ItemQuantities.Add(Items[27], 1);
-            (Items[31] as Product).ItemQuantities.Add(Items[16], 1);
-            (Items[31] as Product).ItemQuantities.Add(Items[17], 1);
-            (Items[31] as Product).ItemQuantities.Add(Items[30], 1);
+            (Items[31] as Product).AddItem(Items[24], 1);
+            (Items[31] as Product).AddItem(Items[27], 1);
+            (Items[31] as Product).AddItem(Items[16], 1);
+            (Items[31] as Product).AddItem(Items[17], 1);
+            (Items[31] as Product).AddItem(Items[30], 1);
 
             // 32 - 48: Procurement parts
 
             // 49
-            (Items[49] as Product).ItemQuantities.Add(Items[24], 2);
-            (Items[49] as Product).ItemQuantities.Add(Items[25], 2);
-            (Items[49] as Product).ItemQuantities.Add(Items[7], 1);
-            (Items[49] as Product).ItemQuantities.Add(Items[13], 1);
-            (Items[49] as Product).ItemQuantities.Add(Items[18], 1);
+            (Items[49] as Product).AddItem(Items[24], 2);
+            (Items[49] as Product).AddItem(Items[25], 2);
+            (Items[49] as Product).AddItem(Items[7], 1);
+            (Items[49] as Product).AddItem(Items[13], 1);
+            (Items[49] as Product).AddItem(Items[18], 1);
 
             // 50
-            (Items[50] as Product).ItemQuantities.Add(Items[24], 2);
-            (Items[50] as Product).ItemQuantities.Add(Items[25], 2);
-            (Items[50] as Product).ItemQuantities.Add(Items[4], 1);
-            (Items[50] as Product).ItemQuantities.Add(Items[10], 1);
-            (Items[50] as Product).ItemQuantities.Add(Items[49], 1);
+            (Items[50] as Product).AddItem(Items[24], 2);
+            (Items[50] as Product).AddItem(Items[25], 2);
+            (Items[50] as Product).AddItem(Items[4], 1);
+            (Items[50] as Product).AddItem(Items[10], 1);
+            (Items[50] as Product).AddItem(Items[49], 1);
 
             // 51
-            (Items[51] as Product).ItemQuantities.Add(Items[24], 1);
-            (Items[51] as Product).ItemQuantities.Add(Items[27], 1);
-            (Items[51] as Product).ItemQuantities.Add(Items[16], 1);
-            (Items[51] as Product).ItemQuantities.Add(Items[17], 1);
-            (Items[51] as Product).ItemQuantities.Add(Items[50], 1);
+            (Items[51] as Product).AddItem(Items[24], 1);
+            (Items[51] as Product).AddItem(Items[27], 1);
+            (Items[51] as Product).AddItem(Items[16], 1);
+            (Items[51] as Product).AddItem(Items[17], 1);
+            (Items[51] as Product).AddItem(Items[50], 1);
 
             // 52 - 54: Procurement parts
 
             // 54
-            (Items[54] as Product).ItemQuantities.Add(Items[24], 2);
-            (Items[54] as Product).ItemQuantities.Add(Items[25], 2);
-            (Items[54] as Product).ItemQuantities.Add(Items[8], 1);
-            (Items[54] as Product).ItemQuantities.Add(Items[14], 1);
-            (Items[54] as Product).ItemQuantities.Add(Items[19], 1);
+            (Items[54] as Product).AddItem(Items[24], 2);
+            (Items[54] as Product).AddItem(Items[25], 2);
+            (Items[54] as Product).AddItem(Items[8], 1);
+            (Items[54] as Product).AddItem(Items[14], 1);
+            (Items[54] as Product).AddItem(Items[19], 1);
 
             // 55
-            (Items[55] as Product).ItemQuantities.Add(Items[24], 2);
-            (Items[55] as Product).ItemQuantities.Add(Items[25], 2);
-            (Items[55] as Product).ItemQuantities.Add(Items[5], 1);
-            (Items[55] as Product).ItemQuantities.Add(Items[11], 1);
-            (Items[55] as Product).ItemQuantities.Add(Items[54], 1);
+            (Items[55] as Product).AddItem(Items[24], 2);
+            (Items[55] as Product).AddItem(Items[25], 2);
+            (Items[55] as Product).AddItem(Items[5], 1);
+            (Items[55] as Product).AddItem(Items[11], 1);
+            (Items[55] as Product).AddItem(Items[54], 1);
 
             // 56
-            (Items[56] as Product).ItemQuantities.Add(Items[24], 1);
-            (Items[56] as Product).ItemQuantities.Add(Items[27], 1);
-            (Items[56] as Product).ItemQuantities.Add(Items[16], 1);
-            (Items[56] as Product).ItemQuantities.Add(Items[17], 1);
-            (Items[56] as Product).ItemQuantities.Add(Items[55], 1);
+            (Items[56] as Product).AddItem(Items[24], 1);
+            (Items[56] as Product).AddItem(Items[27], 1);
+            (Items[56] as Product).AddItem(Items[16], 1);
+            (Items[56] as Product).AddItem(Items[17], 1);
+            (Items[56] as Product).AddItem(Items[55], 1);
+
+            // Add "where used" references
+
+
 
             // Create mock workplaces
             AddNewWorkplace(new Workplace { Id = 1 });

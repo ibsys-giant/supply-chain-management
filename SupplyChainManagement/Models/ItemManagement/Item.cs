@@ -18,6 +18,14 @@ namespace SupplyChainManagement.Models.ItemManagement
         public double Value;
         public int Stock;
 
+        public Dictionary<Product, int> UsageQuantities = new Dictionary<Product, int>();
+        public Product[] UsedInProducts {
+            get {
+                return new List<Product>(UsageQuantities.Keys).ToArray<Product>();
+            }
+        }
+
+
         public override bool Equals(object obj)
         {
             Item item = obj as Item;

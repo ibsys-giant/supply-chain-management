@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using System.Diagnostics;
+using System.Collections.Generic;
 
 using SupplyChainManagement;
 using SupplyChainManagement.Models;
@@ -223,6 +224,45 @@ namespace SupplyChainManagementTest
             }
 
             Assert.AreEqual(expectedProcurementLeadTimeDeviationCheckSum, procurementLeadTimeDeviationCheckSum);
+        }
+
+        [TestMethod]
+        public void UsedInWorksCorrectly()
+        {
+            DataSource ds = new DataSourceMock();
+
+            foreach (Item item in ds.Items.Values) {
+                if (item is FinishedProduct) {
+                    Assert.AreEqual(0, item.UsedInProducts.Length);
+                }
+                if (item is UnfinishedProduct)
+                {
+                    Assert.AreNotEqual(0, item.UsedInProducts.Length);
+                }
+                if (item is ProcuredItem)
+                {
+                    Assert.AreNotEqual(0, item.UsedInProducts.Length);
+                }
+            }
+        }
+
+        [TestMethod]
+        public void WhereUsedListWorks()
+        {
+            DataSource ds = new DataSourceMock();
+            var item = ds.Items[32];
+
+            var whereUsedList = Calculation.CreateWhereUsedList(item);
+
+            var usedInProducts = new List<Product>(whereUsedList.Keys);
+
+            Assert.IsTrue(usedInProducts.Contains(ds.Items[1] as Product));
+            Assert.IsTrue(usedInProducts.Contains(ds.Items[2] as Product));
+            Assert.IsTrue(usedInProducts.Contains(ds.Items[3] as Product));
+
+            Assert.AreEqual(3, whereUsedList[ds.Items[1] as Product]);
+            Assert.AreEqual(3, whereUsedList[ds.Items[2] as Product]);
+            Assert.AreEqual(3, whereUsedList[ds.Items[3] as Product]);
         }
     }
 }
