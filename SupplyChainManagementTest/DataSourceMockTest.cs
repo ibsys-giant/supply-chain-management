@@ -6,8 +6,11 @@ using System.Diagnostics;
 using System.Collections.Generic;
 
 using SupplyChainManagement;
+using SupplyChainManagement.Data;
 using SupplyChainManagement.Models;
 using SupplyChainManagement.Models.ItemManagement;
+using SupplyChainManagement.Services;
+using SupplyChainManagement.Util;
 
 namespace SupplyChainManagementTest
 {
@@ -18,7 +21,7 @@ namespace SupplyChainManagementTest
         public void P1BillOfMaterialShouldBeCorrect()
         {
             DataSource ds = new DataSourceMock();
-            var billOfMaterial = Calculation.CreateBillOfMaterial(ds.Items[1] as Product);
+            var billOfMaterial = BillOfMaterialUtil.CreateBillOfMaterial(ds.Items[1] as Product);
 
             // Produced item 4 must have 34 distinct items
             Assert.AreNotEqual(billOfMaterial.Count, 0);
@@ -64,7 +67,7 @@ namespace SupplyChainManagementTest
         public void P2BillOfMaterialShouldBeCorrect()
         {
             DataSource ds = new DataSourceMock();
-            var billOfMaterial = Calculation.CreateBillOfMaterial(ds.Items[2] as Product);
+            var billOfMaterial = BillOfMaterialUtil.CreateBillOfMaterial(ds.Items[2] as Product);
 
             // Product 2 must have 34 distinct items
             Assert.AreNotEqual(billOfMaterial.Count, 0);
@@ -112,7 +115,7 @@ namespace SupplyChainManagementTest
         public void P3BillOfMaterialShouldBeCorrect()
         {
             DataSource ds = new DataSourceMock();
-           var billOfMaterial = Calculation.CreateBillOfMaterial(ds.Items[3] as Product);
+            var billOfMaterial = BillOfMaterialUtil.CreateBillOfMaterial(ds.Items[3] as Product);
 
             // Product 3 must have 34 distinct items
             Assert.AreNotEqual(billOfMaterial.Count, 0);
@@ -252,7 +255,7 @@ namespace SupplyChainManagementTest
             DataSource ds = new DataSourceMock();
             var item = ds.Items[32];
 
-            var whereUsedList = Calculation.CreateWhereUsedList(item);
+            var whereUsedList = BillOfMaterialUtil.CreateWhereUsedList(item);
 
             var usedInProducts = new List<Product>(whereUsedList.Keys);
 
