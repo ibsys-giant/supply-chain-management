@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using SupplyChainManagement.Models;
 using SupplyChainManagement.Models.ItemManagement;
 
-namespace SupplyChainManagement
+namespace SupplyChainManagement.Data
 {
     public interface DataSource
     {
@@ -28,5 +28,6 @@ namespace SupplyChainManagement
         void AddNewItem(Item item);
         void AddNewWorkplace(Workplace workplace);
         void AddNewItemJob(ItemJob itemJob);
+
     }
 }

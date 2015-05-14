@@ -59,8 +59,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataSource.cs" />
-    <Compile Include="Calculation.cs" />
+    <Compile Include="Data\DataSource.cs" />
+    <Compile Include="Services\MaterialPlanning.cs" />
     <Compile Include="Models\ItemJob.cs" />
     <Compile Include="Models\ItemManagement\Item.cs" />
     <Compile Include="Models\ItemManagement\ProcuredItem.cs" />
@@ -71,6 +71,8 @@
     <Compile Include="Models\Workplace.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\WorkPlanning.cs" />
+    <Compile Include="Util\BillOfMaterialUtil.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
