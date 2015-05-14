@@ -49,7 +49,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="CalculationTest.cs" />
+    <Compile Include="MaterialPlanningTest.cs" />
     <Compile Include="DataSourceMock.cs" />
     <Compile Include="DataSourceMockTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
