@@ -20,22 +20,10 @@ namespace SupplyChainManagement.Services
             }
         }
 
-        public List<Order<Product>> ProductionOrders = new List<Order<Product>>();
+        public Dictionary<Product, int> ProductionOrders = new Dictionary<Product, int>();
 
         public MaterialPlanning(DataSource ds) {
             this._DataSource = ds;
-        }
-
-        public int CalculateTotalOrdersForProduct(Product product) {
-            var sum = 0;
-
-            foreach (Order<Product> order in ProductionOrders) {
-                if (order.Item == product) {
-                    sum += order.Quantity;
-                }
-            }
-
-            return sum;
         }
 
         public MaterialPlanning CreateProductionOrders(Product product, int demand, int plannedWarehouseStock)
@@ -62,7 +50,15 @@ namespace SupplyChainManagement.Services
 
 
             var orders = demand + plannedWarehouseStock - availableStock - ordersInQueue - workInProgress;
-            ProductionOrders.Add(new Order<Product> { Item = product, Quantity = orders });
+
+            if (ProductionOrders.ContainsKey(product))
+            {
+                ProductionOrders[product] += orders;
+            }
+            else
+            {
+                ProductionOrders[product] = orders;
+            }
 
             foreach (Item childItem in product.Items) {
 

@@ -52,5 +52,10 @@ namespace SupplyChainManagement.Models
         /// All jobs that is done by this workplace
         /// </summary>
         public List<ItemJob> Jobs = new List<ItemJob>();
+
+        public override string ToString()
+        {
+            return "Workplace #" + this.Id + " with " + this.Jobs.Count + " jobs";
+        }
     }
 }

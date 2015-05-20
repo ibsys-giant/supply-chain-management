@@ -267,5 +267,13 @@ namespace SupplyChainManagementTest
             Assert.AreEqual(3, whereUsedList[ds.Items[2] as Product]);
             Assert.AreEqual(3, whereUsedList[ds.Items[3] as Product]);
         }
+
+        [TestCase]
+        public void HasCorrectNumberOfWorkplaces() {
+
+            DataSource ds = new DataSourceMock();
+
+            Assert.AreEqual(14, ds.Workplaces.Values.Count);
+        }
     }
 }

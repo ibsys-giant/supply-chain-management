@@ -53,6 +53,7 @@
     <Compile Include="DataSourceMock.cs" />
     <Compile Include="DataSourceMockTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CapacityPlanningTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SupplyChainManagement\SupplyChainManagement.csproj">

@@ -20,9 +20,9 @@ namespace SupplyChainManagement.Models
         public Workplace Workplace;
 
         /// <summary>
-        /// Item to be produced during the job
+        /// Product to be produced during the job
         /// </summary>
-        public UnfinishedProduct Item;
+        public Product Item;
 
         /// <summary>
         /// Setup time to switch to another part
