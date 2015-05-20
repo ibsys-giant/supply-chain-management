@@ -14,6 +14,7 @@ namespace SupplyChainManagement.Services
     public class CapacityPlanning : MaterialPlanning
     {
         public Dictionary<Workplace, double> TotalCapacityRequirements = new Dictionary<Workplace, double>();
+        public Dictionary<Workplace, double> Overtime = new Dictionary<Workplace, double>();
 
         public CapacityPlanning(MaterialPlanning planning) : base(planning.DataSource) {
             this.ProductionOrders = planning.ProductionOrders;
@@ -23,6 +24,8 @@ namespace SupplyChainManagement.Services
             TotalCapacityRequirements = new Dictionary<Workplace, double>();
 
             foreach (var workplace in DataSource.Workplaces.Values) {
+
+                var totalSetupTime = 0.0;
                 foreach (var job in workplace.Jobs) {
 
                     var order = ProductionOrders[job.Item];
@@ -37,11 +40,24 @@ namespace SupplyChainManagement.Services
                         TotalCapacityRequirements[workplace] = totalItemWorkRequirement;
                     }
 
-                    TotalCapacityRequirements[workplace] += job.SetupTime;
+                    totalSetupTime += job.SetupTime;
                 }
+
+                TotalCapacityRequirements[workplace] += totalSetupTime;
 
                 // TODO add time backlog previous period
                 // TODO add setup time backlog previous period
+
+                var overtime = TotalCapacityRequirements[workplace] - 2400.0;
+
+                if (overtime > 0) 
+                {
+                    Overtime[workplace] = overtime;
+                }
+                else
+                {
+                    Overtime[workplace] = 0.0;
+                }
             }
             return this;
         }

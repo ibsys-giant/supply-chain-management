@@ -341,8 +341,8 @@ namespace SupplyChainManagement
 
             // Workplace 4
             AddNewItemJob(new ItemJob { Id = 10, Item = (Product) Items[1], Workplace = Workplaces[4], ProductionTimePerPiece = 6, SetupTime = 30.0 });
-            AddNewItemJob(new ItemJob { Id = 11, Item = (Product) Items[2], Workplace = Workplaces[4] });
-            AddNewItemJob(new ItemJob { Id = 12, Item = (Product) Items[3], Workplace = Workplaces[4] });
+            AddNewItemJob(new ItemJob { Id = 11, Item = (Product) Items[2], Workplace = Workplaces[4], ProductionTimePerPiece = 7, SetupTime = 20.0 });
+            AddNewItemJob(new ItemJob { Id = 12, Item = (Product)Items[3], Workplace = Workplaces[4], ProductionTimePerPiece = 7, SetupTime = 30.0 });
 
             // There is no workplace 5 
 
