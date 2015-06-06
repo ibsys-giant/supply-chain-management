@@ -32,27 +32,21 @@ namespace SupplyChainManagementTest
             // Create orders
             materialPlanning
                 .CreateProductionOrders(p1, 150, 100)
-                .CreateProductionOrders(p2, 150, 100)
-                .CreateProductionOrders(p3, 150, 100);
+                .CreateProductionOrders(p2, 100, 100)
+                .CreateProductionOrders(p3, 100, 100);
 
-
-            int totalOrders;
 
             // Check orders of finished products
 
-            totalOrders = materialPlanning.CalculateTotalOrdersForProduct(p1);
-            Assert.AreEqual(150, totalOrders);
+            Assert.AreEqual(150, materialPlanning.ProductionOrders[p1]);
 
-            totalOrders = materialPlanning.CalculateTotalOrdersForProduct(p2);
-            Assert.AreEqual(150, totalOrders);
+            Assert.AreEqual(100, materialPlanning.ProductionOrders[p2]);
 
-            totalOrders = materialPlanning.CalculateTotalOrdersForProduct(p3);
-            Assert.AreEqual(150, totalOrders);
+            Assert.AreEqual(100, materialPlanning.ProductionOrders[p3]);
 
             // Check orders of E26
 
-            totalOrders = materialPlanning.CalculateTotalOrdersForProduct(e26);
-            Assert.AreEqual(450, totalOrders);
+            Assert.AreEqual(350, materialPlanning.ProductionOrders[e26]);
         }
 
 
