@@ -292,6 +292,10 @@ namespace SupplyChainManagement
             (Items[56] as Product).AddItem(Items[17], 1);
             (Items[56] as Product).AddItem(Items[55], 1);
 
+            var item24 = Items[24];
+
+            Console.WriteLine();
+
             // Add "where used" references
 
 

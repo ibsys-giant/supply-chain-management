@@ -52,6 +52,8 @@
     <Compile Include="MaterialPlanningTest.cs" />
     <Compile Include="DataSourceMock.cs" />
     <Compile Include="DataSourceMockTest.cs" />
+    <Compile Include="ModelTest.cs" />
+    <Compile Include="ProcurementPlanningTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CapacityPlanningTest.cs" />
   </ItemGroup>

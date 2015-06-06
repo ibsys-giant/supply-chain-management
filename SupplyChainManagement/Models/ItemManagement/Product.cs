@@ -20,14 +20,32 @@ namespace SupplyChainManagement.Models.ItemManagement
         public Product AddItem(Item item, int quantity) {
             if (ItemQuantities.ContainsKey(item)) 
             {
-                ItemQuantities[item] = quantity;
+                ItemQuantities[item] += quantity;
             }
             else 
             {
                 ItemQuantities.Add(item, quantity);
             }
 
-            item.UsageQuantities.Add(this, quantity);
+
+            var contains = item.UsageQuantities.ContainsKey(this);
+
+            if (contains)
+            {
+
+                if (item.Id == 24) {
+                    Console.WriteLine();
+                }
+                item.UsageQuantities[this] += quantity;
+            }
+            else
+            {
+                if (item.Id == 24)
+                {
+                    Console.WriteLine();
+                }
+                item.UsageQuantities[this] = quantity;
+            }
 
             return this;
         }

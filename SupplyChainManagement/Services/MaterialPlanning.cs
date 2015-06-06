@@ -33,8 +33,8 @@ namespace SupplyChainManagement.Services
 
             var parentFinishedProducts =
                 from whereUsed in whereUsedList
-                where whereUsed.Key is FinishedProduct
-                select whereUsed.Key;
+                where whereUsed is FinishedProduct
+                select whereUsed;
 
             var ordersInQueue = GetOrderQuantityInWaitingQueue(product);
             var workInProgress = GetWorkQuantityInProgress(product);

@@ -14,9 +14,9 @@ namespace SupplyChainManagement.Models.ItemManagement
         public int Stock;
 
         public Dictionary<Product, int> UsageQuantities = new Dictionary<Product, int>();
-        public Product[] UsedInProducts {
+        public List<Product> UsedInProducts {
             get {
-                return new List<Product>(UsageQuantities.Keys).ToArray<Product>();
+                return new List<Product>(from q in UsageQuantities where q.Key is Product select q.Key as Product);
             }
         }
 

@@ -52,18 +52,8 @@ namespace SupplyChainManagementTest
                 .CreateProductionOrders(p2, 100, 100)
                 .CreateProductionOrders(p3, 100, 100);
 
-            Assert.AreEqual(150, materialPlanning.ProductionOrders[p1]);
-            Assert.AreEqual(100, materialPlanning.ProductionOrders[p2]);
-            Assert.AreEqual(100, materialPlanning.ProductionOrders[p3]);
-
             var capacityPlanning = new CapacityPlanning(materialPlanning);
             capacityPlanning.CreateWorkRequirements();
-
-            Assert.IsNotEmpty(capacityPlanning.TotalCapacityRequirements.Keys);
-            Assert.AreEqual(14, capacityPlanning.TotalCapacityRequirements.Keys.Count);
-
-            Assert.AreEqual(2160.0, capacityPlanning.TotalCapacityRequirements[dataSource.Workplaces[1]]);
-
 
 
         }

@@ -5,6 +5,8 @@ using NUnit.Framework;
 using System.Diagnostics;
 using System.Collections.Generic;
 
+using System.Linq;
+
 using SupplyChainManagement;
 using SupplyChainManagement.Data;
 using SupplyChainManagement.Models;
@@ -16,6 +18,14 @@ namespace SupplyChainManagementTest
 {
     public class DataSourceMockTest
     {
+        
+        [TestCase]
+        public void ReferenceTest() { 
+            
+            DataSource ds = new DataSourceMock();
+            Assert.AreSame(ds.Items[24], ds.Items[24]);
+        }
+
 
         [TestCase]
         public void P1BillOfMaterialShouldBeCorrect()
@@ -236,36 +246,76 @@ namespace SupplyChainManagementTest
 
             foreach (Item item in ds.Items.Values) {
                 if (item is FinishedProduct) {
-                    Assert.AreEqual(0, item.UsedInProducts.Length);
+                    Assert.AreEqual(0, item.UsedInProducts.Count);
                 }
                 if (item is UnfinishedProduct)
                 {
-                    Assert.AreNotEqual(0, item.UsedInProducts.Length);
+                    Assert.AreNotEqual(0, item.UsedInProducts.Count);
                 }
                 if (item is ProcuredItem)
                 {
-                    Assert.AreNotEqual(0, item.UsedInProducts.Length);
+                    Assert.AreNotEqual(0, item.UsedInProducts.Count);
                 }
             }
         }
 
         [TestCase]
-        public void WhereUsedListWorks()
+        public void WhereUsedListWorksWithItem32()
         {
             DataSource ds = new DataSourceMock();
             var item = ds.Items[32];
 
             var whereUsedList = BillOfMaterialUtil.CreateWhereUsedList(item);
 
-            var usedInProducts = new List<Product>(whereUsedList.Keys);
+            Assert.IsTrue(whereUsedList.Contains(ds.Items[1] as Product));
+            Assert.IsTrue(whereUsedList.Contains(ds.Items[2] as Product));
+            Assert.IsTrue(whereUsedList.Contains(ds.Items[3] as Product));
 
-            Assert.IsTrue(usedInProducts.Contains(ds.Items[1] as Product));
-            Assert.IsTrue(usedInProducts.Contains(ds.Items[2] as Product));
-            Assert.IsTrue(usedInProducts.Contains(ds.Items[3] as Product));
+            Assert.AreEqual(3, BillOfMaterialUtil.CreateBillOfMaterial(ds.Items[1] as Product)[item]);
+            Assert.AreEqual(3, BillOfMaterialUtil.CreateBillOfMaterial(ds.Items[2] as Product)[item]);
+            Assert.AreEqual(3, BillOfMaterialUtil.CreateBillOfMaterial(ds.Items[3] as Product)[item]);
+        }
 
-            Assert.AreEqual(3, whereUsedList[ds.Items[1] as Product]);
-            Assert.AreEqual(3, whereUsedList[ds.Items[2] as Product]);
-            Assert.AreEqual(3, whereUsedList[ds.Items[3] as Product]);
+        [TestCase]
+        public void CreateBillOfMaterialTest()
+        {
+            var dataSource = new DataSourceMock();
+            var procuredItem = (ProcuredItem)dataSource.Items[24];
+            var p1 = dataSource.Items[1] as FinishedProduct;
+            var p2 = dataSource.Items[2] as FinishedProduct;
+            var p3 = dataSource.Items[3] as FinishedProduct;
+
+            var bom1 = BillOfMaterialUtil.CreateBillOfMaterial(p1);
+            var bom2 = BillOfMaterialUtil.CreateBillOfMaterial(p2);
+            var bom3 = BillOfMaterialUtil.CreateBillOfMaterial(p3);
+
+            Assert.AreEqual(7, bom1[procuredItem]);
+            Assert.AreEqual(7, bom2[procuredItem]);
+            Assert.AreEqual(7, bom3[procuredItem]);
+        }
+
+        [TestCase]
+        public void CreateWhereUsedListTest()
+        {
+            var dataSource = new DataSourceMock();
+            var procuredItem = (ProcuredItem)dataSource.Items[24];
+            
+            var p1 = dataSource.Items[1] as FinishedProduct;
+            var p2 = dataSource.Items[2] as FinishedProduct;
+            var p3 = dataSource.Items[3] as FinishedProduct;
+            Console.WriteLine();
+            Assert.AreEqual(1, (from q in procuredItem.UsageQuantities where q.Key.Id == 1 select q).Count());
+            Assert.AreEqual(1, procuredItem.UsageQuantities[p1]);
+            Assert.AreEqual(1, procuredItem.UsageQuantities[p2]);
+            Assert.AreEqual(1, procuredItem.UsageQuantities[p3]);
+
+            var whereUsedList = BillOfMaterialUtil.CreateWhereUsedList(procuredItem);
+
+            Assert.AreEqual(13, whereUsedList.Count);
+            Assert.AreEqual(7, (from product in whereUsedList where product == p1 select BillOfMaterialUtil.CreateBillOfMaterial(product)[procuredItem]).First());
+            Assert.AreEqual(7, (from product in whereUsedList where product == p2 select BillOfMaterialUtil.CreateBillOfMaterial(product)[procuredItem]).First());
+            Assert.AreEqual(7, (from product in whereUsedList where product == p3 select BillOfMaterialUtil.CreateBillOfMaterial(product)[procuredItem]).First());
+
         }
 
         [TestCase]
