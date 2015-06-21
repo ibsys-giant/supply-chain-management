@@ -8,10 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using SupplyChainManagement.Services;
+
 namespace SupplyChainManagementUI
 {
     public partial class LoginForm : Form
     {
+
+        private MainForm _MainForm;
+
         public LoginForm()
         {
             InitializeComponent();
@@ -63,11 +68,27 @@ namespace SupplyChainManagementUI
         private void loginAction(object sender, EventArgs e)
         {
 
+            try
+            {
+                var client = new SimulatorClient(new Uri(serverUriTextBox.Text));
+                client.Login(usernameTextBox.Text, passwordTextBox.Text);
+                _MainForm = new MainForm(this, client);
+                _MainForm.Show();
+                this.Hide();
+            }
+            catch (SimulatorException exc) {
+                MessageBox.Show(exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void cancelAction(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void serverUriTextBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

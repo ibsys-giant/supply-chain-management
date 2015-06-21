@@ -13,6 +13,14 @@ namespace SupplyChainManagement.Services
 {
     public class SimulatorClient
     {
+        private string _Username;
+        public string Username
+        {
+            get
+            {
+                return _Username;
+            }
+        }
 
         private Uri _BaseUri;
         public RestClient RestClient;
@@ -48,10 +56,10 @@ namespace SupplyChainManagement.Services
 
             if (res.Content.ToLower().Contains("error"))
             {
-                throw new SimulatorException("Login failed. Either username or password is wrong. Status code");
+                throw new SimulatorException("Login failed. Either username or password is wrong.");
             }
 
-
+            _Username = username;
         }
 
 

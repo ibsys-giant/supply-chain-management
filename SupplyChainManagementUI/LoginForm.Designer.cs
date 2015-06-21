@@ -80,6 +80,7 @@
             this.serverUriTextBox.Size = new System.Drawing.Size(210, 22);
             this.serverUriTextBox.TabIndex = 5;
             this.serverUriTextBox.Text = "http://scsim-phoenix.de:8080";
+            this.serverUriTextBox.TextChanged += new System.EventHandler(this.serverUriTextBox_TextChanged);
             // 
             // label1
             // 
