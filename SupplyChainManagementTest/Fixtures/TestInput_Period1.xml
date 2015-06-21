@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<input>
+  <qualitycontrol type="no" losequantity="0" delay="0" />
+  <sellwish>
+    <item article="1" quantity="150" />
+    <item article="2" quantity="150" />
+    <item article="3" quantity="150" />
+  </sellwish>
+  <selldirect>
+    <item article="1" quantity="0" price="0.0" penalty="0.0" />
+    <item article="2" quantity="0" price="0.0" penalty="0.0" />
+    <item article="3" quantity="0" price="0.0" penalty="0.0" />
+  </selldirect>
+  <orderlist>
+    <order article="21" quantity="300" modus="5" />
+    <order article="22" quantity="300" modus="5" />
+    <order article="24" quantity="12200" modus="4" />
+    <order article="32" quantity="2700" modus="5" />
+    <order article="35" quantity="3600" modus="5" />
+    <order article="36" quantity="900" modus="5" />
+    <order article="37" quantity="900" modus="5" />
+    <order article="38" quantity="1050" modus="4" />
+    <order article="39" quantity="2600" modus="4" />
+    <order article="40" quantity="1050" modus="5" />
+    <order article="45" quantity="1050" modus="5" />
+    <order article="52" quantity="900" modus="5" />
+    <order article="53" quantity="22000" modus="5" />
+    <order article="58" quantity="22000" modus="5" />
+  </orderlist>
+  <productionlist>
+    <production article="4" quantity="150" />
+    <production article="5" quantity="100" />
+    <production article="6" quantity="100" />
+    <production article="7" quantity="150" />
+    <production article="8" quantity="100" />
+    <production article="9" quantity="100" />
+    <production article="10" quantity="150" />
+    <production article="11" quantity="100" />
+    <production article="12" quantity="100" />
+    <production article="13" quantity="150" />
+    <production article="14" quantity="100" />
+    <production article="15" quantity="100" />
+    <production article="16" quantity="350" />
+    <production article="17" quantity="350" />
+    <production article="18" quantity="150" />
+    <production article="19" quantity="100" />
+    <production article="20" quantity="100" />
+    <production article="26" quantity="350" />
+    <production article="49" quantity="150" />
+    <production article="54" quantity="100" />
+    <production article="29" quantity="100" />
+    <production article="50" quantity="150" />
+    <production article="55" quantity="100" />
+    <production article="30" quantity="100" />
+    <production article="51" quantity="150" />
+    <production article="56" quantity="100" />
+    <production article="31" quantity="100" />
+    <production article="1" quantity="150" />
+    <production article="2" quantity="100" />
+    <production article="3" quantity="100" />
+  </productionlist>
+  <workingtimelist>
+    <workingtime station="1" shift="1" overtime="0" />
+    <workingtime station="2" shift="1" overtime="0" />
+    <workingtime station="3" shift="1" overtime="0" />
+    <workingtime station="4" shift="1" overtime="5" />
+    <workingtime station="6" shift="1" overtime="0" />
+    <workingtime station="7" shift="1" overtime="140" />
+    <workingtime station="8" shift="1" overtime="0" />
+    <workingtime station="9" shift="1" overtime="200" />
+    <workingtime station="10" shift="1" overtime="120" />
+    <workingtime station="11" shift="1" overtime="0" />
+    <workingtime station="12" shift="1" overtime="0" />
+    <workingtime station="13" shift="1" overtime="0" />
+    <workingtime station="14" shift="1" overtime="0" />
+    <workingtime station="15" shift="1" overtime="0" />
+  </workingtimelist>
+</input>
