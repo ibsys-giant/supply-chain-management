@@ -69,6 +69,7 @@ namespace SupplyChainManagementTest
             procurementPlanning.CreateProcurementOrders(demands);
 
             Assert.AreNotEqual(0, procurementPlanning.DemandsForPeriods.Count);
+            Assert.AreNotEqual(0, procurementPlanning.ProcurementOrders.Count);
         }
     }
 }

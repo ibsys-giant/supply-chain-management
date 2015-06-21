@@ -19,6 +19,8 @@ namespace SupplyChainManagement.Services
 
         public List<Dictionary<ProcuredItem, int>> DemandsForPeriods = new List<Dictionary<ProcuredItem, int>>();
 
+        public List<int> TotalDemandsForPeriods = new List<int>();
+
         public ProcurementPlanning(CapacityPlanning cp) : base(cp) {
             
         }
@@ -32,8 +34,6 @@ namespace SupplyChainManagement.Services
                                           where order.Key is FinishedProduct
                                           select order;
 
-
-
             foreach (var procuredItem in procuredItems)
             {
                 for (int period = 0; period < demands.Count; period++)
@@ -43,6 +43,7 @@ namespace SupplyChainManagement.Services
                                                  where product is FinishedProduct
                                                  select product;
 
+                    TotalDemandsForPeriods.Add(0);
                     demandForCurrentPeriod[procuredItem] = 0;
 
                     foreach (var product in finishedProductsUsedIn)
@@ -53,12 +54,50 @@ namespace SupplyChainManagement.Services
                                                            select order.Value).First<int>();
 
                         demandForCurrentPeriod[procuredItem] += finishedProductOrderQuantity * totalUsageQuantity;
+                        TotalDemandsForPeriods[period] += demandForCurrentPeriod[procuredItem];
                     }
 
-
-                    this.DemandsForPeriods.Add(demandForCurrentPeriod);
+                    DemandsForPeriods.Add(demandForCurrentPeriod);
                 }
 
+                // Calculate worst case demand
+                var worstCaseLeadTime = procuredItem.ProcureLeadTime + procuredItem.ProcureLeadTimeDeviation;
+                var periodsAffected = Math.Ceiling(worstCaseLeadTime);
+
+                var totalDemand = 0;
+                for (var period = 0; period < periodsAffected; period++) {
+                    totalDemand += TotalDemandsForPeriods[period];
+                }
+                var worstCaseDemand = (double)(totalDemand * worstCaseLeadTime) / ((double) periodsAffected);
+
+                // Calculate lead case demand
+                periodsAffected = Math.Ceiling(procuredItem.ProcureLeadTime);
+                totalDemand = 0;
+                for (var period = 0; period < periodsAffected; period++) {
+                    totalDemand += TotalDemandsForPeriods[period];
+                }
+                var leadCaseDemand = (double) (totalDemand * procuredItem.ProcureLeadTime) / ((double) periodsAffected);
+
+
+                var procOrder = new ProcurementOrder();
+                procOrder.Item = procuredItem;
+                procOrder.Quantity = (int) worstCaseDemand;
+
+                if (procOrder.Quantity < procuredItem.DiscountQuantity)
+                {
+                    procOrder.Quantity = procuredItem.DiscountQuantity;
+                }
+
+                if (leadCaseDemand > procuredItem.Stock)
+                {
+                    procOrder.Type = ProcurementOrder.OrderType.URGENT;
+                }
+                else 
+                {
+                    procOrder.Type = ProcurementOrder.OrderType.NORMAL;
+                }
+
+                ProcurementOrders.Add(procOrder);
             }
 
             return this;
