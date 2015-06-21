@@ -90,7 +90,7 @@ namespace SupplyChainManagement.Services
 
                 if (leadCaseDemand > procuredItem.Stock)
                 {
-                    procOrder.Type = ProcurementOrder.OrderType.URGENT;
+                    procOrder.Type = ProcurementOrder.OrderType.FAST;
                 }
                 else 
                 {

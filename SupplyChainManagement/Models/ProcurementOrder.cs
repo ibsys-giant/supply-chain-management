@@ -12,7 +12,7 @@ namespace SupplyChainManagement.Models
     {
         public enum OrderType { 
             NORMAL,
-            URGENT
+            FAST
         }
 
         public ProcuredItem Item;
