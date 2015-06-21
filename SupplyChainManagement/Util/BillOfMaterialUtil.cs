@@ -42,29 +42,22 @@ namespace SupplyChainManagement.Util
             return bom;
         }
 
-        public static Dictionary<Product, int> CreateWhereUsedList(Item item)
+        public static List<Product> CreateWhereUsedList(Item item)
         {
-            return CreateWhereUsedList(item, new Dictionary<Product, int>());
+            return _CreateWhereUsedList(item, new List<Product>());
         }
 
-        public static Dictionary<Product, int> CreateWhereUsedList(Item item, Dictionary<Product, int> whereUsedList)
+        private static List<Product> _CreateWhereUsedList(Item item, List<Product> whereUsedList)
         {
 
-            foreach (Product parent in item.UsedInProducts)
+            foreach (Product p in item.UsedInProducts)
             {
-                var quantityUsedInParent = item.UsageQuantities[parent];
-                if (whereUsedList.ContainsKey(parent))
-                {
-                    whereUsedList[parent] += quantityUsedInParent;
-                }
-                else
-                {
-                    whereUsedList.Add(parent, quantityUsedInParent);
+                if (!whereUsedList.Contains(p)) {
+                    whereUsedList.Add(p);
                 }
 
-                CreateWhereUsedList(parent as Product, whereUsedList);
+                _CreateWhereUsedList(p, whereUsedList);
             }
-
             return whereUsedList;
         }
     }
