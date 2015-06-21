@@ -26,3 +26,13 @@ Then, open the ```SupplyChainManagement.sln``` file with Visual Studio or your p
 
  - ```Tools``` >> ```NuGet Package Manager``` >> ```Package Manager Settings``` >> ```General``` >> Set both check boxes in order to restore missing packages from the ```packages.config```
  - ```Tools``` >> ```Extensions and Updates``` >> ```Online``` >> Search for NuGet Adapter and install the plugin in order being able to execute the Unit tests.
+ -
+
+Uris
+----
+
+
+Start simulation:
+```
+http://scsim-phoenix.de:8080/scs/simulate
+```
