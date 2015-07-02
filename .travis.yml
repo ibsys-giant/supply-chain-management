@@ -1,6 +1,7 @@
 language: csharp
 solution: SupplyChainManagement.sln
 install:
+  - sudo apt-get install libsqlite3
   - nuget restore SupplyChainManagement.sln
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
