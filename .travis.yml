@@ -2,7 +2,7 @@ language: csharp
 solution: SupplyChainManagement.sln
 env: MONO_LOG_LEVEL=debug
 install:
-  - sudo apt-get install libsqlite3
+  - sudo apt-get install sqlite3 
   - nuget restore SupplyChainManagement.sln
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
