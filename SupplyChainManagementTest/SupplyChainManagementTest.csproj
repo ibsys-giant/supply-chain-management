@@ -72,7 +72,6 @@
   <ItemGroup>
     <Compile Include="SQLiteDataSourceTest.cs" />
     <Compile Include="MaterialPlanningTest.cs" />
-    <Compile Include="DataSourceMockTest.cs" />
     <Compile Include="ModelTest.cs" />
     <Compile Include="ProcurementPlanningTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

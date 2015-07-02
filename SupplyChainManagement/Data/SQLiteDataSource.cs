@@ -523,6 +523,8 @@ namespace SupplyChainManagement.Data
 
             if (!_ItemCache.ContainsKey(id))
             {
+
+                Item item = null;
                 using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
                 {
                     conn.Open();
@@ -543,22 +545,22 @@ namespace SupplyChainManagement.Data
 
                             if (type == "ProcuredItem")
                             {
-                                var item = new ProcuredItem();
+                                item = new ProcuredItem();
                                 item.Id = (int)reader["Id"];
                                 item.Description = (string)reader["Description"];
                                 item.Stock = (int)reader["Stock"];
                                 item.Value = (double)reader["Value"];
 
-                                item.DiscountQuantity = (int)reader["DiscountQuantity"];
-                                item.OrderCosts = (double)reader["OrderCosts"];
-                                item.ProcureLeadTime = (double)reader["ProcureLeadTime"];
-                                item.ProcureLeadTimeDeviation = (double)reader["ProcureLeadTimeDeviation"];
+                                (item as ProcuredItem).DiscountQuantity = (int)reader["DiscountQuantity"];
+                                (item as ProcuredItem).OrderCosts = (double)reader["OrderCosts"];
+                                (item as ProcuredItem).ProcureLeadTime = (double)reader["ProcureLeadTime"];
+                                (item as ProcuredItem).ProcureLeadTimeDeviation = (double)reader["ProcureLeadTimeDeviation"];
 
                                 _ItemCache.Add(item.Id, item);
                             }
                             else if (type == "UnfinishedProduct")
                             {
-                                var item = new UnfinishedProduct();
+                                item = new UnfinishedProduct();
                                 item.Id = (int)reader["Id"];
                                 item.Description = (string)reader["Description"];
                                 item.Stock = (int)reader["Stock"];
@@ -568,7 +570,7 @@ namespace SupplyChainManagement.Data
                             }
                             else if (type == "FinishedProduct")
                             {
-                                var item = new FinishedProduct();
+                                item = new FinishedProduct();
                                 item.Id = (int)reader["Id"];
                                 item.Description = (string)reader["Description"];
                                 item.Stock = (int)reader["Stock"];
@@ -579,6 +581,24 @@ namespace SupplyChainManagement.Data
                             else
                             {
                                 throw new Exception("Invalid item type");
+                            }
+                        }
+                    }
+
+
+                    if (item is Product) {
+                        using (var cmd = conn.CreateCommand())
+                        {
+                            cmd.CommandText = "select * from ChildToProduct where Product_Id = " + item.Id;
+
+                            using (var childsReader = cmd.ExecuteReader())
+                            {
+                                while (childsReader.Read())
+                                {
+                                    var childId = (int)childsReader["Child_Id"];
+                                    var quantity = (int)childsReader["Quantity"];
+                                    (item as Product).AddItem(GetItemById(childId), quantity);
+                                }
                             }
                         }
                     }
@@ -631,6 +651,125 @@ namespace SupplyChainManagement.Data
 
             
         }
+
+
+        public List<Workplace> GetAllWorkplaces()
+        {
+            using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
+            {
+                conn.Open();
+
+                using (var cmd = conn.CreateCommand())
+                {
+
+                    cmd.CommandText = "select * from Item";
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            var currentItemId = (int)reader["Id"];
+
+                            if (_ItemCache.ContainsKey(currentItemId))
+                            {
+                                continue;
+                            }
+
+                            var workplace = new Workplace
+                            {
+                                Id = (int)reader["Id"],
+                                IdleMachineCosts = (double)reader["IdleMachineCosts"],
+                                JobDescription = reader["JobDescription"] as string,
+                                LaborCostsFirstShift = (double)reader["LaborCostsFirstShift"],
+                                LaborCostsSecondShift = (double)reader["LaborCostsSecondShift"],
+                                LaborCostsThirdShift = (double)reader["LaborCostsThirdShift"],
+                                LaborCostsOvertime = (double)reader["LaborCostsOvertime"],
+                                ProductiveMachineCosts = (double)reader["ProductiveMachineCosts"]
+                            };
+
+                            _WorkplaceCache.Add(workplace.Id, workplace);
+
+                        }
+                    }
+                }
+            }
+
+            return new List<Workplace>(_WorkplaceCache.Values);
+        }
+
+        public List<Item> GetAllItems()
+        {
+
+            using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
+            {
+                conn.Open();
+
+                using (var cmd = conn.CreateCommand())
+                {
+
+                    cmd.CommandText = "select * from Item";
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read()) {
+                            
+                            var currentItemId = (int) reader["Id"];
+
+                            if (_ItemCache.ContainsKey(currentItemId))
+                            {
+                                continue;
+                            }
+
+                            var type = (string)reader["Type"];
+
+                            if (type == "ProcuredItem")
+                            {
+                                var item = new ProcuredItem();
+                                item.Id = (int)reader["Id"];
+                                item.Description = (string)reader["Description"];
+                                item.Stock = (int)reader["Stock"];
+                                item.Value = (double)reader["Value"];
+
+                                item.DiscountQuantity = (int)reader["DiscountQuantity"];
+                                item.OrderCosts = (double)reader["OrderCosts"];
+                                item.ProcureLeadTime = (double)reader["ProcureLeadTime"];
+                                item.ProcureLeadTimeDeviation = (double)reader["ProcureLeadTimeDeviation"];
+
+                                _ItemCache.Add(item.Id, item);
+                            }
+                            else if (type == "UnfinishedProduct")
+                            {
+                                var item = new UnfinishedProduct();
+                                item.Id = (int)reader["Id"];
+                                item.Description = (string)reader["Description"];
+                                item.Stock = (int)reader["Stock"];
+                                item.Value = (double)reader["Value"];
+
+                                _ItemCache.Add(item.Id, item);
+                            }
+                            else if (type == "FinishedProduct")
+                            {
+                                var item = new FinishedProduct();
+                                item.Id = (int)reader["Id"];
+                                item.Description = (string)reader["Description"];
+                                item.Stock = (int)reader["Stock"];
+                                item.Value = (double)reader["Value"];
+
+                                _ItemCache.Add(item.Id, item);
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            return new List<Item>(_ItemCache.Values);
+        }
+
+
         public ItemJob GetItemJobById(int id)
         {
             if (!_ItemJobCache.ContainsKey(id))
@@ -638,9 +777,13 @@ namespace SupplyChainManagement.Data
                 Debug.WriteLine("Reading ItemJob # " + id + " from cache");
 
 
+                ItemJob job = null;
+                int productId = -1;
+                int workplaceId = -1;
                 using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
                 {
                     conn.Open();
+
                     using (var cmd = conn.CreateCommand())
                     {
 
@@ -653,18 +796,24 @@ namespace SupplyChainManagement.Data
                                 return null;
                             }
 
-                            var itemJob = new ItemJob
+                            job = new ItemJob
                             {
                                 Id = (int)reader["Id"],
                                 ProductionTimePerPiece = (double)reader["ProductionTimePerPiece"],
                                 SetupTime = (double)reader["SetupTime"]
                             };
 
-                            _ItemJobCache.Add(itemJob.Id, itemJob);
+                            productId = (int)reader["Product_Id"];
+                            workplaceId = (int)reader["Workplace_Id"];
 
                         }
                     }
                 }
+
+                job.Product = (Product)GetItemById(productId);
+                job.Workplace = (Workplace)GetWorkplaceById(workplaceId);
+                job.Workplace.Jobs.Add(job);
+                _ItemJobCache.Add(job.Id, job);
             }
             return _ItemJobCache[id];
         }
@@ -689,6 +838,11 @@ namespace SupplyChainManagement.Data
                     cmd.ExecuteNonQuery();
                 }
             }
+
+            product = (Product) GetItemById(product.Id);
+            child = GetItemById(child.Id);
+
+            product.AddItem(child, quantity);
         }
 
         public void AddNewItem(Item item) {

@@ -23,7 +23,7 @@ namespace SupplyChainManagement.Services
         public CapacityPlanning CreateWorkRequirements() {
             TotalCapacityRequirements = new Dictionary<Workplace, double>();
 
-            foreach (var workplace in DataSource.Workplaces.Values) {
+            foreach (var workplace in DataSource.GetAllWorkplaces()) {
 
                 var totalSetupTime = 0.0;
                 foreach (var job in workplace.Jobs) {

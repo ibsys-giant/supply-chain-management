@@ -22,12 +22,12 @@ namespace SupplyChainManagementTest
         [TestCase]
         public void ProcurementPlanningWorks()
         {
-            var dataSource = new DataSourceMock();
+            var dataSource = new SQLiteDataSource();
             var materialPlanning = new MaterialPlanning(dataSource);
 
-            var p1 = materialPlanning.DataSource.Items[1] as FinishedProduct;
-            var p2 = materialPlanning.DataSource.Items[2] as FinishedProduct;
-            var p3 = materialPlanning.DataSource.Items[3] as FinishedProduct;
+            var p1 = materialPlanning.DataSource.GetItemById(1) as FinishedProduct;
+            var p2 = materialPlanning.DataSource.GetItemById(2) as FinishedProduct;
+            var p3 = materialPlanning.DataSource.GetItemById(3) as FinishedProduct;
 
             // Create orders
             materialPlanning

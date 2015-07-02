@@ -26,7 +26,7 @@ namespace SupplyChainManagement.Services
         }
 
         public ProcurementPlanning CreateProcurementOrders(List<Dictionary<FinishedProduct, int>> demands) {
-            var procuredItems = from item in this.DataSource.Items.Values
+            var procuredItems = from item in this.DataSource.GetAllItems()
                                 where item is ProcuredItem
                                 select item as ProcuredItem;
 

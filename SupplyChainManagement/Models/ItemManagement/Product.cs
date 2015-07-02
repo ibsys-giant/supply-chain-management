@@ -32,18 +32,10 @@ namespace SupplyChainManagement.Models.ItemManagement
 
             if (contains)
             {
-
-                if (item.Id == 24) {
-                    Console.WriteLine();
-                }
                 item.UsageQuantities[this] += quantity;
             }
             else
             {
-                if (item.Id == 24)
-                {
-                    Console.WriteLine();
-                }
                 item.UsageQuantities[this] = quantity;
             }
 
