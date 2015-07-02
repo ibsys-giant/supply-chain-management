@@ -1,6 +1,6 @@
 language: csharp
 solution: SupplyChainManagement.sln
-env: MONO_LOG_LEVEL=debug
+env: MONO_LOG_LEVEL=debug MONO_LOG_MASK=dll
 install:
   - sudo apt-get install sqlite3 
   - nuget restore SupplyChainManagement.sln
