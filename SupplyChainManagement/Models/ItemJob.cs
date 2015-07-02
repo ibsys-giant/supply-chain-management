@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 
+using SupplyChainManagement.Data;
 using SupplyChainManagement.Models.ItemManagement;
 
 namespace SupplyChainManagement.Models
 {
-    public class ItemJob
+    public class ItemJob : DatabaseObject
     {
 
         public int Id;
@@ -22,7 +23,7 @@ namespace SupplyChainManagement.Models
         /// <summary>
         /// Product to be produced during the job
         /// </summary>
-        public Product Item;
+        public Product Product;
 
         /// <summary>
         /// Setup time to switch to another part
@@ -33,5 +34,26 @@ namespace SupplyChainManagement.Models
         /// Production time per piece in minutes
         /// </summary>
         public double ProductionTimePerPiece;
+
+
+        public override Dictionary<string, object> ToDictionary()
+        {
+            var dict = base.ToDictionary();
+
+            dict["Id"] = Id;
+
+            if (Workplace != null)
+            {
+                dict["Workplace_Id"] = Workplace.Id;
+            }
+            if (Product != null)
+            {
+                dict["Product_Id"] = Product.Id;
+            }
+            dict["SetupTime"] = SetupTime;
+            dict["ProductionTimePerPiece"] = ProductionTimePerPiece;
+
+            return dict;
+        }
     }
 }

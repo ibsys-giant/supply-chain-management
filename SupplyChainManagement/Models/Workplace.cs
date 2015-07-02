@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using SupplyChainManagement.Data;
+
 namespace SupplyChainManagement.Models
 {
-    public class Workplace
+    public class Workplace : DatabaseObject
     {
         /// <summary>
         /// Work place id
@@ -56,6 +58,22 @@ namespace SupplyChainManagement.Models
         public override string ToString()
         {
             return "Workplace #" + this.Id + " with " + this.Jobs.Count + " jobs";
+        }
+
+        public override Dictionary<string, object> ToDictionary()
+        {
+            var dict =  base.ToDictionary();
+
+            dict["Id"] = Id;
+            dict["JobDescription"] = JobDescription;
+            dict["LaborCostsFirstShift"] = LaborCostsFirstShift;
+            dict["LaborCostsSecondShift"] = LaborCostsSecondShift;
+            dict["LaborCostsThirdShift"] = LaborCostsThirdShift;
+            dict["LaborCostsOvertime"] = LaborCostsOvertime;
+            dict["ProductiveMachineCosts"] = ProductiveMachineCosts;
+            dict["IdleMachineCosts"] = IdleMachineCosts;
+
+            return dict;
         }
     }
 }

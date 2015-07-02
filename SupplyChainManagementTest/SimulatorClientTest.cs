@@ -65,7 +65,7 @@ namespace SupplyChainManagementTest
             Assert.IsNotEmpty(content);
         }
 
-        [TestCase]
+        //[TestCase]
         public void ShouldWriteInputData()
         {
             var uri = new Uri("http://scsim-phoenix.de:8080");

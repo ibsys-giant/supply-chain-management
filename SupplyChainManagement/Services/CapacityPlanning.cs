@@ -28,7 +28,7 @@ namespace SupplyChainManagement.Services
                 var totalSetupTime = 0.0;
                 foreach (var job in workplace.Jobs) {
 
-                    var order = ProductionOrders[job.Item];
+                    var order = ProductionOrders[job.Product];
                     var timePerPiece = job.ProductionTimePerPiece;
                     var totalItemWorkRequirement =  order * timePerPiece;
                     if (TotalCapacityRequirements.ContainsKey(workplace))

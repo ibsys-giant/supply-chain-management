@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SupplyChainManagement.Models.ItemManagement
 {
-    public class Product : Item
+    public abstract class Product : Item
     {
         public Dictionary<Item, int> ItemQuantities = new Dictionary<Item, int>();
         public Item[] Items

@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using SupplyChainManagement.Data;    
+
 namespace SupplyChainManagement.Models.ItemManagement
 {
-    public abstract class Item
+    public abstract class Item : DatabaseObject
     {
         public int Id;
         public String Description;
@@ -25,6 +27,16 @@ namespace SupplyChainManagement.Models.ItemManagement
             string str = "";
             str += " #" + this.Id + " " + this.Description + "(" + this.GetType().Name + ")";
             return str;
+        }
+
+        public override Dictionary<string, object> ToDictionary()
+        {
+            var dict = base.ToDictionary();
+            dict["Id"] = Id;
+            dict["Description"] = Description;
+            dict["Value"] = Value;
+            dict["Stock"] = Stock;
+            return dict;
         }
     }
 }
