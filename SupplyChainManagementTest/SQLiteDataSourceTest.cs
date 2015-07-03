@@ -479,5 +479,37 @@ namespace SupplyChainManagementTest
             Assert.AreNotEqual(0, product1.ItemQuantities);
 
         }
+
+        [TestCase]
+        public void UpdateItemShouldWork()
+        {
+            var ds = new SQLiteDataSource();
+            ds.Purge();
+
+            var item = ds.GetItemById(1);
+            var oldStock = item.Stock;
+            var oldValue = item.Value;
+
+            item.Stock = 10000;
+            item.Value = 10000.0;
+
+            ds.UpdateItem(ref item);
+
+            // Parameter must not have been modified.
+            Assert.AreEqual(10000, item.Stock);
+            Assert.AreEqual(10000.0, item.Value);
+
+            // Get from cache
+            item = ds.GetItemById(1);
+            Assert.AreEqual(10000, item.Stock);
+            Assert.AreEqual(10000.0, item.Value);
+
+            // Invalidate cache, get from DB
+            ds = new SQLiteDataSource();
+            item = ds.GetItemById(1);
+            Assert.AreEqual(10000, item.Stock);
+            Assert.AreEqual(10000.0, item.Value);
+
+        }
     }
 }

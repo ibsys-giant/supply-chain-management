@@ -490,7 +490,9 @@ namespace SupplyChainManagement.Data
 
         public string _GenerateUpdateFromDict(string table, int recordId, Dictionary<string, object> dict)
         {
-            var values = new List<string>();
+
+            List<string> keyValuePairs = new List<string>();
+
             foreach (var key in dict.Keys)
             {
                 if (key == Values.Id)
@@ -499,28 +501,28 @@ namespace SupplyChainManagement.Data
                 }
                 else if (dict[key] == null)
                 {
-                    values.Add("null");
+                    keyValuePairs.Add(key + "=null");
                 }
                 else if (dict[key] is string)
                 {
-                    values.Add("\"" + dict[key] + "\"");
+                    keyValuePairs.Add(key + "=\"" + dict[key] + "\"");
                 }
                 else
                 {
                     var value = dict[key];
                     if (value == null)
                     {
-                        values.Add(null);
+                        keyValuePairs.Add(key + "=null");
                     }
                     else
                     {
-                        values.Add(value.ToString());
+                        keyValuePairs.Add(key + "=" + value.ToString());
                     }
                 }
 
             }
-            return "INSERT INTO " + table + " (" + String.Join(", ", dict.Keys) + ") VALUES ("
-                   + String.Join(", ", values) + ");";
+
+            return "UPDATE " + table + " SET " + String.Join(", ", keyValuePairs) + " WHERE " + Values.Id + "=" + recordId + ";";
         }
 
 
@@ -885,7 +887,7 @@ namespace SupplyChainManagement.Data
 
         public void UpdateItem(ref Item item)
         {
-            Debug.WriteLine("Adding item " + item.ToString());
+            Debug.WriteLine("Updating item " + item.ToString());
 
             var itemFromDb = GetItemById(item.Id);
 
@@ -915,14 +917,13 @@ namespace SupplyChainManagement.Data
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = _GenerateInsertFromDict(Values.Item, item.ToDictionary());
+                    cmd.CommandText = _GenerateUpdateFromDict(Values.Item, item.Id, item.ToDictionary());
 
                     Debug.WriteLine("Executing " + cmd.CommandText);
                     cmd.ExecuteNonQuery();
 
                 }
             }
-
 
             item = itemFromDb;
         }
