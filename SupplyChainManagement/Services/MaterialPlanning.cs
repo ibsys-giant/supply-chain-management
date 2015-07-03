@@ -13,8 +13,9 @@ namespace SupplyChainManagement.Services
 {
     public class MaterialPlanning
     {
-        private DataSource _DataSource;
-        public DataSource DataSource {
+        private SQLiteDataSource _DataSource;
+        public SQLiteDataSource DataSource
+        {
             get {
                 return _DataSource;
             }
@@ -22,7 +23,8 @@ namespace SupplyChainManagement.Services
 
         public Dictionary<Product, int> ProductionOrders = new Dictionary<Product, int>();
 
-        public MaterialPlanning(DataSource ds) {
+        public MaterialPlanning(SQLiteDataSource ds)
+        {
             this._DataSource = ds;
         }
 

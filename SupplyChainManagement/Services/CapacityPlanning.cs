@@ -23,12 +23,12 @@ namespace SupplyChainManagement.Services
         public CapacityPlanning CreateWorkRequirements() {
             TotalCapacityRequirements = new Dictionary<Workplace, double>();
 
-            foreach (var workplace in DataSource.Workplaces.Values) {
+            foreach (var workplace in DataSource.GetAllWorkplaces()) {
 
                 var totalSetupTime = 0.0;
                 foreach (var job in workplace.Jobs) {
 
-                    var order = ProductionOrders[job.Item];
+                    var order = ProductionOrders[job.Product];
                     var timePerPiece = job.ProductionTimePerPiece;
                     var totalItemWorkRequirement =  order * timePerPiece;
                     if (TotalCapacityRequirements.ContainsKey(workplace))

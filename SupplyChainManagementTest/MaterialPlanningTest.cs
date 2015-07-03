@@ -20,14 +20,14 @@ namespace SupplyChainManagementTest
         [TestCase]
         public void MaterialPlanningShouldWork()
         {
-            var materialPlanning = new MaterialPlanning(new DataSourceMock());
+            var materialPlanning = new MaterialPlanning(new SQLiteDataSource());
 
-            var p1 = materialPlanning.DataSource.Items[1] as Product;
-            var p2 = materialPlanning.DataSource.Items[2] as Product;
-            var p3 = materialPlanning.DataSource.Items[3] as Product;
+            var p1 = materialPlanning.DataSource.GetItemById(1) as Product;
+            var p2 = materialPlanning.DataSource.GetItemById(2) as Product;
+            var p3 = materialPlanning.DataSource.GetItemById(3) as Product;
 
             // E26 is used in all three finished products
-            var e26 = materialPlanning.DataSource.Items[26] as Product;
+            var e26 = materialPlanning.DataSource.GetItemById(26) as Product;
 
             // Create orders
             materialPlanning

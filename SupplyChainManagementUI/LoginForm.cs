@@ -20,7 +20,6 @@ namespace SupplyChainManagementUI
         public LoginForm()
         {
             InitializeComponent();
-
             // Define the border style of the form to a dialog box.
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             // Set the MaximizeBox to false to remove the maximize box.

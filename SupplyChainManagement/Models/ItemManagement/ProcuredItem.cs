@@ -12,5 +12,17 @@ namespace SupplyChainManagement.Models.ItemManagement
         public double OrderCosts;
         public double ProcureLeadTime;
         public double ProcureLeadTimeDeviation;
+
+
+        public override Dictionary<string, object> ToDictionary()
+        {
+            var dict = base.ToDictionary();
+            dict["Type"] = "ProcuredItem";
+            dict["DiscountQuantity"] = DiscountQuantity;
+            dict["OrderCosts"] = OrderCosts;
+            dict["ProcureLeadTime"] = ProcureLeadTime;
+            dict["ProcureLeadTimeDeviation"] = ProcureLeadTimeDeviation;
+            return dict;
+        }
     }
 }
