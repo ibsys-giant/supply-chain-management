@@ -83,7 +83,9 @@
   <ItemGroup>
     <Compile Include="Data\SQLiteDataSource.cs" />
     <Compile Include="Data\DatabaseObject.cs" />
+    <Compile Include="Models\OrderInWorkItem.cs" />
     <Compile Include="Models\ProcurementOrder.cs" />
+    <Compile Include="Models\WaitListItem.cs" />
     <Compile Include="Services\MaterialPlanning.cs" />
     <Compile Include="Models\ItemJob.cs" />
     <Compile Include="Models\ItemManagement\Item.cs" />

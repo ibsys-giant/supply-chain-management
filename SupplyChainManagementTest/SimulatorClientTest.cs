@@ -43,7 +43,7 @@ namespace SupplyChainManagementTest
                 c.Login("wronguser", "wrongpassword");
                 Assert.Fail("Exception wasn't thrown");
             }
-            catch (SimulatorException exc) {
+            catch (SimulatorException) {
                 Debug.WriteLine("Exception was catched successfully");
             }
 
