@@ -336,7 +336,7 @@ namespace SupplyChainManagementTest
             item.Value = 50.0;
 
             Item item2 = null;
-            ds.AddNewItem(item);
+            ds.CreateItem(item);
             item2 = ds.GetItemById(999999);
 
             Assert.AreEqual(item.Id, item2.Id);
@@ -362,7 +362,7 @@ namespace SupplyChainManagementTest
             workplace.ProductiveMachineCosts = 50.0;
 
             Workplace workplace2 = null;
-            ds.AddNewWorkplace(workplace);
+            ds.CreateWorkplace(workplace);
             workplace2 = ds.GetWorkplaceById(999999);
 
             Assert.AreEqual(workplace.Id, workplace2.Id);
@@ -386,7 +386,7 @@ namespace SupplyChainManagementTest
             item.Description = "abc";
             item.Stock = 90;
             item.Value = 50.0;
-            ds.AddNewItem(item);
+            ds.CreateItem(item);
 
             
             var workplace = new Workplace();
@@ -399,7 +399,7 @@ namespace SupplyChainManagementTest
             workplace.IdleMachineCosts = 500.0;
             workplace.ProductiveMachineCosts = 50.0;
 
-            ds.AddNewWorkplace(workplace);
+            ds.CreateWorkplace(workplace);
 
             var itemJob = new ItemJob();
             itemJob.Id = 999999;
@@ -409,7 +409,7 @@ namespace SupplyChainManagementTest
             itemJob.Workplace = workplace;
 
             ItemJob itemJob2 = null;
-            ds.AddNewItemJob(itemJob);
+            ds.CreateItemJob(itemJob);
             itemJob2 = ds.GetItemJobById(itemJob.Id);
 
 
@@ -434,14 +434,14 @@ namespace SupplyChainManagementTest
             a.Description = "a";
             a.Stock = 90;
             a.Value = 50.0;
-            ds.AddNewItem(a);
+            ds.CreateItem(a);
 
             var b = new UnfinishedProduct();
             b.Id = 100002;
             b.Description = "b";
             b.Stock = 90;
             b.Value = 50.0;
-            ds.AddNewItem(b);
+            ds.CreateItem(b);
 
 
             var c = new ProcuredItem();
@@ -449,7 +449,7 @@ namespace SupplyChainManagementTest
             c.Description = "c";
             c.Stock = 90;
             c.Value = 50.0;
-            ds.AddNewItem(c);
+            ds.CreateItem(c);
 
             ds.AddChildToProduct(b, c, 5);
             ds.AddChildToProduct(a, b, 2);
