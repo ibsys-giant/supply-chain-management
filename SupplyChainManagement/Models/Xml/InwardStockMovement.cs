@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Xml;
+using System.Xml.Serialization;
+
 namespace SupplyChainManagement.Models.Xml
 {
-    public class FutureInwardStockOrder
+    public class InwardStockMovement
     {
-        public int Id;
-        public int OrderPeriod;
-        public int Mode;
-        public int Article;
-        public int Amount;
+        [XmlElement("order")]
+        public List<Order> Orders;
     }
 }

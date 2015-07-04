@@ -23,7 +23,9 @@ namespace SupplyChainManagementTest
         public void ProcurementPlanningWorks()
         {
             var dataSource = new SQLiteDataSource();
-            var materialPlanning = new MaterialPlanning(dataSource, new Dictionary<Workplace,WaitListItem>(), new Dictionary<Workplace,OrderInWorkItem>());
+            var materialPlanning = new MaterialPlanning(dataSource, 
+                new Dictionary<Workplace, SupplyChainManagement.Models.Xml.Article>(), 
+                new Dictionary<Workplace,SupplyChainManagement.Models.Xml.Order>());
 
             var p1 = materialPlanning.DataSource.GetItemById(1) as FinishedProduct;
             var p2 = materialPlanning.DataSource.GetItemById(2) as FinishedProduct;

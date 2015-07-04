@@ -28,11 +28,13 @@ namespace SupplyChainManagement.Services
         private Uri _BaseUri;
         public RestClient RestClient;
 
-        public SimulatorClient(Uri baseUri, WebProxy proxy)
+        public SimulatorClient(Uri baseUri, WebProxy proxy=null)
         {
             _BaseUri = baseUri;
             RestClient = new RestClient(baseUri);
-            RestClient.Proxy = proxy;
+
+            if (proxy != null)
+                RestClient.Proxy = proxy;
         }
 
         public void Login(string username, string password) {
