@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using SupplyChainManagement.Models.ItemManagement;
+using SupplyChainManagement.Models.Xml;
 
 namespace SupplyChainManagement.Models
 {
@@ -12,7 +12,7 @@ namespace SupplyChainManagement.Models
     {
         public int Period;
         public int Order;
-        public Item Item;
+        public int Item;
         public int Amount;
         public int Timeneed;
         public int Lastbatch;
