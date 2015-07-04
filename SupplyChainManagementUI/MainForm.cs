@@ -24,6 +24,35 @@ namespace SupplyChainManagementUI
             _Client = client;
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Form2 frm = new Form2();
+                frm.Show();
+                this.Hide();
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SplNr_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GrpNr_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PerNr_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
 
     }
 }
