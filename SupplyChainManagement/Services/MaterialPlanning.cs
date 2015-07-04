@@ -13,19 +13,18 @@ namespace SupplyChainManagement.Services
 {
     public class MaterialPlanning
     {
-        private SQLiteDataSource _DataSource;
-        public SQLiteDataSource DataSource
-        {
-            get {
-                return _DataSource;
-            }
-        }
-
+        public readonly SQLiteDataSource DataSource;
+        public readonly Dictionary<Workplace, WaitListItem> WaitingListWorkplaces;
+        public readonly Dictionary<Workplace, OrderInWorkItem> OrdersInWork;
         public Dictionary<Product, int> ProductionOrders = new Dictionary<Product, int>();
 
-        public MaterialPlanning(SQLiteDataSource ds)
+        public MaterialPlanning(SQLiteDataSource ds,
+            Dictionary<Workplace, WaitListItem> waitingListWorkplaces,
+            Dictionary<Workplace, OrderInWorkItem> ordersInWork)
         {
-            this._DataSource = ds;
+            this.DataSource = ds;
+            this.WaitingListWorkplaces = waitingListWorkplaces;
+            this.OrdersInWork = ordersInWork;
         }
 
         public MaterialPlanning CreateProductionOrders(Product product, int demand, int plannedWarehouseStock)

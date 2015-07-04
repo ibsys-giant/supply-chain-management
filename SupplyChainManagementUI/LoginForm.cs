@@ -67,15 +67,46 @@ namespace SupplyChainManagementUI
         private void loginAction(object sender, EventArgs e)
         {
 
+            System.Net.WebProxy proxy = null;
+            if (proxyCheckBox.Checked)
+            {
+
+                var host = proxyHostTextBox.Text;
+                var port = proxyPortTextBox.Text;
+                var uri = new Uri("http://" + host + ":" + port);
+
+                string username = null;
+                string password = null;
+
+                if (!String.IsNullOrEmpty(proxyUsernameTextBox.Text)) 
+                {
+                    username = proxyUsernameTextBox.Text;
+                }
+                if (!String.IsNullOrEmpty(proxyPasswordTextBox.Text))
+                {
+                    password = proxyPasswordTextBox.Text;
+                }
+
+                if (username != null && password != null)
+                {
+                    proxy = new System.Net.WebProxy(uri, true, null, new System.Net.NetworkCredential(username, password));
+                }
+                else {
+                    proxy = new System.Net.WebProxy(uri, true);
+                }
+            }
+
+
             try
             {
-                var client = new SimulatorClient(new Uri(serverUriTextBox.Text));
+                var client = new SimulatorClient(new Uri(serverUriTextBox.Text), proxy);
+
                 client.Login(usernameTextBox.Text, passwordTextBox.Text);
                 _MainForm = new MainForm(this, client);
                 _MainForm.Show();
                 this.Hide();
             }
-            catch (SimulatorException exc) {
+            catch (Exception exc) {
                 MessageBox.Show(exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -86,6 +117,29 @@ namespace SupplyChainManagementUI
         }
 
         private void serverUriTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (proxyCheckBox.Checked)
+            {
+                proxyHostTextBox.Enabled = true;
+                proxyPortTextBox.Enabled = true;
+                proxyUsernameTextBox.Enabled = true;
+                proxyPasswordTextBox.Enabled = true;
+            }
+            else 
+            {
+                proxyHostTextBox.Enabled = false;
+                proxyPortTextBox.Enabled = false;
+                proxyUsernameTextBox.Enabled = false;
+                proxyPasswordTextBox.Enabled = false;
+            }
+        }
+
+        private void proxyHostTextBox_TextChanged(object sender, EventArgs e)
         {
 
         }

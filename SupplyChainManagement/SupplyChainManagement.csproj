@@ -83,7 +83,17 @@
   <ItemGroup>
     <Compile Include="Data\SQLiteDataSource.cs" />
     <Compile Include="Data\DatabaseObject.cs" />
+    <Compile Include="Models\OrderInWorkItem.cs" />
     <Compile Include="Models\ProcurementOrder.cs" />
+    <Compile Include="Models\Xml\MissingPart.cs" />
+    <Compile Include="Models\Xml\MissingPartWaitingListItem.cs" />
+    <Compile Include="Models\Xml\WaitingListItem.cs" />
+    <Compile Include="Models\Xml\ArticleWarehouseStock.cs" />
+    <Compile Include="Models\Xml\FutureInwardStockOrder.cs" />
+    <Compile Include="Models\Xml\InwardStockOrder.cs" />
+    <Compile Include="Models\Xml\PeriodResult.cs" />
+    <Compile Include="Models\Xml\WorkplaceIdleTimeCosts.cs" />
+    <Compile Include="Models\Xml\WorkplaceWaitingList.cs" />
     <Compile Include="Services\MaterialPlanning.cs" />
     <Compile Include="Models\ItemJob.cs" />
     <Compile Include="Models\ItemManagement\Item.cs" />
@@ -99,6 +109,7 @@
     <Compile Include="Services\ProcurementPlanning.cs" />
     <Compile Include="Services\SimulatorClient.cs" />
     <Compile Include="Services\SimulatorException.cs" />
+    <Compile Include="Services\SupplyChainPlanner.cs" />
     <Compile Include="Util\BillOfMaterialUtil.cs" />
     <Compile Include="Util\Constants.cs" />
     <Compile Include="Util\Values.cs" />
