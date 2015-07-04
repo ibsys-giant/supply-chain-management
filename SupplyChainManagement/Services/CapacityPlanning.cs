@@ -16,7 +16,7 @@ namespace SupplyChainManagement.Services
         public Dictionary<Workplace, double> TotalCapacityRequirements = new Dictionary<Workplace, double>();
         public Dictionary<Workplace, double> Overtime = new Dictionary<Workplace, double>();
 
-        public CapacityPlanning(MaterialPlanning planning) : base(planning.DataSource, planning.WaitingListWorkplaces, planning.OrdersInWork) {
+        public CapacityPlanning(MaterialPlanning planning) : base(planning.DataSource, planning.WaitingList, planning.OrdersInWork) {
             this.ProductionOrders = planning.ProductionOrders;
         }
 

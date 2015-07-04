@@ -4,17 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using System.Xml;
 using System.Xml.Serialization;
 
 namespace SupplyChainManagement.Models.Xml
 {
-    public class MissingPart
+    
+    public class OrdersInWork
     {
-        [XmlAttribute("id")]
-        public int Id;
-
-        [XmlElement("waitinglist")]
-        public List<WaitingList> WaitingLists = new List<WaitingList>();
+        [XmlElement("workplace")]
+        public List<Workplace> Workplaces;
     }
 }

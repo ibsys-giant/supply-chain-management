@@ -14,16 +14,16 @@ namespace SupplyChainManagement.Services
     public class MaterialPlanning
     {
         public readonly SQLiteDataSource DataSource;
-        public readonly Dictionary<Workplace, SupplyChainManagement.Models.Xml.Article> WaitingListWorkplaces;
-        public readonly Dictionary<Workplace, SupplyChainManagement.Models.Xml.Order> OrdersInWork;
+        public readonly Dictionary<Product, int> WaitingList;
+        public readonly Dictionary<Product, int> OrdersInWork;
         public Dictionary<Product, int> ProductionOrders = new Dictionary<Product, int>();
 
         public MaterialPlanning(SQLiteDataSource ds,
-            Dictionary<Workplace, SupplyChainManagement.Models.Xml.Article> waitingListWorkplaces,
-            Dictionary<Workplace,  SupplyChainManagement.Models.Xml.Order> ordersInWork)
+            Dictionary<Product, int> waitingList,
+            Dictionary<Product, int> ordersInWork)
         {
             this.DataSource = ds;
-            this.WaitingListWorkplaces = waitingListWorkplaces;
+            this.WaitingList = waitingList;
             this.OrdersInWork = ordersInWork;
         }
 
@@ -37,12 +37,24 @@ namespace SupplyChainManagement.Services
                 where whereUsed is FinishedProduct
                 select whereUsed;
 
-            var ordersInQueue = GetOrderQuantityInWaitingQueue(product);
-            var workInProgress = GetWorkQuantityInProgress(product);
+            int ordersInQueue = 0; 
+            var workInProgress = 0;
+
+            if (WaitingList.ContainsKey(product)) 
+            {
+                ordersInQueue = WaitingList[product];
+            }
+            if (OrdersInWork.ContainsKey(product))
+            {
+                workInProgress = OrdersInWork[product];
+            }
+
 
             int availableStock;
             if (parentFinishedProducts.Count() > 0)
             {
+                ordersInQueue = (int) (ordersInQueue / (double)parentFinishedProducts.Count());
+                workInProgress = (int) (workInProgress / (double)parentFinishedProducts.Count());
                 availableStock = (int) (product.Stock / (double)parentFinishedProducts.Count());
             }
             else {
@@ -74,18 +86,6 @@ namespace SupplyChainManagement.Services
             }
 
             return this;
-        }
-
-        public int GetWorkQuantityInProgress(Product product)
-        {
-            // TODO
-            return 0;
-        }
-
-        public int GetOrderQuantityInWaitingQueue(Product product)
-        {
-            // TODO
-            return 0;
         }
     }
 }

@@ -9,12 +9,9 @@ using System.Xml.Serialization;
 
 namespace SupplyChainManagement.Models.Xml
 {
-    public class MissingPart
+    public class WaitingListStock
     {
-        [XmlAttribute("id")]
-        public int Id;
-
-        [XmlElement("waitinglist")]
-        public List<WaitingList> WaitingLists = new List<WaitingList>();
+        [XmlElement("missingpart")]
+        public List<MissingPart> MissingParts;
     }
 }

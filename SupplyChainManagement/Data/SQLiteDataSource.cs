@@ -483,7 +483,68 @@ namespace SupplyChainManagement.Data
 
             CreateItemJob(new ItemJob { Id = 72, Product = (Product)GetItemById(26), Workplace = GetWorkplaceById(15), ProductionTimePerPiece = 3, SetupTime = 15.0 });
 
-            
+            // Create Item Job references
+
+            AppendNextItemJob(26, 7, 15);
+            AppendNextItemJob(16, 6, 14);
+
+            // P1
+            AppendNextItemJob(4, 10, 11);
+
+            AppendNextItemJob(10, 7, 9);
+            AppendNextItemJob(10, 8, 7);
+            AppendNextItemJob(10, 12, 8);
+            AppendNextItemJob(10, 13, 12);
+
+            AppendNextItemJob(7, 10, 11);
+
+            AppendNextItemJob(18, 7, 9);
+            AppendNextItemJob(18, 8, 7);
+            AppendNextItemJob(18, 6, 8);
+
+            AppendNextItemJob(13, 7, 9);
+            AppendNextItemJob(13, 8, 7);
+            AppendNextItemJob(13, 12, 8);
+            AppendNextItemJob(13, 13, 12);
+
+            // P2
+            AppendNextItemJob(5, 10, 11);
+
+            AppendNextItemJob(11, 7, 9);
+            AppendNextItemJob(11, 8, 7);
+            AppendNextItemJob(11, 12, 8);
+            AppendNextItemJob(11, 13, 12);
+
+            AppendNextItemJob(8, 10, 11);
+
+            AppendNextItemJob(19, 7, 9);
+            AppendNextItemJob(19, 8, 7);
+            AppendNextItemJob(19, 6, 8);
+
+            AppendNextItemJob(14, 7, 9);
+            AppendNextItemJob(14, 8, 7);
+            AppendNextItemJob(14, 12, 8);
+            AppendNextItemJob(14, 13, 12);
+
+            // P3
+            AppendNextItemJob(6, 10, 11);
+
+            AppendNextItemJob(12, 7, 9);
+            AppendNextItemJob(12, 8, 7);
+            AppendNextItemJob(12, 12, 8);
+            AppendNextItemJob(12, 13, 12);
+
+            AppendNextItemJob(9, 10, 11);
+
+            AppendNextItemJob(20, 7, 9);
+            AppendNextItemJob(20, 8, 7);
+            AppendNextItemJob(20, 6, 8);
+
+            AppendNextItemJob(15, 7, 9);
+            AppendNextItemJob(15, 8, 7);
+            AppendNextItemJob(15, 12, 8);
+            AppendNextItemJob(15, 13, 12);
+
         }
 
 
@@ -737,6 +798,95 @@ namespace SupplyChainManagement.Data
             return new List<Workplace>(_WorkplaceCache.Values);
         }
 
+
+        public List<ItemJob> GetAllItemJobs()
+        {
+
+
+            var jobs = new List<ItemJob>();
+            var productIds = new List<int>();
+            var workplaceIds = new List<int>();
+            var nextJobIds = new List<int>();
+
+            using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
+            {
+                conn.Open();
+
+                using (var cmd = conn.CreateCommand())
+                {
+
+                    cmd.CommandText = "select * from " + Values.ItemJob;
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            var currentItemJobId = (int)reader[Values.Id];
+
+                            if (_ItemJobCache.ContainsKey(currentItemJobId))
+                            {
+                                continue;
+                            }
+
+                            var job = new ItemJob();
+                            job.Id = currentItemJobId;
+                            job.SetupTime = (double)reader[Values.SetupTime];
+                            job.ProductionTimePerPiece = (double)reader[Values.ProductionTimePerPiece];
+                            jobs.Add(job);
+
+                            var productId = (int)reader[Values.Product_Id];
+                            var workplaceId = (int)reader[Values.Workplace_Id];
+
+                            productIds.Add(productId);
+                            workplaceIds.Add(workplaceId);
+
+                            try
+                            {
+                                nextJobIds.Add((int)reader[Values.NextItemJob_Id]);
+                            }
+                            catch (InvalidCastException)
+                            {
+                                nextJobIds.Add(-1);
+                            }
+
+                        }
+                    }
+                }
+            }
+
+            for (var i = 0; i < jobs.Count; i++) {
+                var productId = productIds[i];
+                var workplaceId = workplaceIds[i];
+                var nextJobId = nextJobIds[i];
+
+                jobs[i].Product = (Product) GetItemById(productId);
+                jobs[i].Workplace = GetWorkplaceById(workplaceId);
+
+                if (nextJobId < 0)
+                {
+                    jobs[i].NextItemJob = null;
+                }
+                else
+                {
+                    jobs[i].NextItemJob = GetItemJobById(nextJobId);
+                }
+            }
+
+            foreach (ItemJob job in jobs) {
+                if (!_ItemJobCache.ContainsKey(job.Id))
+                {
+                    _ItemJobCache.Add(job.Id, job);
+                }
+                else
+                {
+                    _ItemJobCache[job.Id].NextItemJob = job.NextItemJob;
+                }
+            }
+
+            return new List<ItemJob>(_ItemJobCache.Values);
+
+        }
+
         public List<Item> GetAllItems()
         {
 
@@ -803,12 +953,121 @@ namespace SupplyChainManagement.Data
                         }
                     }
                 }
-
             }
 
             return new List<Item>(_ItemCache.Values);
         }
 
+
+        public void AppendNextItemJob(int productId, int workplaceId, int nextWorkplaceId)
+        {
+            if (productId == 10)
+            {
+                Console.WriteLine();
+            }
+
+            var product = (Product) GetItemById(productId);
+            var workplace = GetWorkplaceById(workplaceId);
+            var nextWorkplace = GetWorkplaceById(nextWorkplaceId);
+
+            var itemJob = GetItemJobByWorkplaceAndProduct(
+                    workplace,
+                    product
+                );
+
+            if (product.Id == 10) {
+                Console.WriteLine();
+            }
+
+            product = (Product)GetItemById(productId);
+
+            var nextItemJob = 
+                GetItemJobByWorkplaceAndProduct(
+                    nextWorkplace,
+                    product
+                );
+
+            
+            if (product.Id == 10) {
+                Console.WriteLine();
+            }
+
+            AppendNextItemJob(
+                ref itemJob,
+                nextItemJob
+            );
+        }
+
+        public void AppendNextItemJob(ref ItemJob itemJob, ItemJob nextItemJob)
+        {
+            if (itemJob.Id == nextItemJob.Id)
+            {
+                throw new Exception("Item and next item must not be the same");
+            }
+
+            if (itemJob.Product.Id != nextItemJob.Product.Id)
+            {
+                throw new Exception("Item and next item must produce the same product");
+            }
+
+            Debug.WriteLine("Appending item " + nextItemJob.ToString() + " to " + itemJob.ToString());
+
+            var itemJobFromDb = GetItemJobById(itemJob.Id);
+            var nextItemJobFromDb = GetItemJobById(nextItemJob.Id);
+
+            if (!_ItemJobCache.ContainsKey(itemJob.Id))
+            {
+                throw new Exception("Item not found");
+            }
+            if (!_ItemJobCache.ContainsKey(nextItemJob.Id))
+            {
+                throw new Exception("Next item not found");
+            }
+
+
+            var dict = new Dictionary<string, object>();
+            dict[Values.NextItemJob_Id] = nextItemJob.Id;
+
+            using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = _GenerateUpdateFromDict(Values.ItemJob, itemJob.Id, dict);
+
+                    Debug.WriteLine("Executing " + cmd.CommandText);
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+
+            itemJob = GetItemJobById(itemJob.Id);
+
+        }
+
+        public ItemJob GetItemJobByWorkplaceAndProduct(Workplace workplace, Product product) {
+            if (workplace == null) {
+                throw new ArgumentException("Workplace is not set");
+            }
+            if (product == null)
+            {
+                throw new ArgumentException("Product is not set");
+            }
+
+            var allItemJobs = GetAllItemJobs();
+
+            var result = new List<ItemJob>(from itemJob in allItemJobs where itemJob.Workplace == workplace && itemJob.Product == product select itemJob);
+
+            if (result.Count == 0) {
+                return null;
+            }
+
+
+            var itemJobFound = result.FirstOrDefault();
+            if (product.Id == 10)
+                Console.WriteLine();
+            return itemJobFound;
+        }
 
         public ItemJob GetItemJobById(int id)
         {
@@ -977,5 +1236,6 @@ namespace SupplyChainManagement.Data
                 }
             }
         }
+
     }
 }

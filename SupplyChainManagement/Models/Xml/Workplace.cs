@@ -29,5 +29,22 @@ namespace SupplyChainManagement.Models.Xml
         [XmlAttribute("timeneed")]
         public int TimeNeed;
 
+        [XmlAttribute("period")]
+        public int Period;
+
+        [XmlAttribute("order")]
+        public int Order;
+
+        [XmlAttribute("batch")]
+        public int Batch;
+
+        [XmlAttribute("item")]
+        public int Item;
+
+        [XmlAttribute("amount")]
+        public int Amount;
+
+        [XmlElement("waitinglist")]
+        public WaitingList WaitingList;
     }
 }

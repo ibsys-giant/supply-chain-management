@@ -35,5 +35,17 @@ namespace SupplyChainManagement.Models.Xml
 
         [XmlElement("waitinglistworkstations")]
         public WaitingListWorkstations WaitingListWorkstations;
+
+        [XmlElement("waitingliststock")]
+        public WaitingListStock WaitingListStock;
+
+        [XmlElement("ordersinwork")]
+        public OrdersInWork OrdersInWork;
+
+        [XmlElement("completedorders")]
+        public CompletedOrders CompletedOrders;
+
+        [XmlElement("cycletimes")]
+        public CycleTimes CycleTimes;
     }
 }

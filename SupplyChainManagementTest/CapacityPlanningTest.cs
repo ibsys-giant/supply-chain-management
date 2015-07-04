@@ -19,7 +19,7 @@ namespace SupplyChainManagementTest
         [TestCase]
         public void CapacityPlanningWorks()
         {
-            var materialPlanning = new MaterialPlanning(new SQLiteDataSource(), new Dictionary<Workplace, SupplyChainManagement.Models.Xml.Article>(), new Dictionary<Workplace, SupplyChainManagement.Models.Xml.Order>());
+            var materialPlanning = new MaterialPlanning(new SQLiteDataSource(), new Dictionary<Product, int>(), new Dictionary<Product, int>());
 
             var p1 = materialPlanning.DataSource.GetItemById(1) as Product;
             var p2 = materialPlanning.DataSource.GetItemById(2) as Product;
@@ -40,7 +40,7 @@ namespace SupplyChainManagementTest
         public void SimpleCapacityPlanningWorks()
         {
             var dataSource = new SQLiteDataSource();
-            var materialPlanning = new MaterialPlanning(dataSource, new Dictionary<Workplace, SupplyChainManagement.Models.Xml.Article>(), new Dictionary<Workplace, SupplyChainManagement.Models.Xml.Order>());
+            var materialPlanning = new MaterialPlanning(dataSource, new Dictionary<Product, int>(), new Dictionary<Product, int>());
 
             var p1 = materialPlanning.DataSource.GetItemById(1) as Product;
             var p2 = materialPlanning.DataSource.GetItemById(2) as Product;

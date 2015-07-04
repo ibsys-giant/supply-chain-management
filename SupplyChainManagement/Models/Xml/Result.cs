@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SupplyChainManagement
+namespace SupplyChainManagement.Models.Xml
 {
-    class Program
+    public class Result
     {
-        public static void Main(string[] args) {
-        }
+
     }
 }

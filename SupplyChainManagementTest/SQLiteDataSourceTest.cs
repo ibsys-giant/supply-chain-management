@@ -18,12 +18,166 @@ namespace SupplyChainManagementTest
     {
 
         [TestCase]
-        public void ReferenceTest()
+        public void MultipleGetsShouldReturnTheSameReference()
         {
 
             var ds = new SQLiteDataSource();
             ds.Purge();
-            Assert.AreSame(ds.GetItemById(24), ds.GetItemById(24));
+            Assert.AreSame(ds.GetItemById(1), ds.GetItemById(1));
+            Assert.AreSame(ds.GetItemJobById(24), ds.GetItemJobById(24));
+            Assert.AreSame(ds.GetItemJobById(1), ds.GetItemJobById(1));
+            Assert.AreSame(ds.GetItemJobById(24), ds.GetItemJobById(24));
+        }
+
+        //[TestCase]
+        public void GetItemJobsOfProduct26ShouldWork() {
+            var ds = new SQLiteDataSource();
+            ds.Purge();
+
+            var item26 = ds.GetItemById(26);
+            var itemJobs = ds.GetAllItemJobs();
+        }
+
+        [TestCase]
+        public void GetItemJobOfWorkplace7AndProduct19()
+        {
+            var ds = new SQLiteDataSource();
+            ds.Purge();
+            var itemJob = ds.GetItemJobByWorkplaceAndProduct(ds.GetWorkplaceById(7), (Product) ds.GetItemById(19));
+            Assert.IsNotNull(itemJob);
+            Assert.AreEqual(24, itemJob.Id);
+        }
+
+        [TestCase]
+        public void GetAllItemJobsShouldWork()
+        {
+            var ds = new SQLiteDataSource();
+            ds.Purge();
+
+            var itemJobs = ds.GetAllItemJobs();
+
+            Assert.IsNotEmpty(itemJobs);
+            
+        }
+
+        [TestCase]
+        public void AppendNextItemJobToItemJobShouldWork()
+        {
+            var ds = new SQLiteDataSource();
+            //ds.Purge();
+
+            var product10 = (Product)ds.GetItemById(10);
+            var workplace7 = ds.GetWorkplaceById(7);
+            var workplace9 = ds.GetWorkplaceById(9);
+
+            var itemJob = ds.GetItemJobByWorkplaceAndProduct(
+                    workplace7,
+                    product10
+                );
+
+
+            var nextItemJob =
+                ds.GetItemJobByWorkplaceAndProduct(
+                    workplace9,
+                    product10
+                );
+
+            ds.AppendNextItemJob(
+                ref itemJob,
+                nextItemJob
+            );
+        }
+
+        [TestCase]
+        public void GetItemJobByWorkplaceAndProductShouldWork() { 
+            var ds = new SQLiteDataSource();
+            ds.Purge();
+
+            var workplace = ds.GetWorkplaceById(7);
+            var product = (Product) ds.GetItemById(26);
+
+            var job = ds.GetItemJobByWorkplaceAndProduct(workplace, product);
+
+            Assert.NotNull(job);
+            Assert.AreEqual(26, product.Id);
+        }
+
+
+        [TestCase]
+        public void ItemJob26ShouldHaveWorkplaceAndProduct()
+        {
+            var ds = new SQLiteDataSource();
+            ds.Purge();
+
+            var job = ds.GetItemJobById(26);
+
+            Assert.IsNotNull(job);
+            Assert.AreEqual(26, job.Id);
+            Assert.IsNotNull(job.Workplace);
+            Assert.IsNotNull(job.Product);
+            Assert.AreEqual(7, job.Workplace.Id);
+            Assert.AreEqual(26, job.Product.Id);
+        }
+
+        [TestCase]
+        public void GetItemJobForWorkplace7ShouldWork()
+        {
+            var ds = new SQLiteDataSource();
+            ds.Purge();
+
+            var workplaceId = 7;
+
+            var jobs = (from job in ds.GetAllItemJobs() where job.Workplace.Id == workplaceId select job);
+
+            Assert.IsNotEmpty(jobs);
+
+            var workplace = ds.GetWorkplaceById(workplaceId);
+
+            jobs = (from job in ds.GetAllItemJobs() where job.Workplace == workplace select job);
+
+            Assert.IsNotEmpty(jobs);
+        }
+
+
+        [TestCase]
+        public void GetItemJobForWorkplace9AndProduct10ShouldWork()
+        {
+            var ds = new SQLiteDataSource();
+            ds.Purge();
+
+            var product10 = (Product)ds.GetItemById(10);
+            var workplace9 = ds.GetWorkplaceById(9);
+
+            Assert.IsNotNull(product10);
+            Assert.IsNotNull(workplace9);
+
+            var item =
+                ds.GetItemJobByWorkplaceAndProduct(
+                    workplace9,
+                    product10
+                );
+
+            Assert.IsNotNull(item);
+
+        }
+
+        [TestCase]
+        public void GetItemJobForWorkplace15ShouldWork()
+        {
+            var ds = new SQLiteDataSource();
+            ds.Purge();
+
+            var workplaceId = 15;
+
+            var jobs = (from job in ds.GetAllItemJobs() where job.Workplace.Id == workplaceId select job);
+
+            Assert.IsNotEmpty(jobs);
+
+            var workplace = ds.GetWorkplaceById(workplaceId);
+
+            jobs = (from job in ds.GetAllItemJobs() where job.Workplace == workplace select job);
+
+            Assert.IsNotEmpty(jobs);
         }
 
 

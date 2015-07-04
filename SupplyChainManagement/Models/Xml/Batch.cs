@@ -4,17 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using System.Xml;
 using System.Xml.Serialization;
 
 namespace SupplyChainManagement.Models.Xml
 {
-    public class MissingPart
+    public class Batch
     {
-        [XmlAttribute("id")]
+        [XmlElement("id")]
         public int Id;
 
-        [XmlElement("waitinglist")]
-        public List<WaitingList> WaitingLists = new List<WaitingList>();
+        [XmlElement("amount")]
+        public int Amount;
+
+        [XmlElement("cycletime")]
+        public int CycleTime;
+
+        [XmlElement("cost")]
+        public double Cost;
     }
 }
