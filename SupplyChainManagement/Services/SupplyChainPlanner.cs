@@ -22,7 +22,7 @@ namespace SupplyChainManagement.Services
         public PeriodResult PassedPeriodResult;
         
 
-        public SupplyChainPlanner(Uri endpoint, string username, string password, WebProxy proxy) 
+        public SupplyChainPlanner(Uri endpoint, string username, string password, WebProxy proxy = null) 
         {
             DataSource = new SQLiteDataSource();
             Client = new SimulatorClient(endpoint, proxy);
@@ -38,6 +38,8 @@ namespace SupplyChainManagement.Services
             using (TextReader reader = new StringReader(xml)) {
                 PassedPeriodResult = (PeriodResult) serializer.Deserialize(reader);
             }
+
+            
         }
     }
 }

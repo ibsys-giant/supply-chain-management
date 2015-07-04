@@ -35,6 +35,37 @@ namespace SupplyChainManagementTest
             Assert.AreNotEqual(0, planner.PassedPeriodResult.Game);
             Assert.AreNotEqual(0, planner.PassedPeriodResult.Group);
             Assert.AreNotEqual(0, planner.PassedPeriodResult.Period);
+
+            Assert.AreNotEqual(0, planner.PassedPeriodResult.WarehouseStock.Articles.Count);
+            foreach (var article in planner.PassedPeriodResult.WarehouseStock.Articles)
+            {
+                Assert.AreNotEqual(0, article.Id);
+            }
+
+            Assert.AreNotEqual(0, planner.PassedPeriodResult.InwardStockMovement.Orders.Count);
+            foreach (var order in planner.PassedPeriodResult.InwardStockMovement.Orders)
+            {
+                Assert.AreNotEqual(0, order.Id);
+            }
+
+            Assert.AreNotEqual(0, planner.PassedPeriodResult.FutureInwardStockMovement.Orders.Count);
+            foreach (var order in planner.PassedPeriodResult.FutureInwardStockMovement.Orders)
+            {
+                Assert.AreNotEqual(0, order.Id);
+            }
+
+            Assert.AreNotEqual(0, planner.PassedPeriodResult.IdleTimeCosts.Workplaces.Count);
+            foreach (var workplace in planner.PassedPeriodResult.IdleTimeCosts.Workplaces)
+            {
+                Assert.AreNotEqual(0, workplace.Id);
+            }
+
+            Assert.AreNotEqual(0, planner.PassedPeriodResult.WaitingListWorkstations.Workplaces.Count);
+            foreach (var workplace in planner.PassedPeriodResult.WaitingListWorkstations.Workplaces)
+            {
+                Assert.AreNotEqual(0, workplace.Id);
+            }
+
         }
     }
 }

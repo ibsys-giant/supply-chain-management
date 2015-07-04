@@ -14,13 +14,13 @@ namespace SupplyChainManagement.Services
     public class MaterialPlanning
     {
         public readonly SQLiteDataSource DataSource;
-        public readonly Dictionary<Workplace, WaitListItem> WaitingListWorkplaces;
-        public readonly Dictionary<Workplace, OrderInWorkItem> OrdersInWork;
+        public readonly Dictionary<Workplace, SupplyChainManagement.Models.Xml.Article> WaitingListWorkplaces;
+        public readonly Dictionary<Workplace, SupplyChainManagement.Models.Xml.Order> OrdersInWork;
         public Dictionary<Product, int> ProductionOrders = new Dictionary<Product, int>();
 
         public MaterialPlanning(SQLiteDataSource ds,
-            Dictionary<Workplace, WaitListItem> waitingListWorkplaces,
-            Dictionary<Workplace, OrderInWorkItem> ordersInWork)
+            Dictionary<Workplace, SupplyChainManagement.Models.Xml.Article> waitingListWorkplaces,
+            Dictionary<Workplace,  SupplyChainManagement.Models.Xml.Order> ordersInWork)
         {
             this.DataSource = ds;
             this.WaitingListWorkplaces = waitingListWorkplaces;

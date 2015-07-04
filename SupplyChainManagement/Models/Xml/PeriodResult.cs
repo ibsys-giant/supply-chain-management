@@ -21,8 +21,19 @@ namespace SupplyChainManagement.Models.Xml
         [XmlAttribute("period")]
         public int Period;
 
-        public List<ArticleWarehouseStock> WarehouseStock = new List<ArticleWarehouseStock>();
-        public List<InwardStockOrder> InwardStockMovement = new List<InwardStockOrder>();
-        public List<InwardStockOrder> FutureInwardStockMovement = new List<InwardStockOrder>();
+        [XmlElement("warehousestock")]
+        public WarehouseStock WarehouseStock;
+
+        [XmlElement("inwardstockmovement")]
+        public InwardStockMovement InwardStockMovement;
+
+        [XmlElement("futureinwardstockmovement")]
+        public InwardStockMovement FutureInwardStockMovement;
+
+        [XmlElement("idletimecosts")]
+        public IdleTimeCosts IdleTimeCosts;
+
+        [XmlElement("waitinglistworkstations")]
+        public WaitingListWorkstations WaitingListWorkstations;
     }
 }
