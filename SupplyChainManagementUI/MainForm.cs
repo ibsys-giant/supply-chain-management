@@ -28,8 +28,8 @@ namespace SupplyChainManagementUI
         {
             try
             {
-                Form2 frm = new Form2();
-                frm.Show();
+                DynamischeTabelle dyn = new DynamischeTabelle();
+                dyn.Show();
                 this.Hide();
             }
             catch (Exception exc)
