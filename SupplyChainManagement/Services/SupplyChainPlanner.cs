@@ -18,7 +18,7 @@ namespace SupplyChainManagement.Services
 {
     public class SupplyChainPlanner
     {
-        public readonly SQLiteDataSource DataSource;
+        public readonly ORM DataSource;
         public readonly SimulatorClient Client;
 
         public SupplyChainManagement.Models.Xml.PeriodResult PassedPeriodResult;
@@ -34,7 +34,7 @@ namespace SupplyChainManagement.Services
 
         public SupplyChainPlanner(Uri endpoint, string username, string password, WebProxy proxy = null) 
         {
-            DataSource = new SQLiteDataSource();
+            DataSource = new ORM();
             Client = new SimulatorClient(endpoint, proxy);
             Client.Login(username, password);
         }
@@ -55,7 +55,7 @@ namespace SupplyChainManagement.Services
                 item.Stock = article.Amount;
                 item.Value = article.Price;
 
-                DataSource.UpdateItem(ref item);
+                //DataSource.UpdateItem(ref item);
             }
         }
 

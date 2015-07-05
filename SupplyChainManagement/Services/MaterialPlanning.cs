@@ -13,12 +13,12 @@ namespace SupplyChainManagement.Services
 {
     public class MaterialPlanning
     {
-        public readonly SQLiteDataSource DataSource;
+        public readonly ORM DataSource;
         public readonly Dictionary<Product, int> WaitingList;
         public readonly Dictionary<Product, int> OrdersInWork;
         public Dictionary<Product, int> ProductionOrders = new Dictionary<Product, int>();
 
-        public MaterialPlanning(SQLiteDataSource ds,
+        public MaterialPlanning(ORM ds,
             Dictionary<Product, int> waitingList,
             Dictionary<Product, int> ordersInWork)
         {

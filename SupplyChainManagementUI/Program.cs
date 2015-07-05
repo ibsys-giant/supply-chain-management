@@ -12,7 +12,7 @@ namespace SupplyChainManagementUI
     public static class Program
     {
 
-        public static SQLiteDataSource ds;
+        public static ORM ds;
 
         /// <summary>
         /// The main entry point for the application.
@@ -20,7 +20,7 @@ namespace SupplyChainManagementUI
         [STAThread]
         static void Main()
         {
-            ds = new SQLiteDataSource();
+            ds = new ORM();
 
 
             Application.EnableVisualStyles();

@@ -22,7 +22,8 @@ namespace SupplyChainManagementTest
         [TestCase]
         public void ProcurementPlanningWorks()
         {
-            var dataSource = new SQLiteDataSource();
+            var dataSource = new ORM();
+            dataSource.Purge();
             var materialPlanning = new MaterialPlanning(dataSource, 
                 new Dictionary<Product, int>(),
                 new Dictionary<Product, int>());

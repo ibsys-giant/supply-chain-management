@@ -84,7 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\SQLiteDataSource.cs" />
+    <Compile Include="Data\ORM.cs" />
     <Compile Include="Data\DatabaseObject.cs" />
     <Compile Include="Models\Xml\Batch.cs" />
     <Compile Include="Models\Xml\CompletedOrders.cs" />

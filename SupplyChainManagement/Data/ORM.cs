@@ -14,7 +14,7 @@ using SupplyChainManagement.Models.ItemManagement;
 
 namespace SupplyChainManagement.Data
 {
-    public class SQLiteDataSource
+    public class ORM
     {
         private Dictionary<int, Item> _ItemCache = new Dictionary<int, Item>();
 
@@ -22,7 +22,7 @@ namespace SupplyChainManagement.Data
 
         public Dictionary<int, ItemJob> _ItemJobCache = new Dictionary<int, ItemJob>();
 
-        public SQLiteDataSource()
+        public ORM()
         {
 
             // Check whether directories and files do exist
@@ -616,87 +616,88 @@ namespace SupplyChainManagement.Data
 
             if (!_ItemCache.ContainsKey(id))
             {
-
-                Item item = null;
-                using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
-                {
-                    conn.Open();
-                    using (var cmd = conn.CreateCommand())
-                    {
-                        cmd.CommandText = "select * from " + Values.Item + " where " + Values.Id + " = " + id;
-
-                        using (var reader = cmd.ExecuteReader())
-                        {
-
-                            if (!reader.Read())
-                            {
-
-                                return null;
-                            }
-
-                            var type = (string)reader[Values.Type];
-
-                            if (type == Values.ProcuredItem)
-                            {
-                                item = new ProcuredItem();
-                                item.Id = (int)reader[Values.Id];
-                                item.Description = (string)reader[Values.Description];
-                                item.Stock = (int)reader[Values.Stock];
-                                item.Value = (double)reader[Values.Value];
-
-                                (item as ProcuredItem).DiscountQuantity = (int)reader[Values.DiscountQuantity];
-                                (item as ProcuredItem).OrderCosts = (double)reader[Values.OrderCosts];
-                                (item as ProcuredItem).ProcureLeadTime = (double)reader[Values.ProcureLeadTime];
-                                (item as ProcuredItem).ProcureLeadTimeDeviation = (double)reader[Values.ProcureLeadTimeDeviation];
-
-                                _ItemCache.Add(item.Id, item);
-                            }
-                            else if (type == Values.UnfinishedProduct)
-                            {
-                                item = new UnfinishedProduct();
-                                item.Id = (int)reader[Values.Id];
-                                item.Description = (string)reader[Values.Description];
-                                item.Stock = (int)reader[Values.Stock];
-                                item.Value = (double)reader[Values.Value];
-
-                                _ItemCache.Add(item.Id, item);
-                            }
-                            else if (type == Values.FinishedProduct)
-                            {
-                                item = new FinishedProduct();
-                                item.Id = (int)reader[Values.Id];
-                                item.Description = (string)reader[Values.Description];
-                                item.Stock = (int)reader[Values.Stock];
-                                item.Value = (double)reader[Values.Value];
-
-                                _ItemCache.Add(item.Id, item);
-                            }
-                            else
-                            {
-                                throw new Exception("Invalid item type");
-                            }
-                        }
-                    }
-
-
-                    if (item is Product) {
-                        using (var cmd = conn.CreateCommand())
-                        {
-                            cmd.CommandText = "select * from " + Values.ChildToProduct + " where " + Values.Product_Id + " = " + item.Id;
-
-                            using (var childsReader = cmd.ExecuteReader())
-                            {
-                                while (childsReader.Read())
-                                {
-                                    var childId = (int)childsReader[Values.Child_Id];
-                                    var quantity = (int)childsReader[Values.Quantity];
-                                    (item as Product).AddItem(GetItemById(childId), quantity);
-                                }
-                            }
-                        }
-                    }
-                }
+                return null;
             }
+            //    Item item = null;
+            //    using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
+            //    {
+            //        conn.Open();
+            //        using (var cmd = conn.CreateCommand())
+            //        {
+            //            cmd.CommandText = "select * from " + Values.Item + " where " + Values.Id + " = " + id;
+
+            //            using (var reader = cmd.ExecuteReader())
+            //            {
+
+            //                if (!reader.Read())
+            //                {
+
+            //                    return null;
+            //                }
+
+            //                var type = (string)reader[Values.Type];
+
+            //                if (type == Values.ProcuredItem)
+            //                {
+            //                    item = new ProcuredItem();
+            //                    item.Id = (int)reader[Values.Id];
+            //                    item.Description = (string)reader[Values.Description];
+            //                    item.Stock = (int)reader[Values.Stock];
+            //                    item.Value = (double)reader[Values.Value];
+
+            //                    (item as ProcuredItem).DiscountQuantity = (int)reader[Values.DiscountQuantity];
+            //                    (item as ProcuredItem).OrderCosts = (double)reader[Values.OrderCosts];
+            //                    (item as ProcuredItem).ProcureLeadTime = (double)reader[Values.ProcureLeadTime];
+            //                    (item as ProcuredItem).ProcureLeadTimeDeviation = (double)reader[Values.ProcureLeadTimeDeviation];
+
+            //                    _ItemCache.Add(item.Id, item);
+            //                }
+            //                else if (type == Values.UnfinishedProduct)
+            //                {
+            //                    item = new UnfinishedProduct();
+            //                    item.Id = (int)reader[Values.Id];
+            //                    item.Description = (string)reader[Values.Description];
+            //                    item.Stock = (int)reader[Values.Stock];
+            //                    item.Value = (double)reader[Values.Value];
+
+            //                    _ItemCache.Add(item.Id, item);
+            //                }
+            //                else if (type == Values.FinishedProduct)
+            //                {
+            //                    item = new FinishedProduct();
+            //                    item.Id = (int)reader[Values.Id];
+            //                    item.Description = (string)reader[Values.Description];
+            //                    item.Stock = (int)reader[Values.Stock];
+            //                    item.Value = (double)reader[Values.Value];
+
+            //                    _ItemCache.Add(item.Id, item);
+            //                }
+            //                else
+            //                {
+            //                    throw new Exception("Invalid item type");
+            //                }
+            //            }
+            //        }
+
+
+            //        if (item is Product) {
+            //            using (var cmd = conn.CreateCommand())
+            //            {
+            //                cmd.CommandText = "select * from " + Values.ChildToProduct + " where " + Values.Product_Id + " = " + item.Id;
+
+            //                using (var childsReader = cmd.ExecuteReader())
+            //                {
+            //                    while (childsReader.Read())
+            //                    {
+            //                        var childId = (int)childsReader[Values.Child_Id];
+            //                        var quantity = (int)childsReader[Values.Quantity];
+            //                        (item as Product).AddItem(GetItemById(childId), quantity);
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
             return _ItemCache[id];
         }
 
@@ -705,55 +706,57 @@ namespace SupplyChainManagement.Data
 
             if (!_WorkplaceCache.ContainsKey(id))
             {
-                using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
-                {
-                    conn.Open();
-                    using (var cmd = conn.CreateCommand())
-                    {
-
-                        cmd.CommandText = "select * from " + Values.Workplace + " where " + Values.Id + " = " + id;
-                        using (var reader = cmd.ExecuteReader())
-                        {
-
-                            if (!reader.Read())
-                            {
-                                return null;
-                            }
-
-                            var workplace = new Workplace
-                            {
-                                Id = (int)reader[Values.Id],
-                                IdleMachineCosts = (double)reader[Values.IdleMachineCosts],
-                                JobDescription = reader[Values.JobDescription] as string,
-                                LaborCostsFirstShift = (double)reader[Values.LaborCostsFirstShift],
-                                LaborCostsSecondShift = (double)reader[Values.LaborCostsSecondShift],
-                                LaborCostsThirdShift = (double)reader[Values.LaborCostsThirdShift],
-                                LaborCostsOvertime = (double)reader[Values.LaborCostsOvertime],
-                                ProductiveMachineCosts = (double)reader[Values.ProductiveMachineCosts]
-                            };
-
-                            _WorkplaceCache.Add(workplace.Id, workplace);
-
-                        }
-                    }
-                }
-
-                using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
-                {
-                    conn.Open();
-                    using (var cmd = conn.CreateCommand())
-                    {
-
-                        cmd.CommandText = "select * from " + Values.ItemJob + " where " + Values.Workplace_Id + " = " + id;
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            while (reader.NextResult()) {
-                                _WorkplaceCache[id].Jobs.Add(GetItemJobById((int)reader[Values.Id]));
-                            }
-                        }
-                    }
-                }
+                return null;
             }
+            //    using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
+            //    {
+            //        conn.Open();
+            //        using (var cmd = conn.CreateCommand())
+            //        {
+
+            //            cmd.CommandText = "select * from " + Values.Workplace + " where " + Values.Id + " = " + id;
+            //            using (var reader = cmd.ExecuteReader())
+            //            {
+
+            //                if (!reader.Read())
+            //                {
+            //                    return null;
+            //                }
+
+            //                var workplace = new Workplace
+            //                {
+            //                    Id = (int)reader[Values.Id],
+            //                    IdleMachineCosts = (double)reader[Values.IdleMachineCosts],
+            //                    JobDescription = reader[Values.JobDescription] as string,
+            //                    LaborCostsFirstShift = (double)reader[Values.LaborCostsFirstShift],
+            //                    LaborCostsSecondShift = (double)reader[Values.LaborCostsSecondShift],
+            //                    LaborCostsThirdShift = (double)reader[Values.LaborCostsThirdShift],
+            //                    LaborCostsOvertime = (double)reader[Values.LaborCostsOvertime],
+            //                    ProductiveMachineCosts = (double)reader[Values.ProductiveMachineCosts]
+            //                };
+
+            //                _WorkplaceCache.Add(workplace.Id, workplace);
+
+            //            }
+            //        }
+            //    }
+
+            //    using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
+            //    {
+            //        conn.Open();
+            //        using (var cmd = conn.CreateCommand())
+            //        {
+
+            //            cmd.CommandText = "select * from " + Values.ItemJob + " where " + Values.Workplace_Id + " = " + id;
+            //            using (var reader = cmd.ExecuteReader())
+            //            {
+            //                while (reader.NextResult()) {
+            //                    _WorkplaceCache[id].Jobs.Add(GetItemJobById((int)reader[Values.Id]));
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
             return _WorkplaceCache[id];
 
             
@@ -762,69 +765,69 @@ namespace SupplyChainManagement.Data
 
         public List<Workplace> GetAllWorkplaces()
         {
-            using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
-            {
-                conn.Open();
+            //using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
+            //{
+            //    conn.Open();
 
-                using (var cmd = conn.CreateCommand())
-                {
+            //    using (var cmd = conn.CreateCommand())
+            //    {
 
-                    cmd.CommandText = "select * from Item";
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
+            //        cmd.CommandText = "select * from Item";
+            //        using (var reader = cmd.ExecuteReader())
+            //        {
+            //            while (reader.Read())
+            //            {
 
-                            var currentItemId = (int)reader[Values.Id];
+            //                var currentItemId = (int)reader[Values.Id];
 
-                            if (_ItemCache.ContainsKey(currentItemId))
-                            {
-                                continue;
-                            }
+            //                if (_ItemCache.ContainsKey(currentItemId))
+            //                {
+            //                    continue;
+            //                }
 
-                            var workplace = new Workplace
-                            {
-                                Id = (int)reader[Values.Id],
-                                IdleMachineCosts = (double)reader[Values.IdleMachineCosts],
-                                JobDescription = reader[Values.JobDescription] as string,
-                                LaborCostsFirstShift = (double)reader[Values.LaborCostsFirstShift],
-                                LaborCostsSecondShift = (double)reader[Values.LaborCostsSecondShift],
-                                LaborCostsThirdShift = (double)reader[Values.LaborCostsThirdShift],
-                                LaborCostsOvertime = (double)reader[Values.LaborCostsOvertime],
-                                ProductiveMachineCosts = (double)reader[Values.ProductiveMachineCosts]
-                            };
+            //                var workplace = new Workplace
+            //                {
+            //                    Id = (int)reader[Values.Id],
+            //                    IdleMachineCosts = (double)reader[Values.IdleMachineCosts],
+            //                    JobDescription = reader[Values.JobDescription] as string,
+            //                    LaborCostsFirstShift = (double)reader[Values.LaborCostsFirstShift],
+            //                    LaborCostsSecondShift = (double)reader[Values.LaborCostsSecondShift],
+            //                    LaborCostsThirdShift = (double)reader[Values.LaborCostsThirdShift],
+            //                    LaborCostsOvertime = (double)reader[Values.LaborCostsOvertime],
+            //                    ProductiveMachineCosts = (double)reader[Values.ProductiveMachineCosts]
+            //                };
 
-                            _WorkplaceCache.Add(workplace.Id, workplace);
+            //                _WorkplaceCache.Add(workplace.Id, workplace);
 
-                        }
-                    }
-                }
-            }
+            //            }
+            //        }
+            //    }
+            //}
 
-            using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
-            {
-                conn.Open();
+            //using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
+            //{
+            //    conn.Open();
 
-                foreach (var workplace in _WorkplaceCache.Values)
-                {
-                    using (var cmd = conn.CreateCommand())
-                    {
+            //    foreach (var workplace in _WorkplaceCache.Values)
+            //    {
+            //        using (var cmd = conn.CreateCommand())
+            //        {
 
-                        cmd.CommandText = "select * from " + Values.ItemJob + " where " + Values.Workplace_Id + " = " + workplace.Id;
-                        using (var reader = cmd.ExecuteReader())
-                        {
-                            while (reader.NextResult())
-                            {
-                                var itemJob = GetItemJobById((int)reader[Values.Id]);
-                                if (!_WorkplaceCache[workplace.Id].Jobs.Contains(itemJob))
-                                {
-                                    _WorkplaceCache[workplace.Id].Jobs.Add(itemJob);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            //            cmd.CommandText = "select * from " + Values.ItemJob + " where " + Values.Workplace_Id + " = " + workplace.Id;
+            //            using (var reader = cmd.ExecuteReader())
+            //            {
+            //                while (reader.NextResult())
+            //                {
+            //                    var itemJob = GetItemJobById((int)reader[Values.Id]);
+            //                    if (!_WorkplaceCache[workplace.Id].Jobs.Contains(itemJob))
+            //                    {
+            //                        _WorkplaceCache[workplace.Id].Jobs.Add(itemJob);
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
 
             return new List<Workplace>(_WorkplaceCache.Values);
         }
@@ -834,85 +837,85 @@ namespace SupplyChainManagement.Data
         {
 
 
-            var jobs = new List<ItemJob>();
-            var productIds = new List<int>();
-            var workplaceIds = new List<int>();
-            var nextJobIds = new List<int>();
+            //var jobs = new List<ItemJob>();
+            //var productIds = new List<int>();
+            //var workplaceIds = new List<int>();
+            //var nextJobIds = new List<int>();
 
-            using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
-            {
-                conn.Open();
+            //using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
+            //{
+            //    conn.Open();
 
-                using (var cmd = conn.CreateCommand())
-                {
+            //    using (var cmd = conn.CreateCommand())
+            //    {
 
-                    cmd.CommandText = "select * from " + Values.ItemJob;
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
+            //        cmd.CommandText = "select * from " + Values.ItemJob;
+            //        using (var reader = cmd.ExecuteReader())
+            //        {
+            //            while (reader.Read())
+            //            {
 
-                            var currentItemJobId = (int)reader[Values.Id];
+            //                var currentItemJobId = (int)reader[Values.Id];
 
-                            if (_ItemJobCache.ContainsKey(currentItemJobId))
-                            {
-                                continue;
-                            }
+            //                if (_ItemJobCache.ContainsKey(currentItemJobId))
+            //                {
+            //                    continue;
+            //                }
 
-                            var job = new ItemJob();
-                            job.Id = currentItemJobId;
-                            job.SetupTime = (double)reader[Values.SetupTime];
-                            job.ProductionTimePerPiece = (double)reader[Values.ProductionTimePerPiece];
-                            jobs.Add(job);
+            //                var job = new ItemJob();
+            //                job.Id = currentItemJobId;
+            //                job.SetupTime = (double)reader[Values.SetupTime];
+            //                job.ProductionTimePerPiece = (double)reader[Values.ProductionTimePerPiece];
+            //                jobs.Add(job);
 
-                            var productId = (int)reader[Values.Product_Id];
-                            var workplaceId = (int)reader[Values.Workplace_Id];
+            //                var productId = (int)reader[Values.Product_Id];
+            //                var workplaceId = (int)reader[Values.Workplace_Id];
 
-                            productIds.Add(productId);
-                            workplaceIds.Add(workplaceId);
+            //                productIds.Add(productId);
+            //                workplaceIds.Add(workplaceId);
 
-                            try
-                            {
-                                nextJobIds.Add((int)reader[Values.NextItemJob_Id]);
-                            }
-                            catch (InvalidCastException)
-                            {
-                                nextJobIds.Add(-1);
-                            }
+            //                try
+            //                {
+            //                    nextJobIds.Add((int)reader[Values.NextItemJob_Id]);
+            //                }
+            //                catch (InvalidCastException)
+            //                {
+            //                    nextJobIds.Add(-1);
+            //                }
 
-                        }
-                    }
-                }
-            }
+            //            }
+            //        }
+            //    }
+            //}
 
-            for (var i = 0; i < jobs.Count; i++) {
-                var productId = productIds[i];
-                var workplaceId = workplaceIds[i];
-                var nextJobId = nextJobIds[i];
+            //for (var i = 0; i < jobs.Count; i++) {
+            //    var productId = productIds[i];
+            //    var workplaceId = workplaceIds[i];
+            //    var nextJobId = nextJobIds[i];
 
-                jobs[i].Product = (Product) GetItemById(productId);
-                jobs[i].Workplace = GetWorkplaceById(workplaceId);
+            //    jobs[i].Product = (Product) GetItemById(productId);
+            //    jobs[i].Workplace = GetWorkplaceById(workplaceId);
 
-                if (nextJobId < 0)
-                {
-                    jobs[i].NextItemJob = null;
-                }
-                else
-                {
-                    jobs[i].NextItemJob = GetItemJobById(nextJobId);
-                }
-            }
+            //    if (nextJobId < 0)
+            //    {
+            //        jobs[i].NextItemJob = null;
+            //    }
+            //    else
+            //    {
+            //        jobs[i].NextItemJob = GetItemJobById(nextJobId);
+            //    }
+            //}
 
-            foreach (ItemJob job in jobs) {
-                if (!_ItemJobCache.ContainsKey(job.Id))
-                {
-                    _ItemJobCache.Add(job.Id, job);
-                }
-                else
-                {
-                    _ItemJobCache[job.Id].NextItemJob = job.NextItemJob;
-                }
-            }
+            //foreach (ItemJob job in jobs) {
+            //    if (!_ItemJobCache.ContainsKey(job.Id))
+            //    {
+            //        _ItemJobCache.Add(job.Id, job);
+            //    }
+            //    else
+            //    {
+            //        _ItemJobCache[job.Id].NextItemJob = job.NextItemJob;
+            //    }
+            //}
 
             return new List<ItemJob>(_ItemJobCache.Values);
 
@@ -921,70 +924,70 @@ namespace SupplyChainManagement.Data
         public List<Item> GetAllItems()
         {
 
-            using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
-            {
-                conn.Open();
+            //using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
+            //{
+            //    conn.Open();
 
-                using (var cmd = conn.CreateCommand())
-                {
+            //    using (var cmd = conn.CreateCommand())
+            //    {
 
-                    cmd.CommandText = "select * from " + Values.Item;
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read()) {
+            //        cmd.CommandText = "select * from " + Values.Item;
+            //        using (var reader = cmd.ExecuteReader())
+            //        {
+            //            while (reader.Read()) {
                             
-                            var currentItemId = (int) reader[Values.Id];
+            //                var currentItemId = (int) reader[Values.Id];
 
-                            if (_ItemCache.ContainsKey(currentItemId))
-                            {
-                                continue;
-                            }
+            //                if (_ItemCache.ContainsKey(currentItemId))
+            //                {
+            //                    continue;
+            //                }
 
-                            var type = (string)reader[Values.Type];
+            //                var type = (string)reader[Values.Type];
 
-                            if (type == Values.ProcuredItem)
-                            {
-                                var item = new ProcuredItem();
-                                item.Id = (int)reader[Values.Id];
-                                item.Description = (string)reader[Values.Description];
-                                item.Stock = (int)reader[Values.Stock];
-                                item.Value = (double)reader[Values.Value];
+            //                if (type == Values.ProcuredItem)
+            //                {
+            //                    var item = new ProcuredItem();
+            //                    item.Id = (int)reader[Values.Id];
+            //                    item.Description = (string)reader[Values.Description];
+            //                    item.Stock = (int)reader[Values.Stock];
+            //                    item.Value = (double)reader[Values.Value];
 
-                                item.DiscountQuantity = (int)reader[Values.DiscountQuantity];
-                                item.OrderCosts = (double)reader[Values.OrderCosts];
-                                item.ProcureLeadTime = (double)reader[Values.ProcureLeadTime];
-                                item.ProcureLeadTimeDeviation = (double)reader[Values.ProcureLeadTimeDeviation];
+            //                    item.DiscountQuantity = (int)reader[Values.DiscountQuantity];
+            //                    item.OrderCosts = (double)reader[Values.OrderCosts];
+            //                    item.ProcureLeadTime = (double)reader[Values.ProcureLeadTime];
+            //                    item.ProcureLeadTimeDeviation = (double)reader[Values.ProcureLeadTimeDeviation];
 
-                                _ItemCache.Add(item.Id, item);
-                            }
-                            else if (type == Values.UnfinishedProduct)
-                            {
-                                var item = new UnfinishedProduct();
-                                item.Id = (int)reader[Values.Id];
-                                item.Description = (string)reader[Values.Description];
-                                item.Stock = (int)reader[Values.Stock];
-                                item.Value = (double)reader[Values.Value];
+            //                    _ItemCache.Add(item.Id, item);
+            //                }
+            //                else if (type == Values.UnfinishedProduct)
+            //                {
+            //                    var item = new UnfinishedProduct();
+            //                    item.Id = (int)reader[Values.Id];
+            //                    item.Description = (string)reader[Values.Description];
+            //                    item.Stock = (int)reader[Values.Stock];
+            //                    item.Value = (double)reader[Values.Value];
 
-                                _ItemCache.Add(item.Id, item);
-                            }
-                            else if (type == Values.FinishedProduct)
-                            {
-                                var item = new FinishedProduct();
-                                item.Id = (int)reader[Values.Id];
-                                item.Description = (string)reader[Values.Description];
-                                item.Stock = (int)reader[Values.Stock];
-                                item.Value = (double)reader[Values.Value];
+            //                    _ItemCache.Add(item.Id, item);
+            //                }
+            //                else if (type == Values.FinishedProduct)
+            //                {
+            //                    var item = new FinishedProduct();
+            //                    item.Id = (int)reader[Values.Id];
+            //                    item.Description = (string)reader[Values.Description];
+            //                    item.Stock = (int)reader[Values.Stock];
+            //                    item.Value = (double)reader[Values.Value];
 
-                                _ItemCache.Add(item.Id, item);
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                        }
-                    }
-                }
-            }
+            //                    _ItemCache.Add(item.Id, item);
+            //                }
+            //                else
+            //                {
+            //                    continue;
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
 
             return new List<Item>(_ItemCache.Values);
         }
@@ -992,11 +995,6 @@ namespace SupplyChainManagement.Data
 
         public void AppendNextItemJob(int productId, int workplaceId, int nextWorkplaceId)
         {
-            if (productId == 10)
-            {
-                Console.WriteLine();
-            }
-
             var product = (Product) GetItemById(productId);
             var workplace = GetWorkplaceById(workplaceId);
             var nextWorkplace = GetWorkplaceById(nextWorkplaceId);
@@ -1006,10 +1004,6 @@ namespace SupplyChainManagement.Data
                     product
                 );
 
-            if (product.Id == 10) {
-                Console.WriteLine();
-            }
-
             product = (Product)GetItemById(productId);
 
             var nextItemJob = 
@@ -1017,11 +1011,6 @@ namespace SupplyChainManagement.Data
                     nextWorkplace,
                     product
                 );
-
-            
-            if (product.Id == 10) {
-                Console.WriteLine();
-            }
 
             AppendNextItemJob(
                 ref itemJob,
@@ -1041,32 +1030,32 @@ namespace SupplyChainManagement.Data
                 throw new Exception("Item and next item must produce the same product");
             }
 
-            var itemJobFromDb = GetItemJobById(itemJob.Id);
-            var nextItemJobFromDb = GetItemJobById(nextItemJob.Id);
+            //var itemJobFromDb = GetItemJobById(itemJob.Id);
+            //var nextItemJobFromDb = GetItemJobById(nextItemJob.Id);
 
-            if (!_ItemJobCache.ContainsKey(itemJob.Id))
-            {
-                throw new Exception("Item not found");
-            }
-            if (!_ItemJobCache.ContainsKey(nextItemJob.Id))
-            {
-                throw new Exception("Next item not found");
-            }
+            //if (!_ItemJobCache.ContainsKey(itemJob.Id))
+            //{
+            //    throw new Exception("Item not found");
+            //}
+            //if (!_ItemJobCache.ContainsKey(nextItemJob.Id))
+            //{
+            //    throw new Exception("Next item not found");
+            //}
 
 
-            var dict = new Dictionary<string, object>();
-            dict[Values.NextItemJob_Id] = nextItemJob.Id;
+            //var dict = new Dictionary<string, object>();
+            //dict[Values.NextItemJob_Id] = nextItemJob.Id;
 
-            using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
-            {
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = _GenerateUpdateFromDict(Values.ItemJob, itemJob.Id, dict);
-                    cmd.ExecuteNonQuery();
+            //using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
+            //{
+            //    conn.Open();
+            //    using (var cmd = conn.CreateCommand())
+            //    {
+            //        cmd.CommandText = _GenerateUpdateFromDict(Values.ItemJob, itemJob.Id, dict);
+            //        cmd.ExecuteNonQuery();
 
-                }
-            }
+            //    }
+            //}
 
             _ItemJobCache[itemJob.Id].NextItemJob = GetItemJobById(nextItemJob.Id);
 
@@ -1083,179 +1072,180 @@ namespace SupplyChainManagement.Data
 
             var allItemJobs = GetAllItemJobs();
 
-            var result = new List<ItemJob>(from itemJob in allItemJobs where itemJob.Workplace == workplace && itemJob.Product == product select itemJob);
-
-            if (result.Count == 0) {
-                return null;
-            }
-
-
-            var itemJobFound = result.FirstOrDefault();
-            if (product.Id == 10)
-                Console.WriteLine();
-            return itemJobFound;
+            return new List<ItemJob>(from itemJob in allItemJobs where itemJob.Workplace == workplace && itemJob.Product == product select itemJob).FirstOrDefault();
         }
 
         public ItemJob GetItemJobById(int id)
         {
             if (!_ItemJobCache.ContainsKey(id))
             {
-
-                ItemJob job = null;
-                int productId = -1;
-                int workplaceId = -1;
-                int nextItemJobId = -1;
-                using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
-                {
-                    conn.Open();
-
-                    using (var cmd = conn.CreateCommand())
-                    {
-
-                        cmd.CommandText = "select * from " + Values.ItemJob + " where " + Values.Id + " = " + id;
-                        using (var reader = cmd.ExecuteReader())
-                        {
-
-                            if (!reader.Read())
-                            {
-                                return null;
-                            }
-
-                            job = new ItemJob
-                            {
-                                Id = (int)reader[Values.Id],
-                                ProductionTimePerPiece = (double)reader[Values.ProductionTimePerPiece],
-                                SetupTime = (double)reader[Values.SetupTime]
-                            };
-
-                            productId = (int)reader[Values.Product_Id];
-                            workplaceId = (int)reader[Values.Workplace_Id];
-
-                            try
-                            {
-                                nextItemJobId = (int)reader[Values.NextItemJob_Id];
-                            }
-                            catch (InvalidCastException) { }
-
-                        }
-                    }
-                }
-
-                job.Product = (Product)GetItemById(productId);
-                job.Workplace = (Workplace)GetWorkplaceById(workplaceId);
-                job.Workplace.Jobs.Add(job);
-
-                if (nextItemJobId > 0) {
-                    job.NextItemJob = GetItemJobById(nextItemJobId);
-                }
-                _ItemJobCache.Add(job.Id, job);
+                return null;
             }
+
+            //    ItemJob job = null;
+            //    int productId = -1;
+            //    int workplaceId = -1;
+            //    int nextItemJobId = -1;
+            //    using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
+            //    {
+            //        conn.Open();
+
+            //        using (var cmd = conn.CreateCommand())
+            //        {
+
+            //            cmd.CommandText = "select * from " + Values.ItemJob + " where " + Values.Id + " = " + id;
+            //            using (var reader = cmd.ExecuteReader())
+            //            {
+
+            //                if (!reader.Read())
+            //                {
+            //                    return null;
+            //                }
+
+            //                job = new ItemJob
+            //                {
+            //                    Id = (int)reader[Values.Id],
+            //                    ProductionTimePerPiece = (double)reader[Values.ProductionTimePerPiece],
+            //                    SetupTime = (double)reader[Values.SetupTime]
+            //                };
+
+            //                productId = (int)reader[Values.Product_Id];
+            //                workplaceId = (int)reader[Values.Workplace_Id];
+
+            //                try
+            //                {
+            //                    nextItemJobId = (int)reader[Values.NextItemJob_Id];
+            //                }
+            //                catch (InvalidCastException) { }
+
+            //            }
+            //        }
+            //    }
+
+            //    job.Product = (Product)GetItemById(productId);
+            //    job.Workplace = (Workplace)GetWorkplaceById(workplaceId);
+            //    job.Workplace.Jobs.Add(job);
+
+            //    if (nextItemJobId > 0) {
+            //        job.NextItemJob = GetItemJobById(nextItemJobId);
+            //    }
+            //    _ItemJobCache.Add(job.Id, job);
+            //}
             return _ItemJobCache[id];
         }
 
         public void AddChildToProduct(Product product, Item child, int quantity)
         {
-            var dict = new Dictionary<string, object>();
+            //var dict = new Dictionary<string, object>();
 
-            dict[Values.Child_Id] = child.Id;
-            dict[Values.Product_Id] = product.Id;
-            dict[Values.Quantity] = quantity;
+            //dict[Values.Child_Id] = child.Id;
+            //dict[Values.Product_Id] = product.Id;
+            //dict[Values.Quantity] = quantity;
 
-            using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
-            {
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = _GenerateInsertFromDict(Values.ChildToProduct, dict);
-                    cmd.ExecuteNonQuery();
-                }
-            }
+            //using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
+            //{
+            //    conn.Open();
+            //    using (var cmd = conn.CreateCommand())
+            //    {
+            //        cmd.CommandText = _GenerateInsertFromDict(Values.ChildToProduct, dict);
+            //        cmd.ExecuteNonQuery();
+            //    }
+            //}
 
-            product = (Product) GetItemById(product.Id);
-            child = GetItemById(child.Id);
+            //product = (Product) GetItemById(product.Id);
+            //child = GetItemById(child.Id);
 
             product.AddItem(child, quantity);
         }
 
-        public void UpdateItem(ref Item item)
-        {
+        //public void UpdateItem(ref Item item)
+        //{
 
-            var itemFromDb = GetItemById(item.Id);
+        //    var itemFromDb = GetItemById(item.Id);
 
-            if (!_ItemCache.ContainsKey(item.Id))
-            {
-                throw new Exception("Item not found");
-            }
+        //    if (!_ItemCache.ContainsKey(item.Id))
+        //    {
+        //        throw new Exception("Item not found");
+        //    }
 
-            itemFromDb.Description = item.Description;
-            itemFromDb.Value = item.Value;
-            itemFromDb.Stock = item.Stock;
+        //    itemFromDb.Description = item.Description;
+        //    itemFromDb.Value = item.Value;
+        //    itemFromDb.Stock = item.Stock;
 
-            if (item is ProcuredItem)
-            {
-                var procuredItem = (ProcuredItem) item;
-                var procuredItemFromDb = (ProcuredItem)itemFromDb;
-                procuredItemFromDb.DiscountQuantity = procuredItem.DiscountQuantity;
-                procuredItemFromDb.OrderCosts = procuredItem.OrderCosts;
-                procuredItemFromDb.ProcureLeadTime = procuredItem.ProcureLeadTime;
-                procuredItemFromDb.ProcureLeadTimeDeviation = procuredItem.ProcureLeadTimeDeviation;
-                item = procuredItem;
-                itemFromDb = procuredItemFromDb;
-            }
+        //    if (item is ProcuredItem)
+        //    {
+        //        var procuredItem = (ProcuredItem) item;
+        //        var procuredItemFromDb = (ProcuredItem)itemFromDb;
+        //        procuredItemFromDb.DiscountQuantity = procuredItem.DiscountQuantity;
+        //        procuredItemFromDb.OrderCosts = procuredItem.OrderCosts;
+        //        procuredItemFromDb.ProcureLeadTime = procuredItem.ProcureLeadTime;
+        //        procuredItemFromDb.ProcureLeadTimeDeviation = procuredItem.ProcureLeadTimeDeviation;
+        //        item = procuredItem;
+        //        itemFromDb = procuredItemFromDb;
+        //    }
 
-            using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
-            {
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = _GenerateUpdateFromDict(Values.Item, item.Id, item.ToDictionary());
+        //    using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
+        //    {
+        //        conn.Open();
+        //        using (var cmd = conn.CreateCommand())
+        //        {
+        //            cmd.CommandText = _GenerateUpdateFromDict(Values.Item, item.Id, item.ToDictionary());
 
-                    cmd.ExecuteNonQuery();
+        //            cmd.ExecuteNonQuery();
 
-                }
-            }
+        //        }
+        //    }
 
-            item = itemFromDb;
-        }
+        //    item = itemFromDb;
+        //}
 
         public void CreateItem(Item item) {
 
-            using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
-            {
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = _GenerateInsertFromDict(Values.Item, item.ToDictionary());
-                    cmd.ExecuteNonQuery();
+            _ItemCache.Add(item.Id, item);
 
-                }
-            }
+            //using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
+            //{
+            //    conn.Open();
+            //    using (var cmd = conn.CreateCommand())
+            //    {
+            //        cmd.CommandText = _GenerateInsertFromDict(Values.Item, item.ToDictionary());
+            //        cmd.ExecuteNonQuery();
+
+            //    }
+            //}
         }
 
         public void CreateWorkplace(Workplace workplace)
         {
-            using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
-            {
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = _GenerateInsertFromDict(Values.Workplace, workplace.ToDictionary());
-                    cmd.ExecuteNonQuery();
-                }
-            }
+            _WorkplaceCache.Add(workplace.Id, workplace);
+
+            //using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
+            //{
+            //    conn.Open();
+            //    using (var cmd = conn.CreateCommand())
+            //    {
+            //        cmd.CommandText = _GenerateInsertFromDict(Values.Workplace, workplace.ToDictionary());
+            //        cmd.ExecuteNonQuery();
+            //    }
+            //}
         }
 
         public void CreateItemJob(ItemJob itemJob)
         {
-            using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
-            {
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = _GenerateInsertFromDict(Values.ItemJob, itemJob.ToDictionary());
-                    cmd.ExecuteNonQuery();
-                }
+            if (itemJob.Workplace != null) {
+                itemJob.Workplace.Jobs.Add(itemJob);
             }
+            _ItemJobCache.Add(itemJob.Id, itemJob);
+
+            //using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
+            //{
+            //    conn.Open();
+            //    using (var cmd = conn.CreateCommand())
+            //    {
+            //        cmd.CommandText = _GenerateInsertFromDict(Values.ItemJob, itemJob.ToDictionary());
+            //        cmd.ExecuteNonQuery();
+            //    }
+            //}
         }
 
     }

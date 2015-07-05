@@ -84,7 +84,8 @@ namespace SupplyChainManagementTest
         [TestCase]
         public void SimpleCapacityPlanningWorks()
         {
-            var dataSource = new SQLiteDataSource();
+            var dataSource = new ORM();
+            dataSource.Purge();
             var materialPlanning = new MaterialPlanning(dataSource, new Dictionary<Product, int>(), new Dictionary<Product, int>());
 
             var p1 = materialPlanning.DataSource.GetItemById(1) as Product;
