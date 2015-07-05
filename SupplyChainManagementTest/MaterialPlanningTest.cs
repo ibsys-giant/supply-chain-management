@@ -20,7 +20,9 @@ namespace SupplyChainManagementTest
         [TestCase]
         public void MaterialPlanningShouldWork()
         {
-            var materialPlanning = new MaterialPlanning(new SQLiteDataSource(), new Dictionary<Workplace, SupplyChainManagement.Models.Xml.Article>(), new Dictionary<Workplace,SupplyChainManagement.Models.Xml.Order>());
+            var ds = new ORM();
+            ds.Purge();
+            var materialPlanning = new MaterialPlanning(ds, new Dictionary<Product, int>(), new Dictionary<Product, int>());
 
             var p1 = materialPlanning.DataSource.GetItemById(1) as Product;
             var p2 = materialPlanning.DataSource.GetItemById(2) as Product;

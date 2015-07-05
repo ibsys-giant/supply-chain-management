@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace SupplyChainManagement.Models.Xml
+namespace SupplyChainManagement.Models.InputXml
 {
     [XmlRoot("results")]
     public class PeriodResult
@@ -35,5 +35,17 @@ namespace SupplyChainManagement.Models.Xml
 
         [XmlElement("waitinglistworkstations")]
         public WaitingListWorkstations WaitingListWorkstations;
+
+        [XmlElement("waitingliststock")]
+        public WaitingListStock WaitingListStock;
+
+        [XmlElement("ordersinwork")]
+        public OrdersInWork OrdersInWork;
+
+        [XmlElement("completedorders")]
+        public CompletedOrders CompletedOrders;
+
+        [XmlElement("cycletimes")]
+        public CycleTimes CycleTimes;
     }
 }

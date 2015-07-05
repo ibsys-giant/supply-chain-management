@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using SupplyChainManagement.Util;
 
 using SupplyChainManagement.Data;
 using SupplyChainManagement.Models.ItemManagement;
 
 namespace SupplyChainManagement.Models
 {
-    public class ItemJob : DatabaseObject
+    public class ItemJob
     {
 
         public int Id;
@@ -35,25 +36,11 @@ namespace SupplyChainManagement.Models
         /// </summary>
         public double ProductionTimePerPiece;
 
+        /// <summary>
+        /// Next item job
+        /// </summary>
+        public ItemJob NextItemJob;
 
-        public override Dictionary<string, object> ToDictionary()
-        {
-            var dict = base.ToDictionary();
 
-            dict["Id"] = Id;
-
-            if (Workplace != null)
-            {
-                dict["Workplace_Id"] = Workplace.Id;
-            }
-            if (Product != null)
-            {
-                dict["Product_Id"] = Product.Id;
-            }
-            dict["SetupTime"] = SetupTime;
-            dict["ProductionTimePerPiece"] = ProductionTimePerPiece;
-
-            return dict;
-        }
     }
 }

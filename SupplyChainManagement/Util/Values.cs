@@ -21,6 +21,7 @@ namespace SupplyChainManagement.Util
         public static string Value = "Value";
         public static string Product_Id = "Product_Id";
         public static string Child_Id = "Child_id";
+        public static string NextItemJob_Id = "NextItemJob_Id";
         public static string Quantity = "Quantity";
         public static string Type = "Type";
 
@@ -46,5 +47,6 @@ namespace SupplyChainManagement.Util
         public static string ProcuredItem = "ProcuredItem";
         public static string FinishedProduct = "FinishedProduct";
         public static string UnfinishedProduct = "UnfinishedProduct";
+
     }
 }

@@ -8,7 +8,7 @@ using SupplyChainManagement.Data;
 
 namespace SupplyChainManagement.Models
 {
-    public class Workplace : DatabaseObject
+    public class Workplace 
     {
         /// <summary>
         /// Work place id
@@ -43,6 +43,7 @@ namespace SupplyChainManagement.Models
         /// <summary>
         /// Machine costs during production
         /// </summary>
+
         public double ProductiveMachineCosts;
 
         /// <summary>
@@ -58,22 +59,6 @@ namespace SupplyChainManagement.Models
         public override string ToString()
         {
             return "Workplace #" + this.Id + " with " + this.Jobs.Count + " jobs";
-        }
-
-        public override Dictionary<string, object> ToDictionary()
-        {
-            var dict =  base.ToDictionary();
-
-            dict["Id"] = Id;
-            dict["JobDescription"] = JobDescription;
-            dict["LaborCostsFirstShift"] = LaborCostsFirstShift;
-            dict["LaborCostsSecondShift"] = LaborCostsSecondShift;
-            dict["LaborCostsThirdShift"] = LaborCostsThirdShift;
-            dict["LaborCostsOvertime"] = LaborCostsOvertime;
-            dict["ProductiveMachineCosts"] = ProductiveMachineCosts;
-            dict["IdleMachineCosts"] = IdleMachineCosts;
-
-            return dict;
         }
     }
 }

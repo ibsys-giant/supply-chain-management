@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace SupplyChainManagement.Models.Xml
+namespace SupplyChainManagement.Models.InputXml
 {
     public class Order
     {
@@ -26,6 +26,15 @@ namespace SupplyChainManagement.Models.Xml
         [XmlAttribute("amount")]
         public int Amount;
 
+        [XmlAttribute("quantity")]
+        public int Quantity;
+
+        [XmlAttribute("cost")]
+        public double Cost;
+
+        [XmlAttribute("averageunitcosts")]
+        public double AverageUnitCosts;
+
         [XmlAttribute("time")]
         public int Time;
 
@@ -40,5 +49,22 @@ namespace SupplyChainManagement.Models.Xml
 
         [XmlAttribute("piececosts")]
         public double PieceCosts;
+
+        [XmlAttribute("starttime")]
+        public string StartTime;
+
+        [XmlAttribute("finishtime")]
+        public string FinishTime;
+
+        [XmlAttribute("cycletimemin")]
+        public int CycleTimeMin;
+
+        [XmlAttribute("cycletimefactor")]
+        public double CycleTimeFactor;
+
+        [XmlElement("batch")]
+        public List<Batch> Batches;
+
+
     }
 }

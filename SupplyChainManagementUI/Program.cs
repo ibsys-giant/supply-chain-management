@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using System.Diagnostics;
 
 using SupplyChainManagement.Data;
 
@@ -13,7 +12,7 @@ namespace SupplyChainManagementUI
     public static class Program
     {
 
-        public static SQLiteDataSource ds;
+        public static ORM ds;
 
         /// <summary>
         /// The main entry point for the application.
@@ -21,8 +20,7 @@ namespace SupplyChainManagementUI
         [STAThread]
         static void Main()
         {
-            Debug.WriteLine("Creating data source...");
-            ds = new SQLiteDataSource();
+            ds = new ORM();
 
 
             Application.EnableVisualStyles();

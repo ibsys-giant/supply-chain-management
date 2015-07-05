@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SupplyChainManagement.Models.Xml
+namespace SupplyChainManagement.Models.InputXml
 {
     public class MissingPartWaitingListItem
     {

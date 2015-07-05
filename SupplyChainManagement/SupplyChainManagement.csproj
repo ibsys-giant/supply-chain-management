@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B819CC77-F464-485B-A7D8-486B21FAE791}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SupplyChainManagement</RootNamespace>
     <AssemblyName>SupplyChainManagement</AssemblyName>
@@ -48,6 +48,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
@@ -81,20 +84,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\SQLiteDataSource.cs" />
-    <Compile Include="Data\DatabaseObject.cs" />
-    <Compile Include="Models\Xml\IdleTimeCosts.cs" />
-    <Compile Include="Models\Xml\InwardStockMovement.cs" />
+    <Compile Include="Data\ORM.cs" />
+    <Compile Include="Models\InputXml\Batch.cs" />
+    <Compile Include="Models\InputXml\CompletedOrders.cs" />
+    <Compile Include="Models\InputXml\CycleTimes.cs" />
+    <Compile Include="Models\InputXml\IdleTimeCosts.cs" />
+    <Compile Include="Models\InputXml\InwardStockMovement.cs" />
+    <Compile Include="Models\OutputXml\Input.cs" />
+    <Compile Include="Models\OutputXml\Item.cs" />
+    <Compile Include="Models\OutputXml\Order.cs" />
+    <Compile Include="Models\OutputXml\OrderList.cs" />
+    <Compile Include="Models\OutputXml\Production.cs" />
+    <Compile Include="Models\OutputXml\ProductionList.cs" />
+    <Compile Include="Models\OutputXml\SellDirect.cs" />
+    <Compile Include="Models\OutputXml\SellWish.cs" />
+    <Compile Include="Models\OutputXml\WorkingTime.cs" />
+    <Compile Include="Models\OutputXml\WorkingTimeList.cs" />
     <Compile Include="Models\ProcurementOrder.cs" />
-    <Compile Include="Models\Xml\MissingPart.cs" />
-    <Compile Include="Models\Xml\MissingPartWaitingListItem.cs" />
-    <Compile Include="Models\Xml\Article.cs" />
-    <Compile Include="Models\Xml\Order.cs" />
-    <Compile Include="Models\Xml\PeriodResult.cs" />
-    <Compile Include="Models\Xml\WaitingListWorkstations.cs" />
-    <Compile Include="Models\Xml\WarehouseStock.cs" />
-    <Compile Include="Models\Xml\Workplace.cs" />
-    <Compile Include="Models\Xml\WorkplaceWaitingList.cs" />
+    <Compile Include="Models\InputXml\MissingPart.cs" />
+    <Compile Include="Models\InputXml\MissingPartWaitingListItem.cs" />
+    <Compile Include="Models\InputXml\Article.cs" />
+    <Compile Include="Models\InputXml\Order.cs" />
+    <Compile Include="Models\InputXml\OrdersInWork.cs" />
+    <Compile Include="Models\InputXml\PeriodResult.cs" />
+    <Compile Include="Models\InputXml\Result.cs" />
+    <Compile Include="Models\InputXml\WaitingList.cs" />
+    <Compile Include="Models\InputXml\WaitingListStock.cs" />
+    <Compile Include="Models\InputXml\WaitingListWorkstations.cs" />
+    <Compile Include="Models\InputXml\WarehouseStock.cs" />
+    <Compile Include="Models\InputXml\Workplace.cs" />
+    <Compile Include="Models\InputXml\WorkplaceWaitingList.cs" />
     <Compile Include="Services\MaterialPlanning.cs" />
     <Compile Include="Models\ItemJob.cs" />
     <Compile Include="Models\ItemManagement\Item.cs" />
@@ -104,7 +123,6 @@
     <Compile Include="Models\ProductionOrder.cs" />
     <Compile Include="Models\ItemManagement\Product.cs" />
     <Compile Include="Models\Workplace.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CapacityPlanning.cs" />
     <Compile Include="Services\ProcurementPlanning.cs" />
@@ -157,6 +175,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Sql\fixtures.sql" />
     <Content Include="Sql\schema.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

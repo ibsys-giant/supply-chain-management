@@ -4,16 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace SupplyChainManagement.Models.Xml
+namespace SupplyChainManagement.Models.InputXml
 {
-    [XmlRoot("warehousestock")]
-    public class WarehouseStock
+    public class InwardStockMovement
     {
-        [XmlElement("article")]
-        public List<Article> Articles;
+        [XmlElement("order")]
+        public List<Order> Orders;
     }
 }

@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using System.Xml;
 using System.Xml.Serialization;
 
-namespace SupplyChainManagement.Models.Xml
+namespace SupplyChainManagement.Models.OutputXml
 {
-    public class IdleTimeCosts
+    public class SellWish
     {
-        [XmlElement("workplace")]
-        public List<Workplace> Workplaces;
+        [XmlElement("item")]
+        public List<Item> Items = new List<Item>();
     }
 }

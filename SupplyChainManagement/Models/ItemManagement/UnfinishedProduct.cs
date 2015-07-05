@@ -8,11 +8,5 @@ namespace SupplyChainManagement.Models.ItemManagement
 {
     public class UnfinishedProduct : Product
     {
-        public override Dictionary<string, object> ToDictionary()
-        {
-            var dict = base.ToDictionary();
-            dict["Type"] = "UnfinishedProduct";
-            return dict;
-        }
     }
 }

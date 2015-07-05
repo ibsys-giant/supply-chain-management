@@ -53,7 +53,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="SQLiteDataSourceTest.cs" />
+    <Compile Include="ORMTest.cs" />
     <Compile Include="MaterialPlanningTest.cs" />
     <Compile Include="ModelTest.cs" />
     <Compile Include="ProcurementPlanningTest.cs" />

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace SupplyChainManagement.Models.Xml
+namespace SupplyChainManagement.Models.InputXml
 {
     public class Workplace
     {
@@ -29,5 +29,22 @@ namespace SupplyChainManagement.Models.Xml
         [XmlAttribute("timeneed")]
         public int TimeNeed;
 
+        [XmlAttribute("period")]
+        public int Period;
+
+        [XmlAttribute("order")]
+        public int Order;
+
+        [XmlAttribute("batch")]
+        public int Batch;
+
+        [XmlAttribute("item")]
+        public int Item;
+
+        [XmlAttribute("amount")]
+        public int Amount;
+
+        [XmlElement("waitinglist")]
+        public WaitingList WaitingList;
     }
 }
