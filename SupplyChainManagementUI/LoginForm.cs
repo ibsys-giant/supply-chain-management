@@ -66,7 +66,7 @@ namespace SupplyChainManagementUI
 
         private void loginAction(object sender, EventArgs e)
         {
-
+            
             System.Net.WebProxy proxy = null;
             if (proxyCheckBox.Checked)
             {
@@ -75,6 +75,7 @@ namespace SupplyChainManagementUI
                 var port = proxyPortTextBox.Text;
                 var uri = new Uri("http://" + host + ":" + port);
 
+                
                 string username = null;
                 string password = null;
 
@@ -99,10 +100,11 @@ namespace SupplyChainManagementUI
 
             try
             {
-                var client = new SimulatorClient(new Uri(serverUriTextBox.Text), proxy);
-
-                client.Login(usernameTextBox.Text, passwordTextBox.Text);
-                _MainForm = new MainForm(this, client);
+                var planner = new SupplyChainPlanner(new Uri(serverUriTextBox.Text),
+                    usernameTextBox.Text, 
+                    passwordTextBox.Text, 
+                    proxy);
+                _MainForm = new MainForm(this, planner);
                 _MainForm.Show();
                 this.Hide();
             }
