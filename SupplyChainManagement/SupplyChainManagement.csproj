@@ -83,16 +83,17 @@
   <ItemGroup>
     <Compile Include="Data\SQLiteDataSource.cs" />
     <Compile Include="Data\DatabaseObject.cs" />
-    <Compile Include="Models\OrderInWorkItem.cs" />
+    <Compile Include="Models\Xml\IdleTimeCosts.cs" />
+    <Compile Include="Models\Xml\InwardStockMovement.cs" />
     <Compile Include="Models\ProcurementOrder.cs" />
     <Compile Include="Models\Xml\MissingPart.cs" />
     <Compile Include="Models\Xml\MissingPartWaitingListItem.cs" />
-    <Compile Include="Models\Xml\WaitingListItem.cs" />
-    <Compile Include="Models\Xml\ArticleWarehouseStock.cs" />
-    <Compile Include="Models\Xml\FutureInwardStockOrder.cs" />
-    <Compile Include="Models\Xml\InwardStockOrder.cs" />
+    <Compile Include="Models\Xml\Article.cs" />
+    <Compile Include="Models\Xml\Order.cs" />
     <Compile Include="Models\Xml\PeriodResult.cs" />
-    <Compile Include="Models\Xml\WorkplaceIdleTimeCosts.cs" />
+    <Compile Include="Models\Xml\WaitingListWorkstations.cs" />
+    <Compile Include="Models\Xml\WarehouseStock.cs" />
+    <Compile Include="Models\Xml\Workplace.cs" />
     <Compile Include="Models\Xml\WorkplaceWaitingList.cs" />
     <Compile Include="Services\MaterialPlanning.cs" />
     <Compile Include="Models\ItemJob.cs" />
