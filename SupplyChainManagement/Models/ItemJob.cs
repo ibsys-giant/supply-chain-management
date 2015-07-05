@@ -11,7 +11,7 @@ using SupplyChainManagement.Models.ItemManagement;
 
 namespace SupplyChainManagement.Models
 {
-    public class ItemJob : DatabaseObject
+    public class ItemJob
     {
 
         public int Id;
@@ -42,28 +42,5 @@ namespace SupplyChainManagement.Models
         public ItemJob NextItemJob;
 
 
-        public override Dictionary<string, object> ToDictionary()
-        {
-            var dict = base.ToDictionary();
-
-            dict[Values.Id] = Id;
-
-            if (Workplace != null)
-            {
-                dict[Values.Workplace_Id] = Workplace.Id;
-            }
-            if (Product != null)
-            {
-                dict[Values.Product_Id] = Product.Id;
-            }
-            if (NextItemJob != null)
-            {
-                dict[Values.NextItemJob_Id] = NextItemJob.Id;
-            }
-            dict[Values.SetupTime] = SetupTime;
-            dict[Values.ProductionTimePerPiece] = ProductionTimePerPiece;
-
-            return dict;
-        }
     }
 }

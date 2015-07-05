@@ -12,6 +12,6 @@ namespace SupplyChainManagement.Models.OutputXml
     public class OrderList
     {
         [XmlElement("order")]
-        public List<Order> Orders;
+        public List<Order> Orders = new List<Order>();
     }
 }

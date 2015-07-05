@@ -13,12 +13,18 @@ namespace SupplyChainManagement.Models.OutputXml
     {
 
         [XmlElement("sellwish")]
-        public SellWish SellWish;
+        public SellWish SellWish = new SellWish();
 
         [XmlElement("selldirect")]
-        public SellDirect SellDirect;
+        public SellDirect SellDirect = new SellDirect();
 
         [XmlElement("orderlist")]
-        public OrderList OrderList;
+        public OrderList OrderList = new OrderList();
+
+        [XmlElement("productionlist")]
+        public ProductionList ProductionList = new ProductionList();
+
+        [XmlElement("workingtimelist")]
+        public WorkingTimeList WorkingTimeList = new WorkingTimeList();
     }
 }

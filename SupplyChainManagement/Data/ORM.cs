@@ -172,7 +172,13 @@ namespace SupplyChainManagement.Data
 
                         var id = (int)reader[Values.Id];
 
-                        _WorkplaceCache.Add(id, new Workplace { Id = id });
+                        _WorkplaceCache.Add(id, new Workplace { 
+                            Id = id,
+                            LaborCostsFirstShift = (double)reader[Values.LaborCostsFirstShift],
+                            LaborCostsSecondShift = (double)reader[Values.LaborCostsSecondShift],
+                            LaborCostsThirdShift = (double)reader[Values.LaborCostsThirdShift],
+                            LaborCostsOvertime = (double)reader[Values.LaborCostsOvertime]
+                        });
                     }
                 }
             }

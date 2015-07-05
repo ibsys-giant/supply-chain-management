@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using SupplyChainManagement;
 using SupplyChainManagement.Models;
 using SupplyChainManagement.Data;
+using SupplyChainManagement.Util;
 
 namespace SupplyChainManagement.Services
 {
@@ -15,6 +16,8 @@ namespace SupplyChainManagement.Services
     {
         public Dictionary<Workplace, double> AdditionalCapacityRequirements = new Dictionary<Workplace, double>();
         public Dictionary<Workplace, double> TotalCapacityRequirements = new Dictionary<Workplace, double>();
+
+        public Dictionary<Workplace, int> Shifts = new Dictionary<Workplace, int>();
         public Dictionary<Workplace, double> Overtime = new Dictionary<Workplace, double>();
 
         public CapacityPlanning(MaterialPlanning planning, Dictionary<Workplace, double> additionalCapacityRequirements) : base(planning.DataSource, planning.WaitingList, planning.OrdersInWork) {
@@ -50,18 +53,52 @@ namespace SupplyChainManagement.Services
                     TotalCapacityRequirements[workplace] += AdditionalCapacityRequirements[workplace];
                 }
 
-                var overtime = TotalCapacityRequirements[workplace] - 2400.0;
-
-                if (overtime > 0) 
-                {
-                    Overtime[workplace] = overtime;
-                }
-                else
-                {
-                    Overtime[workplace] = 0.0;
-                }
+                _CalculateOvertimeAndShifts(workplace);
             }
             return this;
+        }
+
+        private void _CalculateOvertimeAndShifts(Workplace workplace) 
+        {
+            var overtime = TotalCapacityRequirements[workplace] - Constants.SHIFT_DURATION;
+            if (overtime <= 0.0)
+            {
+                Shifts[workplace] = 1;
+                Overtime[workplace] = 0.0;
+                return;
+            }
+
+            var shiftCosts = new Dictionary<int, double>();
+            shiftCosts.Add(1, workplace.LaborCostsFirstShift);
+            shiftCosts.Add(2, workplace.LaborCostsSecondShift);
+            shiftCosts.Add(3, workplace.LaborCostsThirdShift);
+
+            Shifts[workplace] = 1;
+
+            while ((Constants.SHIFT_DURATION - overtime) > 0.0 && Shifts[workplace] < 3)
+            {
+                var overtimeCosts = overtime * workplace.LaborCostsOvertime;
+                var additionalShiftCosts = Constants.SHIFT_DURATION * shiftCosts[Shifts[workplace] + 1];
+
+                if (additionalShiftCosts < overtimeCosts)
+                {
+                    Shifts[workplace]++;
+                    overtime -= Constants.SHIFT_DURATION;
+                }
+                else {
+                    break;
+                }
+            }
+
+
+            if (overtime <= 0.0)
+            {
+                Overtime[workplace] = 0.0;
+            }
+            else {
+                Overtime[workplace] = overtime;
+            }
+
         }
     }
 }

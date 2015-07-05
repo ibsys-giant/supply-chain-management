@@ -22,7 +22,8 @@ namespace SupplyChainManagement.Services
         public List<int> TotalDemandsForPeriods = new List<int>();
 
         public ProcurementPlanning(CapacityPlanning cp) : base(cp, cp.AdditionalCapacityRequirements) {
-            
+            this.Overtime = cp.Overtime;
+            this.Shifts = cp.Shifts;
         }
 
         public ProcurementPlanning CreateProcurementOrders(List<Dictionary<FinishedProduct, int>> demands) {

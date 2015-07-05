@@ -36,7 +36,7 @@ namespace SupplyChainManagementTest
             var planner = new SupplyChainPlanner(new Uri("http://scsim-phoenix.de:8080"), _TestUsername, _TestPassword);
             planner.DataSource.Purge();
 
-            planner.Sync(166, 2, 5);
+            planner.Import(166, 2, 5);
 
 
             var demands = new List<Dictionary<FinishedProduct, int>>();

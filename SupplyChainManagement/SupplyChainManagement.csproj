@@ -85,7 +85,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ORM.cs" />
-    <Compile Include="Data\DatabaseObject.cs" />
     <Compile Include="Models\InputXml\Batch.cs" />
     <Compile Include="Models\InputXml\CompletedOrders.cs" />
     <Compile Include="Models\InputXml\CycleTimes.cs" />
@@ -93,10 +92,13 @@
     <Compile Include="Models\InputXml\InwardStockMovement.cs" />
     <Compile Include="Models\OutputXml\Input.cs" />
     <Compile Include="Models\OutputXml\Item.cs" />
+    <Compile Include="Models\OutputXml\Order.cs" />
     <Compile Include="Models\OutputXml\OrderList.cs" />
+    <Compile Include="Models\OutputXml\Production.cs" />
     <Compile Include="Models\OutputXml\ProductionList.cs" />
     <Compile Include="Models\OutputXml\SellDirect.cs" />
     <Compile Include="Models\OutputXml\SellWish.cs" />
+    <Compile Include="Models\OutputXml\WorkingTime.cs" />
     <Compile Include="Models\OutputXml\WorkingTimeList.cs" />
     <Compile Include="Models\ProcurementOrder.cs" />
     <Compile Include="Models\InputXml\MissingPart.cs" />

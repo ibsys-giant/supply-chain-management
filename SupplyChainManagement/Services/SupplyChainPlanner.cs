@@ -21,8 +21,9 @@ namespace SupplyChainManagement.Services
         public readonly ORM DataSource;
         public readonly SimulatorClient Client;
 
-        public SupplyChainManagement.Models.Xml.PeriodResult PassedPeriodResult;
+        public SupplyChainManagement.Models.InputXml.PeriodResult PassedPeriodResult;
 
+        public List<Dictionary<FinishedProduct, int>> Demands;
         public Dictionary<Product, int> WaitingList = new Dictionary<Product, int>();
         public Dictionary<Product, int> OrdersInWork = new Dictionary<Product, int>();
         public Dictionary<Workplace, double> AdditionalCapacityRequirements = new Dictionary<Workplace, double>();
@@ -39,14 +40,14 @@ namespace SupplyChainManagement.Services
             Client.Login(username, password);
         }
 
-        public void Sync(int game, int group, int period) 
+        public void Import(int game, int group, int period) 
         {
             string xml = Client.ReadResult(game, group, period);
 
-            XmlSerializer serializer = new XmlSerializer(typeof(SupplyChainManagement.Models.Xml.PeriodResult));
+            XmlSerializer serializer = new XmlSerializer(typeof(SupplyChainManagement.Models.InputXml.PeriodResult));
 
             using (TextReader reader = new StringReader(xml)) {
-                PassedPeriodResult = (SupplyChainManagement.Models.Xml.PeriodResult)serializer.Deserialize(reader);
+                PassedPeriodResult = (SupplyChainManagement.Models.InputXml.PeriodResult)serializer.Deserialize(reader);
             }
 
             foreach (var article in PassedPeriodResult.WarehouseStock.Articles) {
@@ -54,13 +55,11 @@ namespace SupplyChainManagement.Services
 
                 item.Stock = article.Amount;
                 item.Value = article.Price;
-
-                //DataSource.UpdateItem(ref item);
             }
         }
 
         public void Plan(List<Dictionary<FinishedProduct, int>> demands, Dictionary<FinishedProduct, int> plannedWarehouseStocks) {
-
+            Demands = demands;
             var allProducts = new List<Product>(from item in DataSource.GetAllItems() where item is Product select item as Product);
             var allFinishedProducts = new List<FinishedProduct>(from item in DataSource.GetAllItems() where item is FinishedProduct select item as FinishedProduct);
 
@@ -171,6 +170,75 @@ namespace SupplyChainManagement.Services
             // Do procurements planning
             ProcurementPlanning = new ProcurementPlanning(CapacityPlanning);
             ProcurementPlanning.CreateProcurementOrders(demands);
+
+        }
+
+        public void Export() 
+        {
+
+            var finalPlanning = ProcurementPlanning;
+            var input = new SupplyChainManagement.Models.OutputXml.Input();
+
+            var allItems = DataSource.GetAllItems();
+            var finishedProducts = new List<FinishedProduct>(from item in allItems where item is FinishedProduct select item as FinishedProduct);
+
+            foreach (var product in finishedProducts)
+            {
+
+                input.SellWish.Items.Add(new SupplyChainManagement.Models.OutputXml.Item
+                {
+                    Article = product.Id,
+                    Quantity = Demands[0][product]
+                });
+
+                input.SellDirect.Items.Add(new SupplyChainManagement.Models.OutputXml.Item { 
+                    Article = product.Id,
+                    Penalty = 0.0,
+                    Price = 0.0,
+                    Quantity = 0
+                });
+            }
+
+
+            foreach (var product in finalPlanning.ProductionOrders.Keys)
+            {
+
+                var order = finalPlanning.ProductionOrders[product];
+
+                input.ProductionList.ProductionItems.Add(
+                    new SupplyChainManagement.Models.OutputXml.Production
+                    {
+                        Article = product.Id,
+                        Quantity = order
+                    });
+
+            }
+
+            foreach (var workplace in finalPlanning.Overtime.Keys) {
+                
+                var overtime = (int) finalPlanning.Overtime[workplace];
+                var shifts = finalPlanning.Shifts[workplace];
+
+                input.WorkingTimeList.WorkingTime.Add(
+                    new SupplyChainManagement.Models.OutputXml.WorkingTime
+                    {
+                        Overtime = overtime,
+                        Shift = shifts,
+                        Station = workplace.Id
+                    });
+            }
+
+            XmlSerializer serializer = new XmlSerializer(typeof(SupplyChainManagement.Models.OutputXml.Input));
+
+            String xml = null;
+            using (TextWriter writer = new StringWriter())
+            {
+
+                serializer.Serialize(writer, input);
+                xml = writer.ToString();
+            }
+
+            Client.WriteInputData(xml);
 
         }
     }

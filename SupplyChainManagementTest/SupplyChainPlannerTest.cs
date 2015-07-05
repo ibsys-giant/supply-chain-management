@@ -32,7 +32,7 @@ namespace SupplyChainManagementTest
             var planner = new SupplyChainPlanner(new Uri("http://scsim-phoenix.de:8080"), _TestUsername, _TestPassword);
             planner.DataSource.Purge();
 
-            planner.Sync(166, 2, 7);
+            planner.Import(166, 2, 7);
 
             Assert.AreNotEqual(0, planner.PassedPeriodResult.Game);
             Assert.AreNotEqual(0, planner.PassedPeriodResult.Group);
@@ -125,7 +125,7 @@ namespace SupplyChainManagementTest
 
             var item1StockBefore = planner.DataSource.GetItemById(1).Stock;
 
-            planner.Sync(169, 2, 8);
+            planner.Import(169, 2, 8);
 
             var item1StockAfter = planner.DataSource.GetItemById(1).Stock;
 
@@ -139,7 +139,7 @@ namespace SupplyChainManagementTest
             var planner = new SupplyChainPlanner(new Uri("http://scsim-phoenix.de:8080"), _TestUsername, _TestPassword);
             planner.DataSource.Purge();
 
-            planner.Sync(166, 2, 5);
+            planner.Import(166, 2, 5);
 
             var demands = new List<Dictionary<FinishedProduct, int>>();
 
@@ -183,7 +183,7 @@ namespace SupplyChainManagementTest
             var planner = new SupplyChainPlanner(new Uri("http://scsim-phoenix.de:8080"), _TestUsername, _TestPassword);
             planner.DataSource.Purge();
 
-            planner.Sync(166, 2, 5);
+            planner.Import(166, 2, 5);
 
             var demands = new List<Dictionary<FinishedProduct, int>>();
 
@@ -221,6 +221,50 @@ namespace SupplyChainManagementTest
             Assert.IsNotEmpty(planner.OrdersInWork.Keys);
         }
 
+        [TestCase]
+        public void ExportTest()
+        {
+            var planner = new SupplyChainPlanner(new Uri("http://scsim-phoenix.de:8080"), _TestUsername, _TestPassword);
+            planner.DataSource.Purge();
+
+            planner.Import(166, 2, 5);
+
+
+            var demands = new List<Dictionary<FinishedProduct, int>>();
+
+            var demandsFirstPeriod = new Dictionary<FinishedProduct, int>();
+            demandsFirstPeriod.Add(planner.DataSource.GetItemById(1) as FinishedProduct, 200);
+            demandsFirstPeriod.Add(planner.DataSource.GetItemById(2) as FinishedProduct, 150);
+            demandsFirstPeriod.Add(planner.DataSource.GetItemById(3) as FinishedProduct, 100);
+            demands.Add(demandsFirstPeriod);
+
+            var demandsSecondPeriod = new Dictionary<FinishedProduct, int>();
+            demandsSecondPeriod.Add(planner.DataSource.GetItemById(1) as FinishedProduct, 200);
+            demandsSecondPeriod.Add(planner.DataSource.GetItemById(2) as FinishedProduct, 150);
+            demandsSecondPeriod.Add(planner.DataSource.GetItemById(3) as FinishedProduct, 100);
+            demands.Add(demandsSecondPeriod);
+
+            var demandsThirdPeriod = new Dictionary<FinishedProduct, int>();
+            demandsThirdPeriod.Add(planner.DataSource.GetItemById(1) as FinishedProduct, 200);
+            demandsThirdPeriod.Add(planner.DataSource.GetItemById(2) as FinishedProduct, 150);
+            demandsThirdPeriod.Add(planner.DataSource.GetItemById(3) as FinishedProduct, 100);
+            demands.Add(demandsThirdPeriod);
+
+            var demandsFourthPeriod = new Dictionary<FinishedProduct, int>();
+            demandsFourthPeriod.Add(planner.DataSource.GetItemById(1) as FinishedProduct, 200);
+            demandsFourthPeriod.Add(planner.DataSource.GetItemById(2) as FinishedProduct, 150);
+            demandsFourthPeriod.Add(planner.DataSource.GetItemById(3) as FinishedProduct, 100);
+            demands.Add(demandsFourthPeriod);
+
+            var plannedStocks = new Dictionary<FinishedProduct, int>();
+            plannedStocks.Add(planner.DataSource.GetItemById(1) as FinishedProduct, 50);
+            plannedStocks.Add(planner.DataSource.GetItemById(2) as FinishedProduct, 50);
+            plannedStocks.Add(planner.DataSource.GetItemById(3) as FinishedProduct, 50);
+
+            planner.Plan(demands, plannedStocks);
+
+            planner.Export();
+        }
 
         [TestCase]
         public void AdditionalCapacityRequirementsShouldWork()
@@ -228,7 +272,7 @@ namespace SupplyChainManagementTest
             var planner = new SupplyChainPlanner(new Uri("http://scsim-phoenix.de:8080"), _TestUsername, _TestPassword);
             planner.DataSource.Purge();
 
-            planner.Sync(166, 2, 5);
+            planner.Import(166, 2, 5);
 
 
             var demands = new List<Dictionary<FinishedProduct, int>>();

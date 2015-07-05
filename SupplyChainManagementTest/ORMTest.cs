@@ -68,6 +68,10 @@ namespace SupplyChainManagementTest
 
             var workplace = ds.GetWorkplaceById(9);
             Assert.NotNull(workplace);
+            Assert.Greater(workplace.LaborCostsFirstShift, 0.0);
+            Assert.Greater(workplace.LaborCostsSecondShift, 0.0);
+            Assert.Greater(workplace.LaborCostsThirdShift, 0.0);
+            Assert.Greater(workplace.LaborCostsOvertime, 0.0);
             Assert.NotNull(workplace.Jobs);
             Assert.IsNotEmpty(workplace.Jobs);
         

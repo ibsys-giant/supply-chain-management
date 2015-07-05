@@ -13,5 +13,7 @@ namespace SupplyChainManagement.Util
         public static String DATA_DIR = MAIN_DIR + "\\data";
         public static String DATABASE_FILE = DATA_DIR + "\\scm.sqlite";
         public static String CONNECTION_URI="Data Source=" + Constants.DATABASE_FILE + ";Version=3";
+
+        public static double SHIFT_DURATION = 2400.0;
     }
 }
