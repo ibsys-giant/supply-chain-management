@@ -14,7 +14,7 @@ using SupplyChainManagement.Util;
 
 namespace SupplyChainManagementTest
 {
-    public class SQLiteDataSourceTest
+    public class ORMTest
     {
 
         [TestCase]
@@ -554,26 +554,26 @@ namespace SupplyChainManagementTest
 
             var workplace = new Workplace();
             workplace.Id = 999999;
-            workplace.JobDescription = "Something";
-            workplace.LaborCostsFirstShift = 10.0;
-            workplace.LaborCostsSecondShift = 20.0;
-            workplace.LaborCostsThirdShift = 30.0;
-            workplace.LaborCostsOvertime = 40.0;
-            workplace.IdleMachineCosts = 500.0;
-            workplace.ProductiveMachineCosts = 50.0;
+            //workplace.JobDescription = "Something";
+            //workplace.LaborCostsFirstShift = 10.0;
+            //workplace.LaborCostsSecondShift = 20.0;
+            //workplace.LaborCostsThirdShift = 30.0;
+            //workplace.LaborCostsOvertime = 40.0;
+            //workplace.IdleMachineCosts = 500.0;
+            //workplace.ProductiveMachineCosts = 50.0;
 
             Workplace workplace2 = null;
             ds.CreateWorkplace(workplace);
             workplace2 = ds.GetWorkplaceById(999999);
 
             Assert.AreEqual(workplace.Id, workplace2.Id);
-            Assert.AreEqual(workplace.JobDescription, workplace2.JobDescription);
-            Assert.AreEqual(workplace.LaborCostsFirstShift, workplace2.LaborCostsFirstShift);
-            Assert.AreEqual(workplace.LaborCostsSecondShift, workplace2.LaborCostsSecondShift);
-            Assert.AreEqual(workplace.LaborCostsThirdShift, workplace2.LaborCostsThirdShift);
-            Assert.AreEqual(workplace.LaborCostsOvertime, workplace2.LaborCostsOvertime);
-            Assert.AreEqual(workplace.IdleMachineCosts, workplace2.IdleMachineCosts);
-            Assert.AreEqual(workplace.ProductiveMachineCosts, workplace2.ProductiveMachineCosts);
+            //Assert.AreEqual(workplace.JobDescription, workplace2.JobDescription);
+            //Assert.AreEqual(workplace.LaborCostsFirstShift, workplace2.LaborCostsFirstShift);
+            //Assert.AreEqual(workplace.LaborCostsSecondShift, workplace2.LaborCostsSecondShift);
+            //Assert.AreEqual(workplace.LaborCostsThirdShift, workplace2.LaborCostsThirdShift);
+            //Assert.AreEqual(workplace.LaborCostsOvertime, workplace2.LaborCostsOvertime);
+            //Assert.AreEqual(workplace.IdleMachineCosts, workplace2.IdleMachineCosts);
+            //Assert.AreEqual(workplace.ProductiveMachineCosts, workplace2.ProductiveMachineCosts);
         }
 
         [TestCase]
@@ -592,13 +592,13 @@ namespace SupplyChainManagementTest
             
             var workplace = new Workplace();
             workplace.Id = 999999;
-            workplace.JobDescription = "Something";
-            workplace.LaborCostsFirstShift = 10.0;
-            workplace.LaborCostsSecondShift = 20.0;
-            workplace.LaborCostsThirdShift = 30.0;
-            workplace.LaborCostsOvertime = 40.0;
-            workplace.IdleMachineCosts = 500.0;
-            workplace.ProductiveMachineCosts = 50.0;
+            //workplace.JobDescription = "Something";
+            //workplace.LaborCostsFirstShift = 10.0;
+            //workplace.LaborCostsSecondShift = 20.0;
+            //workplace.LaborCostsThirdShift = 30.0;
+            //workplace.LaborCostsOvertime = 40.0;
+            //workplace.IdleMachineCosts = 500.0;
+            //workplace.ProductiveMachineCosts = 50.0;
 
             ds.CreateWorkplace(workplace);
 
