@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using System.Diagnostics;
 
 using SupplyChainManagement.Data;
 
@@ -21,7 +20,6 @@ namespace SupplyChainManagementUI
         [STAThread]
         static void Main()
         {
-            Debug.WriteLine("Creating data source...");
             ds = new SQLiteDataSource();
 
 

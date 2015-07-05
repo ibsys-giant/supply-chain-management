@@ -37,7 +37,7 @@ namespace SupplyChainManagementTest
                 .CreateProductionOrders(p2, 150, 100)
                 .CreateProductionOrders(p3, 150, 100);
 
-            var capacityPlanning = new CapacityPlanning(materialPlanning);
+            var capacityPlanning = new CapacityPlanning(materialPlanning, new Dictionary<Workplace,double>());
             capacityPlanning = capacityPlanning.CreateWorkRequirements();
 
             var procurementPlanning = new ProcurementPlanning(capacityPlanning);

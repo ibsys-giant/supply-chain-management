@@ -21,7 +21,7 @@ namespace SupplyChainManagement.Services
 
         public List<int> TotalDemandsForPeriods = new List<int>();
 
-        public ProcurementPlanning(CapacityPlanning cp) : base(cp) {
+        public ProcurementPlanning(CapacityPlanning cp) : base(cp, cp.AdditionalCapacityRequirements) {
             
         }
 
@@ -29,6 +29,10 @@ namespace SupplyChainManagement.Services
             var procuredItems = from item in this.DataSource.GetAllItems()
                                 where item is ProcuredItem
                                 select item as ProcuredItem;
+            if (demands.Count < 4)
+            {
+                throw new ArgumentException("There must be at least demands for four periods in order to plan procurement");
+            }
 
             var finishedProductProductionOrders = from order in this.ProductionOrders
                                           where order.Key is FinishedProduct

@@ -61,6 +61,19 @@ namespace SupplyChainManagementTest
         }
 
         [TestCase]
+        public void GetWorkplaceByIdShouldWork()
+        {
+            var ds = new SQLiteDataSource();
+            ds.Purge();
+
+            var workplace = ds.GetWorkplaceById(9);
+            Assert.NotNull(workplace);
+            Assert.NotNull(workplace.Jobs);
+            Assert.IsNotEmpty(workplace.Jobs);
+        
+        }
+
+        [TestCase]
         public void AppendNextItemJobToItemJobShouldWork()
         {
             var ds = new SQLiteDataSource();
@@ -464,6 +477,40 @@ namespace SupplyChainManagementTest
             Assert.AreEqual(7, (from product in whereUsedList where product == p1 select BillOfMaterialUtil.CreateBillOfMaterial(product)[procuredItem]).First());
             Assert.AreEqual(7, (from product in whereUsedList where product == p2 select BillOfMaterialUtil.CreateBillOfMaterial(product)[procuredItem]).First());
             Assert.AreEqual(7, (from product in whereUsedList where product == p3 select BillOfMaterialUtil.CreateBillOfMaterial(product)[procuredItem]).First());
+
+        }
+
+        [TestCase]
+        public void ItemJobChainsShouldWork()
+        {
+            var ds = new SQLiteDataSource();
+            ds.Purge();
+
+            var product = (Product) ds.GetItemById(15);
+            var workplace13 = ds.GetWorkplaceById(13);
+
+            var firstItemJob = ds.GetItemJobByWorkplaceAndProduct(workplace13, product);
+            Assert.IsNotNull(firstItemJob);
+            Assert.AreEqual(13, firstItemJob.Workplace.Id);
+
+            var secondItemJob = firstItemJob.NextItemJob;
+            Assert.IsNotNull(secondItemJob);
+            Assert.AreEqual(12, secondItemJob.Workplace.Id);
+
+            var thirdItemJob = secondItemJob.NextItemJob;
+            Assert.IsNotNull(thirdItemJob);
+            Assert.AreEqual(8, thirdItemJob.Workplace.Id);
+
+            var fourthItemJob = thirdItemJob.NextItemJob;
+            Assert.IsNotNull(fourthItemJob);
+            Assert.AreEqual(7, fourthItemJob.Workplace.Id);
+
+            var fifthItemJob = fourthItemJob.NextItemJob;
+            Assert.IsNotNull(fifthItemJob);
+            Assert.AreEqual(9, fifthItemJob.Workplace.Id);
+
+            var sixthItemJob = fifthItemJob.NextItemJob;
+            Assert.IsNull(sixthItemJob);
 
         }
 

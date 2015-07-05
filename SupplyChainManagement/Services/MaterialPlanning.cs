@@ -53,9 +53,9 @@ namespace SupplyChainManagement.Services
             int availableStock;
             if (parentFinishedProducts.Count() > 0)
             {
-                ordersInQueue = (int) (ordersInQueue / (double)parentFinishedProducts.Count());
-                workInProgress = (int) (workInProgress / (double)parentFinishedProducts.Count());
-                availableStock = (int) (product.Stock / (double)parentFinishedProducts.Count());
+                ordersInQueue = (int) ((double) ordersInQueue / (double)parentFinishedProducts.Count());
+                workInProgress = (int)((double) workInProgress / (double)parentFinishedProducts.Count());
+                availableStock = (int)((double) product.Stock / (double)parentFinishedProducts.Count());
             }
             else {
                 availableStock = product.Stock;
@@ -74,8 +74,6 @@ namespace SupplyChainManagement.Services
             }
 
             foreach (Item childItem in product.Items) {
-
-                // Only look at products
                 if (childItem is Product) {
                     var childProduct = childItem as Product;
 

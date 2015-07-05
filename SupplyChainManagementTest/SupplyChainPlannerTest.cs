@@ -141,22 +141,133 @@ namespace SupplyChainManagementTest
 
             planner.Sync(166, 2, 5);
 
-            var demands = new Dictionary<FinishedProduct, int>();
-            demands.Add(planner.DataSource.GetItemById(1) as FinishedProduct, 100);
-            demands.Add(planner.DataSource.GetItemById(2) as FinishedProduct, 100);
-            demands.Add(planner.DataSource.GetItemById(3) as FinishedProduct, 100);
+            var demands = new List<Dictionary<FinishedProduct, int>>();
+
+            var demandsFirstPeriod = new Dictionary<FinishedProduct, int>();
+            demandsFirstPeriod.Add(planner.DataSource.GetItemById(1) as FinishedProduct, 200);
+            demandsFirstPeriod.Add(planner.DataSource.GetItemById(2) as FinishedProduct, 150);
+            demandsFirstPeriod.Add(planner.DataSource.GetItemById(3) as FinishedProduct, 100);
+            demands.Add(demandsFirstPeriod);
+
+            var demandsSecondPeriod = new Dictionary<FinishedProduct, int>();
+            demandsSecondPeriod.Add(planner.DataSource.GetItemById(1) as FinishedProduct, 200);
+            demandsSecondPeriod.Add(planner.DataSource.GetItemById(2) as FinishedProduct, 150);
+            demandsSecondPeriod.Add(planner.DataSource.GetItemById(3) as FinishedProduct, 100);
+            demands.Add(demandsSecondPeriod);
+
+            var demandsThirdPeriod = new Dictionary<FinishedProduct, int>();
+            demandsThirdPeriod.Add(planner.DataSource.GetItemById(1) as FinishedProduct, 200);
+            demandsThirdPeriod.Add(planner.DataSource.GetItemById(2) as FinishedProduct, 150);
+            demandsThirdPeriod.Add(planner.DataSource.GetItemById(3) as FinishedProduct, 100);
+            demands.Add(demandsThirdPeriod);
+
+            var demandsFourthPeriod = new Dictionary<FinishedProduct, int>();
+            demandsFourthPeriod.Add(planner.DataSource.GetItemById(1) as FinishedProduct, 200);
+            demandsFourthPeriod.Add(planner.DataSource.GetItemById(2) as FinishedProduct, 150);
+            demandsFourthPeriod.Add(planner.DataSource.GetItemById(3) as FinishedProduct, 100);
+            demands.Add(demandsFourthPeriod);
 
             var plannedStocks = new Dictionary<FinishedProduct, int>();
-            plannedStocks.Add(planner.DataSource.GetItemById(1) as FinishedProduct, 100);
-            plannedStocks.Add(planner.DataSource.GetItemById(2) as FinishedProduct, 100);
-            plannedStocks.Add(planner.DataSource.GetItemById(3) as FinishedProduct, 100);
+            plannedStocks.Add(planner.DataSource.GetItemById(1) as FinishedProduct, 50);
+            plannedStocks.Add(planner.DataSource.GetItemById(2) as FinishedProduct, 50);
+            plannedStocks.Add(planner.DataSource.GetItemById(3) as FinishedProduct, 50);
 
             planner.Plan(demands, plannedStocks);
 
             Assert.IsNotEmpty(planner.WaitingList.Keys);
+        }
 
+        [TestCase]
+        public void PlanShouldCreateCorrectOrdersInWork()
+        {
+            var planner = new SupplyChainPlanner(new Uri("http://scsim-phoenix.de:8080"), _TestUsername, _TestPassword);
+            planner.DataSource.Purge();
+
+            planner.Sync(166, 2, 5);
+
+            var demands = new List<Dictionary<FinishedProduct, int>>();
+
+            var demandsFirstPeriod = new Dictionary<FinishedProduct, int>();
+            demandsFirstPeriod.Add(planner.DataSource.GetItemById(1) as FinishedProduct, 200);
+            demandsFirstPeriod.Add(planner.DataSource.GetItemById(2) as FinishedProduct, 150);
+            demandsFirstPeriod.Add(planner.DataSource.GetItemById(3) as FinishedProduct, 100);
+            demands.Add(demandsFirstPeriod);
+
+            var demandsSecondPeriod = new Dictionary<FinishedProduct, int>();
+            demandsSecondPeriod.Add(planner.DataSource.GetItemById(1) as FinishedProduct, 200);
+            demandsSecondPeriod.Add(planner.DataSource.GetItemById(2) as FinishedProduct, 150);
+            demandsSecondPeriod.Add(planner.DataSource.GetItemById(3) as FinishedProduct, 100);
+            demands.Add(demandsSecondPeriod);
+
+            var demandsThirdPeriod = new Dictionary<FinishedProduct, int>();
+            demandsThirdPeriod.Add(planner.DataSource.GetItemById(1) as FinishedProduct, 200);
+            demandsThirdPeriod.Add(planner.DataSource.GetItemById(2) as FinishedProduct, 150);
+            demandsThirdPeriod.Add(planner.DataSource.GetItemById(3) as FinishedProduct, 100);
+            demands.Add(demandsThirdPeriod);
+
+            var demandsFourthPeriod = new Dictionary<FinishedProduct, int>();
+            demandsFourthPeriod.Add(planner.DataSource.GetItemById(1) as FinishedProduct, 200);
+            demandsFourthPeriod.Add(planner.DataSource.GetItemById(2) as FinishedProduct, 150);
+            demandsFourthPeriod.Add(planner.DataSource.GetItemById(3) as FinishedProduct, 100);
+            demands.Add(demandsFourthPeriod);
+
+            var plannedStocks = new Dictionary<FinishedProduct, int>();
+            plannedStocks.Add(planner.DataSource.GetItemById(1) as FinishedProduct, 50);
+            plannedStocks.Add(planner.DataSource.GetItemById(2) as FinishedProduct, 50);
+            plannedStocks.Add(planner.DataSource.GetItemById(3) as FinishedProduct, 50);
+
+            planner.Plan(demands, plannedStocks);
+
+            Assert.IsNotEmpty(planner.OrdersInWork.Keys);
+        }
+
+
+        [TestCase]
+        public void AdditionalCapacityRequirementsShouldWork()
+        {
+            var planner = new SupplyChainPlanner(new Uri("http://scsim-phoenix.de:8080"), _TestUsername, _TestPassword);
+            planner.DataSource.Purge();
+
+            planner.Sync(166, 2, 5);
+
+
+            var demands = new List<Dictionary<FinishedProduct, int>>();
+
+            var demandsFirstPeriod = new Dictionary<FinishedProduct, int>();
+            demandsFirstPeriod.Add(planner.DataSource.GetItemById(1) as FinishedProduct, 200);
+            demandsFirstPeriod.Add(planner.DataSource.GetItemById(2) as FinishedProduct, 150);
+            demandsFirstPeriod.Add(planner.DataSource.GetItemById(3) as FinishedProduct, 100);
+            demands.Add(demandsFirstPeriod);
+
+            var demandsSecondPeriod = new Dictionary<FinishedProduct, int>();
+            demandsSecondPeriod.Add(planner.DataSource.GetItemById(1) as FinishedProduct, 200);
+            demandsSecondPeriod.Add(planner.DataSource.GetItemById(2) as FinishedProduct, 150);
+            demandsSecondPeriod.Add(planner.DataSource.GetItemById(3) as FinishedProduct, 100);
+            demands.Add(demandsSecondPeriod);
+
+            var demandsThirdPeriod = new Dictionary<FinishedProduct, int>();
+            demandsThirdPeriod.Add(planner.DataSource.GetItemById(1) as FinishedProduct, 200);
+            demandsThirdPeriod.Add(planner.DataSource.GetItemById(2) as FinishedProduct, 150);
+            demandsThirdPeriod.Add(planner.DataSource.GetItemById(3) as FinishedProduct, 100);
+            demands.Add(demandsThirdPeriod);
+
+            var demandsFourthPeriod = new Dictionary<FinishedProduct, int>();
+            demandsFourthPeriod.Add(planner.DataSource.GetItemById(1) as FinishedProduct, 200);
+            demandsFourthPeriod.Add(planner.DataSource.GetItemById(2) as FinishedProduct, 150);
+            demandsFourthPeriod.Add(planner.DataSource.GetItemById(3) as FinishedProduct, 100);
+            demands.Add(demandsFourthPeriod);
+
+            var plannedStocks = new Dictionary<FinishedProduct, int>();
+            plannedStocks.Add(planner.DataSource.GetItemById(1) as FinishedProduct, 50);
+            plannedStocks.Add(planner.DataSource.GetItemById(2) as FinishedProduct, 50);
+            plannedStocks.Add(planner.DataSource.GetItemById(3) as FinishedProduct, 50);
+
+            planner.Plan(demands, plannedStocks);
+
+            Assert.IsNotEmpty(planner.AdditionalCapacityRequirements.Keys);
 
         }
+    
     
     }
 }

@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using System.Diagnostics;
 
 using System.Data.SQLite;
 
@@ -25,32 +24,27 @@ namespace SupplyChainManagement.Data
 
         public SQLiteDataSource()
         {
-            Debug.WriteLine("Initializing DataSource");
 
             // Check whether directories and files do exist
             if (!Directory.Exists(Constants.MAIN_DIR))
             {
                 Directory.CreateDirectory(Constants.MAIN_DIR);
-                Debug.WriteLine("Created MAIN_DIR");
             }
 
             if (!Directory.Exists(Constants.DATA_DIR))
             {
                 Directory.CreateDirectory(Constants.DATA_DIR);
-                Debug.WriteLine("Created DATA_DIR");
             }
 
             if (!File.Exists(Constants.DATABASE_FILE))
             {
                 SQLiteConnection.CreateFile(Constants.DATABASE_FILE);
-                Debug.WriteLine("Created DATABASE_FILE");
 
                 using (var conn = new SQLiteConnection(Constants.CONNECTION_URI)) {
                     conn.Open();
 
                     CreateSchema();
                     CreateInitialData();
-                    Debug.WriteLine("Created initial data.");
                 }
             }
         }
@@ -64,14 +58,12 @@ namespace SupplyChainManagement.Data
             }
 
             SQLiteConnection.CreateFile(Constants.DATABASE_FILE);
-                Debug.WriteLine("Created DATABASE_FILE");
 
             using (var conn = new SQLiteConnection(Constants.CONNECTION_URI)) {
                 conn.Open();
 
                 CreateSchema();
                 CreateInitialData();
-                Debug.WriteLine("Created initial data.");
             }
         }
 
@@ -713,8 +705,6 @@ namespace SupplyChainManagement.Data
 
             if (!_WorkplaceCache.ContainsKey(id))
             {
-                Debug.WriteLine("Reading workplace # " + id + " from cache"); 
-                
                 using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
                 {
                     conn.Open();
@@ -744,6 +734,22 @@ namespace SupplyChainManagement.Data
 
                             _WorkplaceCache.Add(workplace.Id, workplace);
 
+                        }
+                    }
+                }
+
+                using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
+                {
+                    conn.Open();
+                    using (var cmd = conn.CreateCommand())
+                    {
+
+                        cmd.CommandText = "select * from " + Values.ItemJob + " where " + Values.Workplace_Id + " = " + id;
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.NextResult()) {
+                                _WorkplaceCache[id].Jobs.Add(GetItemJobById((int)reader[Values.Id]));
+                            }
                         }
                     }
                 }
@@ -790,6 +796,31 @@ namespace SupplyChainManagement.Data
 
                             _WorkplaceCache.Add(workplace.Id, workplace);
 
+                        }
+                    }
+                }
+            }
+
+            using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
+            {
+                conn.Open();
+
+                foreach (var workplace in _WorkplaceCache.Values)
+                {
+                    using (var cmd = conn.CreateCommand())
+                    {
+
+                        cmd.CommandText = "select * from " + Values.ItemJob + " where " + Values.Workplace_Id + " = " + workplace.Id;
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.NextResult())
+                            {
+                                var itemJob = GetItemJobById((int)reader[Values.Id]);
+                                if (!_WorkplaceCache[workplace.Id].Jobs.Contains(itemJob))
+                                {
+                                    _WorkplaceCache[workplace.Id].Jobs.Add(itemJob);
+                                }
+                            }
                         }
                     }
                 }
@@ -1010,8 +1041,6 @@ namespace SupplyChainManagement.Data
                 throw new Exception("Item and next item must produce the same product");
             }
 
-            Debug.WriteLine("Appending item " + nextItemJob.ToString() + " to " + itemJob.ToString());
-
             var itemJobFromDb = GetItemJobById(itemJob.Id);
             var nextItemJobFromDb = GetItemJobById(nextItemJob.Id);
 
@@ -1034,14 +1063,12 @@ namespace SupplyChainManagement.Data
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = _GenerateUpdateFromDict(Values.ItemJob, itemJob.Id, dict);
-
-                    Debug.WriteLine("Executing " + cmd.CommandText);
                     cmd.ExecuteNonQuery();
 
                 }
             }
 
-            itemJob = GetItemJobById(itemJob.Id);
+            _ItemJobCache[itemJob.Id].NextItemJob = GetItemJobById(nextItemJob.Id);
 
         }
 
@@ -1073,12 +1100,11 @@ namespace SupplyChainManagement.Data
         {
             if (!_ItemJobCache.ContainsKey(id))
             {
-                Debug.WriteLine("Reading ItemJob # " + id + " from cache");
-
 
                 ItemJob job = null;
                 int productId = -1;
                 int workplaceId = -1;
+                int nextItemJobId = -1;
                 using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
                 {
                     conn.Open();
@@ -1105,6 +1131,12 @@ namespace SupplyChainManagement.Data
                             productId = (int)reader[Values.Product_Id];
                             workplaceId = (int)reader[Values.Workplace_Id];
 
+                            try
+                            {
+                                nextItemJobId = (int)reader[Values.NextItemJob_Id];
+                            }
+                            catch (InvalidCastException) { }
+
                         }
                     }
                 }
@@ -1112,6 +1144,10 @@ namespace SupplyChainManagement.Data
                 job.Product = (Product)GetItemById(productId);
                 job.Workplace = (Workplace)GetWorkplaceById(workplaceId);
                 job.Workplace.Jobs.Add(job);
+
+                if (nextItemJobId > 0) {
+                    job.NextItemJob = GetItemJobById(nextItemJobId);
+                }
                 _ItemJobCache.Add(job.Id, job);
             }
             return _ItemJobCache[id];
@@ -1119,7 +1155,6 @@ namespace SupplyChainManagement.Data
 
         public void AddChildToProduct(Product product, Item child, int quantity)
         {
-            Debug.WriteLine("Adding " + quantity + "x " + child.ToString() + " to " + product.ToString());
             var dict = new Dictionary<string, object>();
 
             dict[Values.Child_Id] = child.Id;
@@ -1132,8 +1167,6 @@ namespace SupplyChainManagement.Data
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = _GenerateInsertFromDict(Values.ChildToProduct, dict);
-
-                    Debug.WriteLine("Executing " + cmd.CommandText);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -1146,7 +1179,6 @@ namespace SupplyChainManagement.Data
 
         public void UpdateItem(ref Item item)
         {
-            Debug.WriteLine("Updating item " + item.ToString());
 
             var itemFromDb = GetItemById(item.Id);
 
@@ -1178,7 +1210,6 @@ namespace SupplyChainManagement.Data
                 {
                     cmd.CommandText = _GenerateUpdateFromDict(Values.Item, item.Id, item.ToDictionary());
 
-                    Debug.WriteLine("Executing " + cmd.CommandText);
                     cmd.ExecuteNonQuery();
 
                 }
@@ -1189,16 +1220,12 @@ namespace SupplyChainManagement.Data
 
         public void CreateItem(Item item) {
 
-            Debug.WriteLine("Adding item " + item.ToString());
-
             using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
             {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = _GenerateInsertFromDict(Values.Item, item.ToDictionary());
-
-                    Debug.WriteLine("Executing " + cmd.CommandText);
                     cmd.ExecuteNonQuery();
 
                 }
@@ -1207,8 +1234,6 @@ namespace SupplyChainManagement.Data
 
         public void CreateWorkplace(Workplace workplace)
         {
-            Debug.WriteLine("Adding workplace " + workplace.ToString());
-
             using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
             {
                 conn.Open();
@@ -1216,15 +1241,12 @@ namespace SupplyChainManagement.Data
                 {
                     cmd.CommandText = _GenerateInsertFromDict(Values.Workplace, workplace.ToDictionary());
                     cmd.ExecuteNonQuery();
-                    Debug.WriteLine("Executed " + cmd.CommandText);
                 }
             }
         }
 
         public void CreateItemJob(ItemJob itemJob)
         {
-            Debug.WriteLine("Adding ItemJob " + itemJob.ToString());
-
             using (var conn = new SQLiteConnection(Constants.CONNECTION_URI))
             {
                 conn.Open();
@@ -1232,7 +1254,6 @@ namespace SupplyChainManagement.Data
                 {
                     cmd.CommandText = _GenerateInsertFromDict(Values.ItemJob, itemJob.ToDictionary());
                     cmd.ExecuteNonQuery();
-                    Debug.WriteLine("Executed " + cmd.CommandText);
                 }
             }
         }

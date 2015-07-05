@@ -3,7 +3,6 @@
 using NUnit.Framework;
 
 using System.IO;
-using System.Diagnostics;
 using System.Collections.Generic;
 
 using System.Linq;
@@ -44,7 +43,6 @@ namespace SupplyChainManagementTest
                 Assert.Fail("Exception wasn't thrown");
             }
             catch (SimulatorException) {
-                Debug.WriteLine("Exception was catched successfully");
             }
 
 
