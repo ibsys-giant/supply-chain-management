@@ -43,31 +43,28 @@ namespace SupplyChainManagementTest
 
             var procurementPlanning = new ProcurementPlanning(capacityPlanning);
 
-            var demands = new List<Dictionary<FinishedProduct, int>>();
+            var demands = new Dictionary<FinishedProduct, List<int>>();
 
-            var demandsFirstPeriod = new Dictionary<FinishedProduct, int>();
-            demandsFirstPeriod[p1] = 150;
-            demandsFirstPeriod[p2] = 150;
-            demandsFirstPeriod[p3] = 150;
-            demands.Add(demandsFirstPeriod);
+            var demandsP1 = new List<int>();
+            demandsP1.Add(150);
+            demandsP1.Add(150);
+            demandsP1.Add(150);
+            demandsP1.Add(150);
+            demands.Add(p1, demandsP1);
 
-            var demandsSecondPeriod = new Dictionary<FinishedProduct, int>();
-            demandsSecondPeriod[p1] = 150;
-            demandsSecondPeriod[p2] = 100;
-            demandsSecondPeriod[p3] = 100;
-            demands.Add(demandsSecondPeriod);
+            var demandsP2 = new List<int>();
+            demandsP2.Add(150);
+            demandsP2.Add(100);
+            demandsP2.Add(100);
+            demandsP2.Add(50);
+            demands.Add(p2, demandsP2);
 
-            var demandsThirdPeriod = new Dictionary<FinishedProduct, int>();
-            demandsThirdPeriod[p1] = 150;
-            demandsThirdPeriod[p2] = 100;
-            demandsThirdPeriod[p3] = 50;
-            demands.Add(demandsThirdPeriod);
-
-            var demandsFourthPeriod = new Dictionary<FinishedProduct, int>();
-            demandsFourthPeriod[p1] = 150;
-            demandsFourthPeriod[p2] = 50;
-            demandsFourthPeriod[p3] = 50;
-            demands.Add(demandsFourthPeriod);
+            var demandsP3 = new List<int>();
+            demandsP3.Add(100);
+            demandsP3.Add(100);
+            demandsP3.Add(50);
+            demandsP3.Add(50);
+            demands.Add(p3, demandsP3);
 
             procurementPlanning.CreateProcurementOrders(demands);
 

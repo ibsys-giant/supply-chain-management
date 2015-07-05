@@ -23,7 +23,7 @@ namespace SupplyChainManagement.Services
 
         public SupplyChainManagement.Models.InputXml.PeriodResult PassedPeriodResult;
 
-        public List<Dictionary<FinishedProduct, int>> Demands;
+        public Dictionary<FinishedProduct, List<int>> Demands;
         public Dictionary<Product, int> WaitingList = new Dictionary<Product, int>();
         public Dictionary<Product, int> OrdersInWork = new Dictionary<Product, int>();
         public Dictionary<Workplace, double> AdditionalCapacityRequirements = new Dictionary<Workplace, double>();
@@ -40,9 +40,9 @@ namespace SupplyChainManagement.Services
             Client.Login(username, password);
         }
 
-        public void Import(int game, int group, int period) 
+        public void Import(Uri uri) 
         {
-            string xml = Client.ReadResult(game, group, period);
+            string xml = Client.ReadResult(uri);
 
             XmlSerializer serializer = new XmlSerializer(typeof(SupplyChainManagement.Models.InputXml.PeriodResult));
 
@@ -58,7 +58,8 @@ namespace SupplyChainManagement.Services
             }
         }
 
-        public void Plan(List<Dictionary<FinishedProduct, int>> demands, Dictionary<FinishedProduct, int> plannedWarehouseStocks) {
+        public void Plan(Dictionary<FinishedProduct, List<int>> demands, Dictionary<FinishedProduct, int> plannedWarehouseStocks)
+        {
             Demands = demands;
             var allProducts = new List<Product>(from item in DataSource.GetAllItems() where item is Product select item as Product);
             var allFinishedProducts = new List<FinishedProduct>(from item in DataSource.GetAllItems() where item is FinishedProduct select item as FinishedProduct);
@@ -160,7 +161,7 @@ namespace SupplyChainManagement.Services
             MaterialPlanning = new MaterialPlanning(DataSource, WaitingList, OrdersInWork);
 
             foreach (var finishedProduct in allFinishedProducts) {
-                MaterialPlanning.CreateProductionOrders(finishedProduct, demands[0][finishedProduct], plannedWarehouseStocks[finishedProduct]);
+                MaterialPlanning.CreateProductionOrders(finishedProduct, demands[finishedProduct][0], plannedWarehouseStocks[finishedProduct]);
             }
             
             // Do capacity planning
@@ -188,7 +189,7 @@ namespace SupplyChainManagement.Services
                 input.SellWish.Items.Add(new SupplyChainManagement.Models.OutputXml.Item
                 {
                     Article = product.Id,
-                    Quantity = Demands[0][product]
+                    Quantity = Demands[product][0]
                 });
 
                 input.SellDirect.Items.Add(new SupplyChainManagement.Models.OutputXml.Item { 

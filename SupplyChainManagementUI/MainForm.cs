@@ -16,19 +16,27 @@ namespace SupplyChainManagementUI
     {
 
         private LoginForm _LoginForm;
-        private SimulatorClient _Client;
 
-        public MainForm(LoginForm parent, SimulatorClient client)
+        public SupplyChainPlanner Planner;
+
+        public MainForm(LoginForm parent, SupplyChainPlanner planner)
         {
             InitializeComponent();
-            _Client = client;
+            Planner = planner;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
-                DynamischeTabelle dyn = new DynamischeTabelle();
+
+                Uri importUri = null;
+
+                if (!String.IsNullOrEmpty(urlTextBox.Text)) {
+                    importUri = new Uri(urlTextBox.Text);
+                }
+
+                InputTableForm dyn = new InputTableForm(this, importUri);
                 dyn.Show();
                 this.Hide();
             }
@@ -49,6 +57,11 @@ namespace SupplyChainManagementUI
         }
 
         private void PerNr_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }

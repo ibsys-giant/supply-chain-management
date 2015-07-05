@@ -80,11 +80,8 @@ namespace SupplyChainManagement.Services
         }
 
 
-        public string ReadResult(int game, int group, int period) {
-            var req = new RestRequest("scs/data/output/{game}_{group}_{period}result.xml", Method.GET);
-            req.AddUrlSegment("game", game.ToString());
-            req.AddUrlSegment("group", group.ToString());
-            req.AddUrlSegment("period", period.ToString());
+        public string ReadResult(Uri uri) {
+            var req = new RestRequest(uri, Method.GET);
 
             var res = RestClient.Execute(req);
 

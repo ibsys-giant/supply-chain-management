@@ -57,7 +57,7 @@ namespace SupplyChainManagementTest
             var c = new SimulatorClient(uri);
             c.Login(_TestUsername, _TestPassword);
 
-            var content = c.ReadResult(166, 2, 7);
+            var content = c.ReadResult(new Uri("http://scsim-phoenix.de:8080/scs/data/output/169_2_8result.xml"));
 
             Assert.IsNotNull(content);
             Assert.IsNotEmpty(content);
