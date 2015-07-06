@@ -195,8 +195,8 @@ namespace SupplyChainManagement.Services
 
                 input.SellDirect.Items.Add(new SupplyChainManagement.Models.OutputXml.ItemSellDirect { 
                     Article = product.Id,
-                    Penalty = 0.0,
-                    Price = 0.0,
+                    Penalty = "0.0",
+                    Price = "0.0",
                     Quantity = 0
                 });
             }

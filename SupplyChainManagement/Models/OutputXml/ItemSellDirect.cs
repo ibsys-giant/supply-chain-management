@@ -16,10 +16,34 @@ namespace SupplyChainManagement.Models.OutputXml
         [XmlAttribute("quantity")]
         public int Quantity = 0;
 
+        private double _Price = 0.0;
+
         [XmlAttribute("price")]
-        public double Price = 0.0;
+        public string Price
+        {
+            get
+            {
+                return String.Format("{0:0.0}", _Price);
+            }
+            set
+            {
+                _Price = double.Parse(value);
+            }
+        }
+
+        private double _Penalty = 0.0;
 
         [XmlAttribute("penalty")]
-        public double Penalty = 0.0;
+        public string Penalty 
+        {
+            get
+            {
+                return String.Format("{0:0.0}", _Penalty);
+            }
+            set
+            {
+                _Penalty = double.Parse(value);
+            }
+        }
     }
 }

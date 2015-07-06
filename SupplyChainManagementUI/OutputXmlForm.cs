@@ -16,6 +16,8 @@ namespace SupplyChainManagementUI
     {
         public OutputXmlForm(string xml)
         {
+            xml = xml.Replace("<?xml version=\"1.0\" encoding=\"utf-16\"?>", "");
+            xml = xml.Replace(" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", "");
             InitializeComponent();
             xmlText.Text = xml;
         }
