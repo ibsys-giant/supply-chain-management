@@ -12,20 +12,17 @@ namespace SupplyChainManagementUI
     public static class Program
     {
 
-        public static ORM ds;
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
-            ds = new ORM();
 
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());
+            Application.Run(new InputXmlForm());
         }
     }
 }

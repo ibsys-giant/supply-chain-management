@@ -11,6 +11,6 @@ namespace SupplyChainManagement.Models.OutputXml
     public class SellDirect
     {
         [XmlElement("item")]
-        public List<Item> Items = new List<Item>();
+        public List<ItemSellDirect> Items = new List<ItemSellDirect>();
     }
 }

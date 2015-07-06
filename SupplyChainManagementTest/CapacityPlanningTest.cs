@@ -33,10 +33,8 @@ namespace SupplyChainManagementTest
         [TestCase]
         public void CapacityPlanningWorks()
         {
-            var planner = new SupplyChainPlanner(new Uri("http://scsim-phoenix.de:8080"), _TestUsername, _TestPassword);
+            var planner = new SupplyChainPlanner();
             planner.DataSource.Purge();
-
-            planner.Import(new Uri("http://scsim-phoenix.de:8080/scs/data/output/169_2_8result.xml"));
 
             var p1 = planner.DataSource.GetItemById(1) as FinishedProduct;
             var p2 = planner.DataSource.GetItemById(2) as FinishedProduct;

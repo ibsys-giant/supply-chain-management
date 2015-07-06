@@ -12,6 +12,9 @@ namespace SupplyChainManagement.Models.OutputXml
     public class Input
     {
 
+        [XmlElement("qualitycontrol")]
+        public QualityControl QualityControl = new QualityControl();
+
         [XmlElement("sellwish")]
         public SellWish SellWish = new SellWish();
 

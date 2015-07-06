@@ -11,6 +11,6 @@ namespace SupplyChainManagement.Models.OutputXml
     public class SellWish
     {
         [XmlElement("item")]
-        public List<Item> Items = new List<Item>();
+        public List<ItemSellWish> Items = new List<ItemSellWish>();
     }
 }

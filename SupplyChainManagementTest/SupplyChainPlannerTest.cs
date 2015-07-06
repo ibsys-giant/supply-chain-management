@@ -29,10 +29,9 @@ namespace SupplyChainManagementTest
 
         [TestCase]
         public void DeserializationShouldWork() {
-            var planner = new SupplyChainPlanner(new Uri("http://scsim-phoenix.de:8080"), _TestUsername, _TestPassword);
+            var planner = new SupplyChainPlanner();
             planner.DataSource.Purge();
 
-            planner.Import(new Uri("http://scsim-phoenix.de:8080/scs/data/output/169_2_8result.xml"));
 
             Assert.AreNotEqual(0, planner.PassedPeriodResult.Game);
             Assert.AreNotEqual(0, planner.PassedPeriodResult.Group);
@@ -109,29 +108,12 @@ namespace SupplyChainManagementTest
 
         }
 
-        [TestCase]
-        public void SyncShouldUpdateStocks()
-        {
-            var planner = new SupplyChainPlanner(new Uri("http://scsim-phoenix.de:8080"), _TestUsername, _TestPassword);
-            planner.DataSource.Purge();
-
-            var item1StockBefore = planner.DataSource.GetItemById(1).Stock;
-
-            planner.Import(new Uri("http://scsim-phoenix.de:8080/scs/data/output/169_2_8result.xml"));
-
-            var item1StockAfter = planner.DataSource.GetItemById(1).Stock;
-
-            Assert.AreNotEqual(item1StockBefore, item1StockAfter);
-        }
-
 
         [TestCase]
         public void PlanShouldCreateCorrectWaitingList()
         {
-            var planner = new SupplyChainPlanner(new Uri("http://scsim-phoenix.de:8080"), _TestUsername, _TestPassword);
+            var planner = new SupplyChainPlanner();
             planner.DataSource.Purge();
-
-            planner.Import(new Uri("http://scsim-phoenix.de:8080/scs/data/output/169_2_8result.xml"));
 
             var p1 = planner.DataSource.GetItemById(1) as FinishedProduct;
             var p2 = planner.DataSource.GetItemById(2) as FinishedProduct;
@@ -173,10 +155,8 @@ namespace SupplyChainManagementTest
         [TestCase]
         public void PlanShouldCreateCorrectOrdersInWork()
         {
-            var planner = new SupplyChainPlanner(new Uri("http://scsim-phoenix.de:8080"), _TestUsername, _TestPassword);
+            var planner = new SupplyChainPlanner();
             planner.DataSource.Purge();
-
-            planner.Import(new Uri("http://scsim-phoenix.de:8080/scs/data/output/169_2_8result.xml"));
 
             var p1 = planner.DataSource.GetItemById(1) as FinishedProduct;
             var p2 = planner.DataSource.GetItemById(2) as FinishedProduct;
@@ -218,11 +198,8 @@ namespace SupplyChainManagementTest
         [TestCase]
         public void ExportTest()
         {
-            var planner = new SupplyChainPlanner(new Uri("http://scsim-phoenix.de:8080"), _TestUsername, _TestPassword);
+            var planner = new SupplyChainPlanner();
             planner.DataSource.Purge();
-
-            planner.Import(new Uri("http://scsim-phoenix.de:8080/scs/data/output/166_2_5result.xml"));
-
 
             var p1 = planner.DataSource.GetItemById(1) as FinishedProduct;
             var p2 = planner.DataSource.GetItemById(2) as FinishedProduct;
@@ -264,11 +241,8 @@ namespace SupplyChainManagementTest
         [TestCase]
         public void AdditionalCapacityRequirementsShouldWork()
         {
-            var planner = new SupplyChainPlanner(new Uri("http://scsim-phoenix.de:8080"), _TestUsername, _TestPassword);
+            var planner = new SupplyChainPlanner();
             planner.DataSource.Purge();
-
-            planner.Import(new Uri("http://scsim-phoenix.de:8080/scs/data/output/169_2_8result.xml"));
-
 
             var p1 = planner.DataSource.GetItemById(1) as FinishedProduct;
             var p2 = planner.DataSource.GetItemById(2) as FinishedProduct;

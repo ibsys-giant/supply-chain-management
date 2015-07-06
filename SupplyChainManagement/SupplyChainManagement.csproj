@@ -90,8 +90,10 @@
     <Compile Include="Models\InputXml\CycleTimes.cs" />
     <Compile Include="Models\InputXml\IdleTimeCosts.cs" />
     <Compile Include="Models\InputXml\InwardStockMovement.cs" />
+    <Compile Include="Models\OutputXml\ItemSellWish.cs" />
+    <Compile Include="Models\OutputXml\QualityControl.cs" />
     <Compile Include="Models\OutputXml\Input.cs" />
-    <Compile Include="Models\OutputXml\Item.cs" />
+    <Compile Include="Models\OutputXml\ItemSellDirect.cs" />
     <Compile Include="Models\OutputXml\Order.cs" />
     <Compile Include="Models\OutputXml\OrderList.cs" />
     <Compile Include="Models\OutputXml\Production.cs" />
@@ -126,8 +128,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CapacityPlanning.cs" />
     <Compile Include="Services\ProcurementPlanning.cs" />
-    <Compile Include="Services\SimulatorClient.cs" />
-    <Compile Include="Services\SimulatorException.cs" />
     <Compile Include="Services\SupplyChainPlanner.cs" />
     <Compile Include="Util\BillOfMaterialUtil.cs" />
     <Compile Include="Util\Constants.cs" />

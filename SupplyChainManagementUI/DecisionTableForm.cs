@@ -12,21 +12,21 @@ using System.Windows.Forms;
 
 namespace SupplyChainManagementUI
 {
-    public partial class InputTableForm : Form
+    public partial class DecisionTableForm : Form
     {
         public SupplyChainPlanner Planner;
 
         public List<FinishedProduct> FinishedProducts = new List<FinishedProduct>();
 
 
-        public InputTableForm(MainForm parent, Uri importUri=null)
+        public DecisionTableForm(InputXmlForm parent, string xml)
         {
             InitializeComponent();
             Planner = parent.Planner; ;
 
-            if (importUri != null)
+            if (!String.IsNullOrEmpty(xml))
             {
-                Planner.Import(importUri);
+                Planner.Import(xml);
             }
 
             DataTable dt = new DataTable();
@@ -99,7 +99,11 @@ namespace SupplyChainManagementUI
                 }
 
                 Planner.Plan(demands, plannedWarehouseStocks);
-                Planner.Export();
+                var xml = Planner.Export();
+
+                var outputXmlForm = new OutputXmlForm(xml);
+                outputXmlForm.Show();
+                this.Hide();
             }
             catch (Exception exc) {
                 MessageBox.Show(exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

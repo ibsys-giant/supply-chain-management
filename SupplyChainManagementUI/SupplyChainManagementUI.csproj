@@ -47,34 +47,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InputTableForm.cs">
+    <Compile Include="DecisionTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InputTableForm.Designer.cs">
-      <DependentUpon>InputTableForm.cs</DependentUpon>
+    <Compile Include="DecisionTableForm.Designer.cs">
+      <DependentUpon>DecisionTableForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginForm.cs">
+    <Compile Include="InputXmlForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoginForm.Designer.cs">
-      <DependentUpon>LoginForm.cs</DependentUpon>
+    <Compile Include="InputXmlForm.Designer.cs">
+      <DependentUpon>InputXmlForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="OutputXmlForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <Compile Include="OutputXmlForm.Designer.cs">
+      <DependentUpon>OutputXmlForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="InputTableForm.resx">
-      <DependentUpon>InputTableForm.cs</DependentUpon>
+    <EmbeddedResource Include="DecisionTableForm.resx">
+      <DependentUpon>DecisionTableForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginForm.resx">
-      <DependentUpon>LoginForm.cs</DependentUpon>
+    <EmbeddedResource Include="InputXmlForm.resx">
+      <DependentUpon>InputXmlForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <EmbeddedResource Include="OutputXmlForm.resx">
+      <DependentUpon>OutputXmlForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

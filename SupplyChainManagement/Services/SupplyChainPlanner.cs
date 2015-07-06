@@ -19,7 +19,6 @@ namespace SupplyChainManagement.Services
     public class SupplyChainPlanner
     {
         public readonly ORM DataSource;
-        public readonly SimulatorClient Client;
 
         public SupplyChainManagement.Models.InputXml.PeriodResult PassedPeriodResult;
 
@@ -33,16 +32,13 @@ namespace SupplyChainManagement.Services
         public ProcurementPlanning ProcurementPlanning;
         
 
-        public SupplyChainPlanner(Uri endpoint, string username, string password, WebProxy proxy = null) 
+        public SupplyChainPlanner() 
         {
             DataSource = new ORM();
-            Client = new SimulatorClient(endpoint, proxy);
-            Client.Login(username, password);
         }
 
-        public void Import(Uri uri) 
+        public void Import(string xml) 
         {
-            string xml = Client.ReadResult(uri);
 
             XmlSerializer serializer = new XmlSerializer(typeof(SupplyChainManagement.Models.InputXml.PeriodResult));
 
@@ -61,97 +57,102 @@ namespace SupplyChainManagement.Services
         public void Plan(Dictionary<FinishedProduct, List<int>> demands, Dictionary<FinishedProduct, int> plannedWarehouseStocks)
         {
             Demands = demands;
+
             var allProducts = new List<Product>(from item in DataSource.GetAllItems() where item is Product select item as Product);
             var allFinishedProducts = new List<FinishedProduct>(from item in DataSource.GetAllItems() where item is FinishedProduct select item as FinishedProduct);
 
-            // Retrieve workplaces from waiting list out of XML
-            var waitingListWorkplaces = PassedPeriodResult.WaitingListWorkstations.Workplaces;
 
-            foreach (var workplaceInformation in waitingListWorkplaces) {
-                if (workplaceInformation.WaitingList != null) {
-                    var product = DataSource.GetItemById(workplaceInformation.WaitingList.Item) as Product;
+            if (PassedPeriodResult != null) { 
+            
+                // Retrieve workplaces from waiting list out of XML
+                var waitingListWorkplaces = PassedPeriodResult.WaitingListWorkstations.Workplaces;
+
+                foreach (var workplaceInformation in waitingListWorkplaces) {
+                    if (workplaceInformation.WaitingList != null) {
+                        var product = DataSource.GetItemById(workplaceInformation.WaitingList.Item) as Product;
+                        var workplace = DataSource.GetWorkplaceById(workplaceInformation.Id);
+                        var itemJob = DataSource.GetItemJobByWorkplaceAndProduct(workplace, product);
+
+                        if (WaitingList.ContainsKey(product))
+                        {
+                            WaitingList[product] += workplaceInformation.WaitingList.Amount;
+                        }
+                        else
+                        {
+                            WaitingList[product] = workplaceInformation.WaitingList.Amount;
+                        }
+
+                    
+                        if (!AdditionalCapacityRequirements.ContainsKey(workplace)) 
+                        {
+                            AdditionalCapacityRequirements.Add(workplace, 0.0);
+                        }
+
+                        if (workplace.Id == 7) {
+                            Console.WriteLine();
+                        }
+
+                        double additionalTime = (double) workplaceInformation.WaitingList.Amount;
+
+                        AdditionalCapacityRequirements[workplace] += itemJob.ProductionTimePerPiece * additionalTime + itemJob.SetupTime;
+
+                        var currentItemJob = itemJob;
+                        while (currentItemJob.NextItemJob != null)
+                        {
+                            currentItemJob = currentItemJob.NextItemJob;
+                            var currentWorkplace = currentItemJob.Workplace;
+
+                            if (!AdditionalCapacityRequirements.ContainsKey(currentWorkplace))
+                            {
+                                AdditionalCapacityRequirements[currentWorkplace] = 0.0;
+                            }
+
+                            AdditionalCapacityRequirements[currentWorkplace] += currentItemJob.ProductionTimePerPiece * additionalTime + currentItemJob.SetupTime;
+                        }
+                    }
+                }
+
+
+                // Retrieve workplaces from WIP list out of XML
+                var workInProgressWorkplaces = PassedPeriodResult.OrdersInWork.Workplaces;
+
+                foreach (var workplaceInformation in workInProgressWorkplaces)
+                {
+                    var product = (Product) DataSource.GetItemById(workplaceInformation.Item);
                     var workplace = DataSource.GetWorkplaceById(workplaceInformation.Id);
                     var itemJob = DataSource.GetItemJobByWorkplaceAndProduct(workplace, product);
 
-                    if (WaitingList.ContainsKey(product))
+                    if (OrdersInWork.ContainsKey(product))
                     {
-                        WaitingList[product] += workplaceInformation.WaitingList.Amount;
+                        OrdersInWork[product] += workplaceInformation.Amount;
                     }
                     else
                     {
-                        WaitingList[product] = workplaceInformation.WaitingList.Amount;
+                        OrdersInWork[product] = workplaceInformation.Amount;
                     }
-
-                    
+                
                     if (!AdditionalCapacityRequirements.ContainsKey(workplace)) 
                     {
                         AdditionalCapacityRequirements.Add(workplace, 0.0);
                     }
 
-                    if (workplace.Id == 7) {
-                        Console.WriteLine();
-                    }
+                    double additionalTime = (double)workplaceInformation.Amount;
 
-                    double additionalTime = (double) workplaceInformation.WaitingList.Amount;
-
-                    AdditionalCapacityRequirements[workplace] += itemJob.ProductionTimePerPiece * additionalTime + itemJob.SetupTime;
+                    AdditionalCapacityRequirements[workplace] += itemJob.ProductionTimePerPiece * additionalTime;
 
                     var currentItemJob = itemJob;
                     while (currentItemJob.NextItemJob != null)
                     {
-                        currentItemJob = currentItemJob.NextItemJob;
-                        var currentWorkplace = currentItemJob.Workplace;
+                        currentItemJob = itemJob.NextItemJob;
+                        var currentWorkplace = itemJob.Workplace;
 
                         if (!AdditionalCapacityRequirements.ContainsKey(currentWorkplace))
                         {
                             AdditionalCapacityRequirements[currentWorkplace] = 0.0;
                         }
 
-                        AdditionalCapacityRequirements[currentWorkplace] += currentItemJob.ProductionTimePerPiece * additionalTime + currentItemJob.SetupTime;
+                        AdditionalCapacityRequirements[currentWorkplace] += itemJob.ProductionTimePerPiece * additionalTime;
                     }
-                }
-            }
-
-
-            // Retrieve workplaces from WIP list out of XML
-            var workInProgressWorkplaces = PassedPeriodResult.OrdersInWork.Workplaces;
-
-            foreach (var workplaceInformation in workInProgressWorkplaces)
-            {
-                var product = (Product) DataSource.GetItemById(workplaceInformation.Item);
-                var workplace = DataSource.GetWorkplaceById(workplaceInformation.Id);
-                var itemJob = DataSource.GetItemJobByWorkplaceAndProduct(workplace, product);
-
-                if (OrdersInWork.ContainsKey(product))
-                {
-                    OrdersInWork[product] += workplaceInformation.Amount;
-                }
-                else
-                {
-                    OrdersInWork[product] = workplaceInformation.Amount;
-                }
-                
-                if (!AdditionalCapacityRequirements.ContainsKey(workplace)) 
-                {
-                    AdditionalCapacityRequirements.Add(workplace, 0.0);
-                }
-
-                double additionalTime = (double)workplaceInformation.Amount;
-
-                AdditionalCapacityRequirements[workplace] += itemJob.ProductionTimePerPiece * additionalTime;
-
-                var currentItemJob = itemJob;
-                while (currentItemJob.NextItemJob != null)
-                {
-                    currentItemJob = itemJob.NextItemJob;
-                    var currentWorkplace = itemJob.Workplace;
-
-                    if (!AdditionalCapacityRequirements.ContainsKey(currentWorkplace))
-                    {
-                        AdditionalCapacityRequirements[currentWorkplace] = 0.0;
-                    }
-
-                    AdditionalCapacityRequirements[currentWorkplace] += itemJob.ProductionTimePerPiece * additionalTime;
                 }
             }
 
@@ -174,7 +175,7 @@ namespace SupplyChainManagement.Services
 
         }
 
-        public void Export() 
+        public string Export() 
         {
 
             var finalPlanning = ProcurementPlanning;
@@ -186,13 +187,13 @@ namespace SupplyChainManagement.Services
             foreach (var product in finishedProducts)
             {
 
-                input.SellWish.Items.Add(new SupplyChainManagement.Models.OutputXml.Item
+                input.SellWish.Items.Add(new SupplyChainManagement.Models.OutputXml.ItemSellWish
                 {
                     Article = product.Id,
                     Quantity = Demands[product][0]
                 });
 
-                input.SellDirect.Items.Add(new SupplyChainManagement.Models.OutputXml.Item { 
+                input.SellDirect.Items.Add(new SupplyChainManagement.Models.OutputXml.ItemSellDirect { 
                     Article = product.Id,
                     Penalty = 0.0,
                     Price = 0.0,
@@ -239,7 +240,7 @@ namespace SupplyChainManagement.Services
                 xml = writer.ToString();
             }
 
-            Client.WriteInputData(xml);
+            return xml;
 
         }
     }
