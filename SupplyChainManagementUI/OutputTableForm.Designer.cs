@@ -31,6 +31,7 @@
             this.saveButton = new System.Windows.Forms.Button();
             this.itemsDataGrid = new System.Windows.Forms.DataGridView();
             this.overTimeDataGrid = new System.Windows.Forms.DataGridView();
+            this.resetButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.itemsDataGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.overTimeDataGrid)).BeginInit();
             this.SuspendLayout();
@@ -69,11 +70,22 @@
             this.overTimeDataGrid.TabIndex = 3;
             this.overTimeDataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.overTimeDataGrid_CellContentClick);
             // 
+            // resetButton
+            // 
+            this.resetButton.Location = new System.Drawing.Point(831, 449);
+            this.resetButton.Name = "resetButton";
+            this.resetButton.Size = new System.Drawing.Size(75, 23);
+            this.resetButton.TabIndex = 4;
+            this.resetButton.Text = "Reset";
+            this.resetButton.UseVisualStyleBackColor = true;
+            this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
+            // 
             // OutputTableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1037, 484);
+            this.Controls.Add(this.resetButton);
             this.Controls.Add(this.overTimeDataGrid);
             this.Controls.Add(this.itemsDataGrid);
             this.Controls.Add(this.saveButton);
@@ -91,5 +103,6 @@
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.DataGridView itemsDataGrid;
         private System.Windows.Forms.DataGridView overTimeDataGrid;
+        private System.Windows.Forms.Button resetButton;
     }
 }
