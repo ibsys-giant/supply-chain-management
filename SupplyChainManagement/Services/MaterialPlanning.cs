@@ -16,7 +16,7 @@ namespace SupplyChainManagement.Services
         public readonly ORM DataSource;
         public readonly Dictionary<Product, int> WaitingList;
         public readonly Dictionary<Product, int> OrdersInWork;
-        public Dictionary<Product, int> ProductionOrders = new Dictionary<Product, int>();
+        public Dictionary<int, Dictionary<Product, int>> ProductionOrders = new Dictionary<int, Dictionary<Product, int>>();
 
         public MaterialPlanning(ORM ds,
             Dictionary<Product, int> waitingList,
@@ -27,7 +27,21 @@ namespace SupplyChainManagement.Services
             this.OrdersInWork = ordersInWork;
         }
 
-        public MaterialPlanning CreateProductionOrders(Product product, int demand, int plannedWarehouseStock)
+
+        public void CreateProductionOrders(List<FinishedProduct> finishedProducts, Dictionary<FinishedProduct, List<int>> demands, Dictionary<FinishedProduct, int> plannedWarehouseStocks)
+        {
+            var periods = 4;
+
+            for (var period = 0; period < periods; period++) 
+            {
+                ProductionOrders[period] = new Dictionary<Product, int>();
+                foreach (var product in finishedProducts) {
+                    _CreateProductionOrdersForSingleProduct(product, period, demands[product][period], plannedWarehouseStocks[product]);
+                }
+            }
+        }
+
+        private void _CreateProductionOrdersForSingleProduct(Product product, int period, int demand, int plannedWarehouseStock)
         {
 
             var whereUsedList = BillOfMaterialUtil.CreateWhereUsedList(product);
@@ -64,13 +78,13 @@ namespace SupplyChainManagement.Services
 
             var orders = demand + plannedWarehouseStock - availableStock - ordersInQueue - workInProgress;
 
-            if (ProductionOrders.ContainsKey(product))
+            if (ProductionOrders[period].ContainsKey(product))
             {
-                ProductionOrders[product] += orders;
+                ProductionOrders[period][product] += orders;
             }
             else
             {
-                ProductionOrders[product] = orders;
+                ProductionOrders[period][product] = orders;
             }
 
             foreach (Item childItem in product.Items) {
@@ -79,11 +93,9 @@ namespace SupplyChainManagement.Services
 
                     var childDemand = demand * product.ItemQuantities[childItem];
                     var plannedChildWarehouseStock = plannedWarehouseStock * product.ItemQuantities[childItem];
-                    CreateProductionOrders(childProduct, childDemand, plannedChildWarehouseStock);
+                    _CreateProductionOrdersForSingleProduct(childProduct, period, childDemand, plannedChildWarehouseStock);
                 }
             }
-
-            return this;
         }
     }
 }

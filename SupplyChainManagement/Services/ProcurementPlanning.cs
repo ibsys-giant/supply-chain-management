@@ -17,8 +17,6 @@ namespace SupplyChainManagement.Services
 
         public List<ProcurementOrder> ProcurementOrders = new List<ProcurementOrder>();
 
-        public List<Dictionary<ProcuredItem, int>> DemandsForPeriods = new List<Dictionary<ProcuredItem, int>>();
-
         public List<int> TotalDemandsForPeriods = new List<int>();
 
         public ProcurementPlanning(CapacityPlanning cp) : base(cp, cp.AdditionalCapacityRequirements) {
@@ -26,83 +24,67 @@ namespace SupplyChainManagement.Services
             this.Shifts = cp.Shifts;
         }
 
-        public ProcurementPlanning CreateProcurementOrders(Dictionary<FinishedProduct, List<int>> demands)
+        public void CreateProcurementOrders()
         {
-            var procuredItems = from item in this.DataSource.GetAllItems()
-                                where item is ProcuredItem
-                                select item as ProcuredItem;
 
-            var finishedProductProductionOrders = from order in this.ProductionOrders
-                                          where order.Key is FinishedProduct
-                                          select order;
+            var procuredItems = new List<ProcuredItem>(from item in DataSource.GetAllItems() where item is ProcuredItem select item as ProcuredItem);
+            var finishedProducts =  new List<FinishedProduct>(from item in DataSource.GetAllItems() where item is FinishedProduct select item as FinishedProduct);
+            
+            var billsOfMaterials = new Dictionary<FinishedProduct, Dictionary<Item, int>>();
+            foreach (var finishedProduct in finishedProducts)
+            {
+                billsOfMaterials.Add(finishedProduct, BillOfMaterialUtil.CreateBillOfMaterial(finishedProduct));
+            }
 
             foreach (var procuredItem in procuredItems)
             {
-                for (int period = 0; period < demands.Count; period++)
+                var stock = procuredItem.Stock;
+                var sigma = procuredItem.ProcureLeadTimeDeviation;
+                var worstCaseArrivalTime = procuredItem.ProcureLeadTime + sigma;
+                var worstCaseArrivalPeriod = ((int)worstCaseArrivalTime) - 1;
+
+                if (worstCaseArrivalPeriod > 4) {
+                    worstCaseArrivalPeriod = 4;
+                }
+
+                var totalDemand = 0.0;
+
+                for (var period = 0; period < worstCaseArrivalPeriod; period++)
                 {
-                    var demandForCurrentPeriod = new Dictionary<ProcuredItem, int>();
-                    var finishedProductsUsedIn = from product in BillOfMaterialUtil.CreateWhereUsedList(procuredItem)
-                                                 where product is FinishedProduct
-                                                 select product;
 
-                    TotalDemandsForPeriods.Add(0);
-                    demandForCurrentPeriod[procuredItem] = 0;
+                    var demandPerPeriod = 0.0;
 
-                    foreach (var product in finishedProductsUsedIn)
+                    foreach (FinishedProduct product in finishedProducts)
                     {
-                        int totalUsageQuantity = BillOfMaterialUtil.CreateBillOfMaterial(product)[procuredItem];
-                        int finishedProductOrderQuantity = (from order in finishedProductProductionOrders
-                                                            where order.Key == product
-                                                           select order.Value).First<int>();
+                        try { 
+                            var itemPerProduct = billsOfMaterials[product][procuredItem];
+                            var productOrders = ProductionOrders[worstCaseArrivalPeriod][product];
 
-                        demandForCurrentPeriod[procuredItem] += finishedProductOrderQuantity * totalUsageQuantity;
-                        TotalDemandsForPeriods[period] += demandForCurrentPeriod[procuredItem];
+                            if (period == worstCaseArrivalPeriod)
+                            {
+                                demandPerPeriod += itemPerProduct * productOrders * (worstCaseArrivalPeriod + 1 - worstCaseArrivalTime);
+                            }
+                            else
+                            {
+                                demandPerPeriod += itemPerProduct * productOrders;
+                            }
+                        } catch (KeyNotFoundException) {
+                            continue;
+                        }
                     }
 
-                    DemandsForPeriods.Add(demandForCurrentPeriod);
+                    totalDemand += demandPerPeriod;
                 }
 
-                // Calculate worst case demand
-                var worstCaseLeadTime = procuredItem.ProcureLeadTime + procuredItem.ProcureLeadTimeDeviation;
-                var periodsAffected = Math.Ceiling(worstCaseLeadTime);
-
-                var totalDemand = 0;
-                for (var period = 0; period < periodsAffected; period++) {
-                    totalDemand += TotalDemandsForPeriods[period];
-                }
-                var worstCaseDemand = (double)(totalDemand * worstCaseLeadTime) / ((double) periodsAffected);
-
-                // Calculate lead case demand
-                periodsAffected = Math.Ceiling(procuredItem.ProcureLeadTime);
-                totalDemand = 0;
-                for (var period = 0; period < periodsAffected; period++) {
-                    totalDemand += TotalDemandsForPeriods[period];
-                }
-                var leadCaseDemand = (double) (totalDemand * procuredItem.ProcureLeadTime) / ((double) periodsAffected);
-
-
-                var procOrder = new ProcurementOrder();
-                procOrder.Item = procuredItem;
-                procOrder.Quantity = (int) worstCaseDemand;
-
-                if (procOrder.Quantity < procuredItem.DiscountQuantity)
+                if (stock <= (totalDemand/2.0))
                 {
-                    procOrder.Quantity = procuredItem.DiscountQuantity;
+                    ProcurementOrders.Add(new ProcurementOrder { Item = procuredItem, Type = ProcurementOrder.OrderType.FAST, Quantity = (int) totalDemand });
                 }
-
-                if (leadCaseDemand > procuredItem.Stock)
+                else if (stock <= totalDemand)
                 {
-                    procOrder.Type = ProcurementOrder.OrderType.FAST;
+                    ProcurementOrders.Add(new ProcurementOrder { Item = procuredItem, Type = ProcurementOrder.OrderType.NORMAL, Quantity = (int)totalDemand });
                 }
-                else 
-                {
-                    procOrder.Type = ProcurementOrder.OrderType.NORMAL;
-                }
-
-                ProcurementOrders.Add(procOrder);
             }
-
-            return this;
         }
     }
 }

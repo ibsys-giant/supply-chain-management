@@ -39,7 +39,7 @@ namespace SupplyChainManagement.Services
 
                 foreach (var job in workplace.Jobs) {
 
-                    var order = ProductionOrders[job.Product];
+                    var order = ProductionOrders[0][job.Product];
                     var timePerPiece = job.ProductionTimePerPiece;
                     var totalItemWorkRequirement =  order * timePerPiece;
                     TotalCapacityRequirements[workplace] += totalItemWorkRequirement;
@@ -85,7 +85,8 @@ namespace SupplyChainManagement.Services
                     Shifts[workplace]++;
                     overtime -= Constants.SHIFT_DURATION;
                 }
-                else {
+                else
+                {
                     break;
                 }
             }
@@ -95,10 +96,10 @@ namespace SupplyChainManagement.Services
             {
                 Overtime[workplace] = 0.0;
             }
-            else {
-                Overtime[workplace] = overtime;
+            else
+            {
+                Overtime[workplace] = overtime/5.0;
             }
-
         }
     }
 }

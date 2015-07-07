@@ -143,8 +143,8 @@ namespace SupplyChainManagement.Services
                     var currentItemJob = itemJob;
                     while (currentItemJob.NextItemJob != null)
                     {
-                        currentItemJob = itemJob.NextItemJob;
-                        var currentWorkplace = itemJob.Workplace;
+                        currentItemJob = currentItemJob.NextItemJob;
+                        var currentWorkplace = currentItemJob.Workplace;
 
                         if (!AdditionalCapacityRequirements.ContainsKey(currentWorkplace))
                         {
@@ -161,17 +161,15 @@ namespace SupplyChainManagement.Services
 
             MaterialPlanning = new MaterialPlanning(DataSource, WaitingList, OrdersInWork);
 
-            foreach (var finishedProduct in allFinishedProducts) {
-                MaterialPlanning.CreateProductionOrders(finishedProduct, demands[finishedProduct][0], plannedWarehouseStocks[finishedProduct]);
-            }
-            
+            MaterialPlanning.CreateProductionOrders(allFinishedProducts, demands, plannedWarehouseStocks);
+
             // Do capacity planning
             CapacityPlanning = new CapacityPlanning(MaterialPlanning, AdditionalCapacityRequirements);
             CapacityPlanning.CreateWorkRequirements();
 
             // Do procurements planning
             ProcurementPlanning = new ProcurementPlanning(CapacityPlanning);
-            ProcurementPlanning.CreateProcurementOrders(demands);
+            ProcurementPlanning.CreateProcurementOrders();
 
         }
 
@@ -202,17 +200,19 @@ namespace SupplyChainManagement.Services
             }
 
 
-            foreach (var product in finalPlanning.ProductionOrders.Keys)
+            foreach (var product in finalPlanning.ProductionOrders[0].Keys)
             {
 
-                var order = finalPlanning.ProductionOrders[product];
+                var order = finalPlanning.ProductionOrders[0][product];
 
+                if (order > 0) {
                 input.ProductionList.ProductionItems.Add(
                     new SupplyChainManagement.Models.OutputXml.Production
                     {
                         Article = product.Id,
                         Quantity = order
                     });
+                }
 
             }
 
@@ -221,13 +221,42 @@ namespace SupplyChainManagement.Services
                 var overtime = (int) finalPlanning.Overtime[workplace];
                 var shifts = finalPlanning.Shifts[workplace];
 
-                input.WorkingTimeList.WorkingTime.Add(
-                    new SupplyChainManagement.Models.OutputXml.WorkingTime
+                    input.WorkingTimeList.WorkingTime.Add(
+                        new SupplyChainManagement.Models.OutputXml.WorkingTime
+                        {
+                            Overtime = overtime,
+                            Shift = shifts,
+                            Station = workplace.Id
+                        });
+            }
+
+            foreach (var order in finalPlanning.ProcurementOrders) {
+
+                var itemId = order.Item.Id;
+                var quantity = order.Quantity;
+
+                if (quantity > 0) { 
+                    if (order.Type == ProcurementOrder.OrderType.FAST)
                     {
-                        Overtime = overtime,
-                        Shift = shifts,
-                        Station = workplace.Id
-                    });
+                        input.OrderList.Orders.Add(new SupplyChainManagement.Models.OutputXml.Order
+                        {
+                            Article = itemId,
+                            Modus = 4,
+                            Quantity = quantity
+                        });
+                    }
+                    else
+                    {
+
+                        input.OrderList.Orders.Add(new SupplyChainManagement.Models.OutputXml.Order
+                        {
+                            Article = itemId,
+                            Modus = 5,
+                            Quantity = quantity
+                        });
+                    }
+                }
+                
             }
 
             XmlSerializer serializer = new XmlSerializer(typeof(SupplyChainManagement.Models.OutputXml.Input));
