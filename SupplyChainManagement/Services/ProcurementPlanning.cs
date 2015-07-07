@@ -15,7 +15,7 @@ namespace SupplyChainManagement.Services
     public class ProcurementPlanning : CapacityPlanning
     {
 
-        public List<ProcurementOrder> ProcurementOrders = new List<ProcurementOrder>();
+        public Dictionary<ProcuredItem, ProcurementOrder> ProcurementOrders = new Dictionary<ProcuredItem, ProcurementOrder>();
 
         public List<int> TotalDemandsForPeriods = new List<int>();
 
@@ -78,11 +78,11 @@ namespace SupplyChainManagement.Services
 
                 if (stock <= (totalDemand/2.0))
                 {
-                    ProcurementOrders.Add(new ProcurementOrder { Item = procuredItem, Type = ProcurementOrder.OrderType.FAST, Quantity = (int) totalDemand });
+                    ProcurementOrders.Add(procuredItem, new ProcurementOrder { Type = ProcurementOrder.OrderType.FAST, Quantity = (int) totalDemand });
                 }
                 else if (stock <= totalDemand)
                 {
-                    ProcurementOrders.Add(new ProcurementOrder { Item = procuredItem, Type = ProcurementOrder.OrderType.NORMAL, Quantity = (int)totalDemand });
+                    ProcurementOrders.Add(procuredItem, new ProcurementOrder { Type = ProcurementOrder.OrderType.NORMAL, Quantity = (int)totalDemand });
                 }
             }
         }

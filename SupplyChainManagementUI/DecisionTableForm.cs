@@ -16,6 +16,9 @@ namespace SupplyChainManagementUI
     {
         public SupplyChainPlanner Planner;
 
+
+        public InputXmlForm ParentForm;
+
         public List<FinishedProduct> FinishedProducts = new List<FinishedProduct>();
 
 
@@ -23,6 +26,7 @@ namespace SupplyChainManagementUI
         {
             InitializeComponent();
             Planner = parent.Planner; ;
+            ParentForm = parent;
 
             if (!String.IsNullOrEmpty(xml))
             {
@@ -46,6 +50,16 @@ namespace SupplyChainManagementUI
             }
 
             dataGridView.DataSource = dt;
+            dataGridView.Columns[0].DefaultCellStyle.BackColor = Color.LightGray;
+            dataGridView.Columns[0].ReadOnly = true;
+            dataGridView.AllowUserToAddRows = false;
+
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            CloseParentWindows();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -79,7 +93,7 @@ namespace SupplyChainManagementUI
 
         private void calcButtonClick(object sender, EventArgs e)
         {
-            try {
+            //try {
 
                 var plannedWarehouseStocks = new Dictionary<FinishedProduct, int>();
                 var demands = new Dictionary<FinishedProduct, List<int>>();
@@ -99,15 +113,22 @@ namespace SupplyChainManagementUI
                 }
 
                 Planner.Plan(demands, plannedWarehouseStocks);
-                var xml = Planner.Export();
 
-                var outputXmlForm = new OutputXmlForm(xml);
-                outputXmlForm.Show();
+                var outputTableForm = new OutputTableForm(this, Planner);
+                outputTableForm.Show();
                 this.Hide();
-            }
-            catch (Exception exc) {
-                MessageBox.Show(exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+           // }
+            //catch (Exception exc) {
+            //    MessageBox.Show(exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+        }
+
+
+
+        public void CloseParentWindows()
+        {
+            ParentForm.Close();
+
         }
     }
 }

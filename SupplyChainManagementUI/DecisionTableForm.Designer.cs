@@ -35,16 +35,20 @@
             // 
             // dataGridView
             // 
+            this.dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Location = new System.Drawing.Point(12, 12);
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.Size = new System.Drawing.Size(751, 280);
+            this.dataGridView.Size = new System.Drawing.Size(901, 443);
             this.dataGridView.TabIndex = 0;
             this.dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CellContentClick);
             // 
             // calcButton
             // 
-            this.calcButton.Location = new System.Drawing.Point(688, 301);
+            this.calcButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.calcButton.Location = new System.Drawing.Point(838, 464);
             this.calcButton.Name = "calcButton";
             this.calcButton.Size = new System.Drawing.Size(75, 23);
             this.calcButton.TabIndex = 1;
@@ -52,14 +56,14 @@
             this.calcButton.UseVisualStyleBackColor = true;
             this.calcButton.Click += new System.EventHandler(this.calcButtonClick);
             // 
-            // InputTableForm
+            // DecisionTableForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(775, 336);
+            this.ClientSize = new System.Drawing.Size(925, 499);
             this.Controls.Add(this.calcButton);
             this.Controls.Add(this.dataGridView);
-            this.Name = "InputTableForm";
+            this.Name = "DecisionTableForm";
             this.Text = "Planung Endprodukte";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();

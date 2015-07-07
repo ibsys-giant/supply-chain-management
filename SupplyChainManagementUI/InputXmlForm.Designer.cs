@@ -31,10 +31,13 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.xmlText = new System.Windows.Forms.RichTextBox();
+            this.loadXmlFileButton = new System.Windows.Forms.Button();
+            this.firstPeriodCheckbox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // button1
             // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Location = new System.Drawing.Point(494, 347);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
@@ -55,22 +58,55 @@
             // 
             // xmlText
             // 
+            this.xmlText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.xmlText.Enabled = false;
             this.xmlText.Location = new System.Drawing.Point(12, 31);
             this.xmlText.Name = "xmlText";
             this.xmlText.Size = new System.Drawing.Size(557, 310);
             this.xmlText.TabIndex = 16;
             this.xmlText.Text = "";
             // 
-            // MainForm
+            // loadXmlFileButton
+            // 
+            this.loadXmlFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.loadXmlFileButton.Enabled = false;
+            this.loadXmlFileButton.Location = new System.Drawing.Point(380, 347);
+            this.loadXmlFileButton.Name = "loadXmlFileButton";
+            this.loadXmlFileButton.Size = new System.Drawing.Size(108, 23);
+            this.loadXmlFileButton.TabIndex = 17;
+            this.loadXmlFileButton.Text = "Open XML file";
+            this.loadXmlFileButton.UseVisualStyleBackColor = true;
+            this.loadXmlFileButton.Click += new System.EventHandler(this.loadXmlFileButton_Click);
+            // 
+            // firstPeriodCheckbox
+            // 
+            this.firstPeriodCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.firstPeriodCheckbox.AutoSize = true;
+            this.firstPeriodCheckbox.Checked = true;
+            this.firstPeriodCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.firstPeriodCheckbox.Location = new System.Drawing.Point(294, 351);
+            this.firstPeriodCheckbox.Name = "firstPeriodCheckbox";
+            this.firstPeriodCheckbox.Size = new System.Drawing.Size(78, 17);
+            this.firstPeriodCheckbox.TabIndex = 18;
+            this.firstPeriodCheckbox.Text = "First Period";
+            this.firstPeriodCheckbox.UseVisualStyleBackColor = true;
+            this.firstPeriodCheckbox.CheckedChanged += new System.EventHandler(this.firstPeriodCheckbox_CheckedChanged);
+            // 
+            // InputXmlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(581, 382);
+            this.Controls.Add(this.firstPeriodCheckbox);
+            this.Controls.Add(this.loadXmlFileButton);
             this.Controls.Add(this.xmlText);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
-            this.Name = "MainForm";
+            this.Name = "InputXmlForm";
             this.Text = "MainForm";
+            this.Load += new System.EventHandler(this.InputXmlForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -81,5 +117,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RichTextBox xmlText;
+        private System.Windows.Forms.Button loadXmlFileButton;
+        private System.Windows.Forms.CheckBox firstPeriodCheckbox;
     }
 }

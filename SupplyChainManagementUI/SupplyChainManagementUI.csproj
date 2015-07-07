@@ -75,11 +75,11 @@
     <Compile Include="InputXmlForm.Designer.cs">
       <DependentUpon>InputXmlForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="OutputXmlForm.cs">
+    <Compile Include="OutputTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OutputXmlForm.Designer.cs">
-      <DependentUpon>OutputXmlForm.cs</DependentUpon>
+    <Compile Include="OutputTableForm.Designer.cs">
+      <DependentUpon>OutputTableForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,8 +89,8 @@
     <EmbeddedResource Include="InputXmlForm.resx">
       <DependentUpon>InputXmlForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OutputXmlForm.resx">
-      <DependentUpon>OutputXmlForm.cs</DependentUpon>
+    <EmbeddedResource Include="OutputTableForm.resx">
+      <DependentUpon>OutputTableForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

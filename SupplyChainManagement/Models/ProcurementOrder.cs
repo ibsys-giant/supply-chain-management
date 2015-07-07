@@ -14,8 +14,6 @@ namespace SupplyChainManagement.Models
             NORMAL,
             FAST
         }
-
-        public ProcuredItem Item;
         public int Quantity;
         public OrderType Type;
     }

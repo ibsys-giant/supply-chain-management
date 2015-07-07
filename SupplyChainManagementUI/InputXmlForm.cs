@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,6 +21,7 @@ namespace SupplyChainManagementUI
         {
             InitializeComponent();
             Planner = new SupplyChainPlanner();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -56,6 +58,26 @@ namespace SupplyChainManagementUI
 
         }
 
+        private void firstPeriodCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            xmlText.Enabled = !firstPeriodCheckbox.Checked;
+            loadXmlFileButton.Enabled = !firstPeriodCheckbox.Checked;
+        }
 
+        private void loadXmlFileButton_Click(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.FileName = "input.xml";
+
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
+                xmlText.Text = File.ReadAllText(dialog.FileName);
+            }
+
+        }
+
+        private void InputXmlForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
