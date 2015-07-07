@@ -20,6 +20,7 @@ namespace SupplyChainManagementUI
         public InputXmlForm ParentForm;
 
         public List<FinishedProduct> FinishedProducts = new List<FinishedProduct>();
+        private int[,] StartValues;
 
 
         public DecisionTableForm(InputXmlForm parent, string xml)
@@ -33,6 +34,25 @@ namespace SupplyChainManagementUI
                 Planner.Import(xml);
             }
 
+            StartValues = new int[3, 5];
+            StartValues[0, 0] = 100;
+            StartValues[0, 1] = 150;
+            StartValues[0, 2] = 150;
+            StartValues[0, 3] = 150;
+            StartValues[0, 4] = 150;
+
+            StartValues[1, 0] = 100;
+            StartValues[1, 1] = 150;
+            StartValues[1, 2] = 150;
+            StartValues[1, 3] = 100;
+            StartValues[1, 4] = 50;
+
+            StartValues[2, 0] = 100;
+            StartValues[2, 1] = 150;
+            StartValues[2, 2] = 100;
+            StartValues[2, 3] = 50;
+            StartValues[2, 4] = 50;
+
             DataTable dt = new DataTable();
             dt.Columns.Add("Finished Product", typeof(string));
             dt.Columns.Add("Planned warehouse stock", typeof(int));
@@ -44,9 +64,11 @@ namespace SupplyChainManagementUI
             var allItems = Planner.DataSource.GetAllItems();
             FinishedProducts = new List<FinishedProduct>(from item in allItems where item is FinishedProduct select item as FinishedProduct);
 
-            foreach (var product in FinishedProducts)
+
+            for (var i = 0; i < FinishedProducts.Count; i++ )
             {
-                dt.Rows.Add(product.ToString(), 0, 0, 0, 0, 0);
+                var product = FinishedProducts[i];
+                dt.Rows.Add(product.ToString(), StartValues[i, 0], StartValues[i, 1], StartValues[i, 2], StartValues[i, 3], StartValues[i, 4]);
             }
 
             dataGridView.DataSource = dt;
