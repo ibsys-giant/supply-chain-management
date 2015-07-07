@@ -16,18 +16,42 @@ namespace SupplyChainManagementUI
     {
         public SupplyChainPlanner Planner;
 
+
+        public InputXmlForm ParentForm;
+
         public List<FinishedProduct> FinishedProducts = new List<FinishedProduct>();
+        private int[,] StartValues;
 
 
         public DecisionTableForm(InputXmlForm parent, string xml)
         {
             InitializeComponent();
             Planner = parent.Planner; ;
+            ParentForm = parent;
 
             if (!String.IsNullOrEmpty(xml))
             {
                 Planner.Import(xml);
             }
+
+            StartValues = new int[3, 5];
+            StartValues[0, 0] = 100;
+            StartValues[0, 1] = 150;
+            StartValues[0, 2] = 150;
+            StartValues[0, 3] = 150;
+            StartValues[0, 4] = 150;
+
+            StartValues[1, 0] = 100;
+            StartValues[1, 1] = 150;
+            StartValues[1, 2] = 150;
+            StartValues[1, 3] = 100;
+            StartValues[1, 4] = 50;
+
+            StartValues[2, 0] = 100;
+            StartValues[2, 1] = 150;
+            StartValues[2, 2] = 100;
+            StartValues[2, 3] = 50;
+            StartValues[2, 4] = 50;
 
             DataTable dt = new DataTable();
             dt.Columns.Add("Finished Product", typeof(string));
@@ -40,12 +64,24 @@ namespace SupplyChainManagementUI
             var allItems = Planner.DataSource.GetAllItems();
             FinishedProducts = new List<FinishedProduct>(from item in allItems where item is FinishedProduct select item as FinishedProduct);
 
-            foreach (var product in FinishedProducts)
+
+            for (var i = 0; i < FinishedProducts.Count; i++ )
             {
-                dt.Rows.Add(product.ToString(), 0, 0, 0, 0, 0);
+                var product = FinishedProducts[i];
+                dt.Rows.Add(product.ToString(), StartValues[i, 0], StartValues[i, 1], StartValues[i, 2], StartValues[i, 3], StartValues[i, 4]);
             }
 
             dataGridView.DataSource = dt;
+            dataGridView.Columns[0].DefaultCellStyle.BackColor = Color.LightGray;
+            dataGridView.Columns[0].ReadOnly = true;
+            dataGridView.AllowUserToAddRows = false;
+
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            CloseParentWindows();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -79,7 +115,7 @@ namespace SupplyChainManagementUI
 
         private void calcButtonClick(object sender, EventArgs e)
         {
-            try {
+            //try {
 
                 var plannedWarehouseStocks = new Dictionary<FinishedProduct, int>();
                 var demands = new Dictionary<FinishedProduct, List<int>>();
@@ -99,15 +135,22 @@ namespace SupplyChainManagementUI
                 }
 
                 Planner.Plan(demands, plannedWarehouseStocks);
-                var xml = Planner.Export();
 
-                var outputXmlForm = new OutputXmlForm(xml);
-                outputXmlForm.Show();
+                var outputTableForm = new OutputTableForm(this, Planner);
+                outputTableForm.Show();
                 this.Hide();
-            }
-            catch (Exception exc) {
-                MessageBox.Show(exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+           // }
+            //catch (Exception exc) {
+            //    MessageBox.Show(exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+        }
+
+
+
+        public void CloseParentWindows()
+        {
+            ParentForm.Close();
+
         }
     }
 }

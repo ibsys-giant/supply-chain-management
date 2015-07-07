@@ -230,9 +230,10 @@ namespace SupplyChainManagement.Services
                         });
             }
 
-            foreach (var order in finalPlanning.ProcurementOrders) {
+            foreach (var procuredItem in finalPlanning.ProcurementOrders.Keys) {
 
-                var itemId = order.Item.Id;
+                var order = finalPlanning.ProcurementOrders[procuredItem];
+
                 var quantity = order.Quantity;
 
                 if (quantity > 0) { 
@@ -240,7 +241,7 @@ namespace SupplyChainManagement.Services
                     {
                         input.OrderList.Orders.Add(new SupplyChainManagement.Models.OutputXml.Order
                         {
-                            Article = itemId,
+                            Article = procuredItem.Id,
                             Modus = 4,
                             Quantity = quantity
                         });
@@ -250,7 +251,7 @@ namespace SupplyChainManagement.Services
 
                         input.OrderList.Orders.Add(new SupplyChainManagement.Models.OutputXml.Order
                         {
-                            Article = itemId,
+                            Article = procuredItem.Id,
                             Modus = 5,
                             Quantity = quantity
                         });
@@ -268,6 +269,11 @@ namespace SupplyChainManagement.Services
                 serializer.Serialize(writer, input);
                 xml = writer.ToString();
             }
+
+            // Workaround for stupid simulator
+            xml = xml.Replace("<?xml version=\"1.0\" encoding=\"utf-16\"?>", "");
+            xml = xml.Replace(" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", "");
+
 
             return xml;
 
