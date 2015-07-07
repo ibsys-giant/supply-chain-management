@@ -67,14 +67,10 @@ namespace SupplyChainManagementUI
 
         public void SetCalculatedData() {
             dtItems = new DataTable();
-            itemsDataGrid.DataSource = dtItems;
             dtItems.Columns.Add("Item");
             dtItems.Columns.Add("Production orders");
             dtItems.Columns.Add("Procurement orders");
             dtItems.Columns.Add("Order type");
-            itemsDataGrid.Columns[0].DefaultCellStyle.BackColor = Color.LightGray;
-            itemsDataGrid.Columns[0].ReadOnly = true;
-            itemsDataGrid.AllowUserToAddRows = false;
 
             AllItems = Planner.DataSource.GetAllItems();
 
@@ -130,16 +126,16 @@ namespace SupplyChainManagementUI
                 EnableCellInItemList[row][1] = !disableProductionOrders;
                 EnableCellInItemList[row][2] = !disableProcurementOrders;
             }
+            itemsDataGrid.DataSource = dtItems;
+            itemsDataGrid.Columns[0].DefaultCellStyle.BackColor = Color.LightGray;
+            itemsDataGrid.Columns[0].ReadOnly = true;
+            itemsDataGrid.AllowUserToAddRows = false;
 
 
             dtOvertime = new DataTable();
-            overTimeDataGrid.DataSource = dtOvertime;
             dtOvertime.Columns.Add("Workplace");
             dtOvertime.Columns.Add("Shifts");
             dtOvertime.Columns.Add("Overtime");
-            overTimeDataGrid.Columns[0].DefaultCellStyle.BackColor = Color.LightGray;
-            overTimeDataGrid.Columns[0].ReadOnly = true;
-            overTimeDataGrid.AllowUserToAddRows = false;
 
             AllWorkplaces = Planner.DataSource.GetAllWorkplaces();
 
@@ -148,15 +144,78 @@ namespace SupplyChainManagementUI
                 var workplace = AllWorkplaces[row];
                 dtOvertime.Rows.Add(workplace.Id, Planner.ProcurementPlanning.Shifts[workplace], Planner.ProcurementPlanning.Overtime[workplace]);
             }
+            overTimeDataGrid.DataSource = dtOvertime;
+            overTimeDataGrid.Columns[0].DefaultCellStyle.BackColor = Color.LightGray;
+            overTimeDataGrid.Columns[0].ReadOnly = true;
+            overTimeDataGrid.AllowUserToAddRows = false;
 
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
+
             var dialog = new SaveFileDialog();
 
             dialog.FileName = "output.xml";
+
             if (dialog.ShowDialog() == DialogResult.OK) {
+
+                for (var i = 0; i < itemsDataGrid.Rows.Count; i++)
+                {
+
+                    var item = AllItems[i];
+                    var row = itemsDataGrid.Rows[i];
+
+                    try
+                    {
+                        if (item is Product && Planner.ProcurementPlanning.ProductionOrders[0].ContainsKey(item as Product))
+                        {
+
+                            Planner.ProcurementPlanning.ProductionOrders[0][item as Product] = int.Parse(row.Cells[1].Value.ToString());
+                        }
+
+
+                        var quantity = int.Parse(row.Cells[2].Value.ToString());
+                        if (item is ProcuredItem && quantity > 0)
+                        {
+
+
+                            if (!Planner.ProcurementPlanning.ProcurementOrders.ContainsKey(item as ProcuredItem)) {
+                                Planner.ProcurementPlanning.ProcurementOrders[item as ProcuredItem] = new ProcurementOrder();
+                            }
+
+                            Planner.ProcurementPlanning.ProcurementOrders[item as ProcuredItem].Quantity = quantity;
+
+                            var orderTypeValue = row.Cells[3].Value.ToString();
+
+                            if (orderTypeValue.ToUpper() == "FAST")
+                            {
+                                Planner.ProcurementPlanning.ProcurementOrders[item as ProcuredItem].Type = ProcurementOrder.OrderType.FAST;
+                            }
+                            else
+                            {
+                                Planner.ProcurementPlanning.ProcurementOrders[item as ProcuredItem].Type = ProcurementOrder.OrderType.NORMAL;
+                            }
+                        }
+                    }
+                    catch (FormatException) { }
+                }
+
+
+                for (var i = 0; i < overTimeDataGrid.Rows.Count; i++)
+                {
+
+                    var workplace = AllWorkplaces[i];
+                    var row = overTimeDataGrid.Rows[i];
+
+                    try
+                    {
+                        Planner.ProcurementPlanning.Shifts[workplace] = int.Parse(row.Cells[1].Value.ToString());
+                        Planner.ProcurementPlanning.Overtime[workplace] = int.Parse(row.Cells[2].Value.ToString());
+                    }
+                    catch (FormatException) { }
+                }
+
 
                 var xml = Planner.Export();
                 File.WriteAllText(dialog.FileName, xml);
@@ -176,6 +235,11 @@ namespace SupplyChainManagementUI
         private void overTimeDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void resetButton_Click(object sender, EventArgs e)
+        {
+            SetCalculatedData();
         }
     }
 }
