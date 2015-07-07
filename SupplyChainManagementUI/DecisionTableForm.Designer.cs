@@ -1,6 +1,6 @@
 ﻿namespace SupplyChainManagementUI
 {
-    partial class InputTableForm
+    partial class DecisionTableForm
     {
         /// <summary>
         /// Required designer variable.

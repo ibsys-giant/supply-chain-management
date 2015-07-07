@@ -12,31 +12,21 @@ using SupplyChainManagement.Services;
 
 namespace SupplyChainManagementUI
 {
-    public partial class MainForm : Form
+    public partial class InputXmlForm : Form
     {
-
-        private LoginForm _LoginForm;
-
         public SupplyChainPlanner Planner;
 
-        public MainForm(LoginForm parent, SupplyChainPlanner planner)
+        public InputXmlForm()
         {
             InitializeComponent();
-            Planner = planner;
+            Planner = new SupplyChainPlanner();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
-
-                Uri importUri = null;
-
-                if (!String.IsNullOrEmpty(urlTextBox.Text)) {
-                    importUri = new Uri(urlTextBox.Text);
-                }
-
-                InputTableForm dyn = new InputTableForm(this, importUri);
+                DecisionTableForm dyn = new DecisionTableForm(this, xmlText.Text);
                 dyn.Show();
                 this.Hide();
             }

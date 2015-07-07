@@ -33,10 +33,8 @@ namespace SupplyChainManagementTest
         [TestCase]
         public void CapacityPlanningWorks()
         {
-            var planner = new SupplyChainPlanner(new Uri("http://scsim-phoenix.de:8080"), _TestUsername, _TestPassword);
+            var planner = new SupplyChainPlanner();
             planner.DataSource.Purge();
-
-            planner.Import(new Uri("http://scsim-phoenix.de:8080/scs/data/output/169_2_8result.xml"));
 
             var p1 = planner.DataSource.GetItemById(1) as FinishedProduct;
             var p2 = planner.DataSource.GetItemById(2) as FinishedProduct;
@@ -81,27 +79,27 @@ namespace SupplyChainManagementTest
             }
         }
 
-        [TestCase]
-        public void SimpleCapacityPlanningWorks()
-        {
-            var dataSource = new ORM();
-            dataSource.Purge();
-            var materialPlanning = new MaterialPlanning(dataSource, new Dictionary<Product, int>(), new Dictionary<Product, int>());
+        //[TestCase]
+        //public void SimpleCapacityPlanningWorks()
+        //{
+        //    var dataSource = new ORM();
+        //    dataSource.Purge();
+        //    var materialPlanning = new MaterialPlanning(dataSource, new Dictionary<Product, int>(), new Dictionary<Product, int>());
 
-            var p1 = materialPlanning.DataSource.GetItemById(1) as Product;
-            var p2 = materialPlanning.DataSource.GetItemById(2) as Product;
-            var p3 = materialPlanning.DataSource.GetItemById(3) as Product;
+        //    var p1 = materialPlanning.DataSource.GetItemById(1) as Product;
+        //    var p2 = materialPlanning.DataSource.GetItemById(2) as Product;
+        //    var p3 = materialPlanning.DataSource.GetItemById(3) as Product;
 
-            // Create orders
-            materialPlanning
-                .CreateProductionOrders(p1, 150, 100)
-                .CreateProductionOrders(p2, 100, 100)
-                .CreateProductionOrders(p3, 100, 100);
+        //    // Create orders
+        //    materialPlanning
+        //        .CreateProductionOrders(p1, 150, 100)
+        //        .CreateProductionOrders(p2, 100, 100)
+        //        .CreateProductionOrders(p3, 100, 100);
 
-            var capacityPlanning = new CapacityPlanning(materialPlanning, new Dictionary<Workplace,double>());
-            capacityPlanning.CreateWorkRequirements();
+        //    var capacityPlanning = new CapacityPlanning(materialPlanning, new Dictionary<Workplace,double>());
+        //    capacityPlanning.CreateWorkRequirements();
 
 
-        }
+        //}
     }
 }

@@ -8,18 +8,12 @@ using System.Xml.Serialization;
 
 namespace SupplyChainManagement.Models.OutputXml
 {
-    public class Item
+    public class ItemSellWish
     {
         [XmlAttribute("article")]
         public int Article;
 
         [XmlAttribute("quantity")]
-        public int Quantity;
-
-        [XmlAttribute("price")]
-        public double Price;
-
-        [XmlAttribute("penalty")]
-        public double Penalty;
+        public int Quantity = 0;
     }
 }
