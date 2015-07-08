@@ -41,19 +41,16 @@ namespace SupplyChainManagement.Services
                 var stock = procuredItem.Stock;
                 var sigma = procuredItem.ProcureLeadTimeDeviation;
                 var worstCaseArrivalTime = procuredItem.ProcureLeadTime + sigma;
-                var worstCaseArrivalPeriod = ((int)worstCaseArrivalTime) - 1;
+                var worstCaseArrivalPeriod = (int)worstCaseArrivalTime;
 
                 if (worstCaseArrivalPeriod > 4) {
                     worstCaseArrivalPeriod = 4;
                 }
 
-                var totalDemand = 0.0;
+                var totalDemandPerProcuredItem = 0.0;
 
-                for (var period = 0; period < worstCaseArrivalPeriod; period++)
+                for (var period = 0; period <= worstCaseArrivalPeriod; period++)
                 {
-
-                    var demandPerPeriod = 0.0;
-
                     foreach (FinishedProduct product in finishedProducts)
                     {
                         try { 
@@ -62,27 +59,25 @@ namespace SupplyChainManagement.Services
 
                             if (period == worstCaseArrivalPeriod)
                             {
-                                demandPerPeriod += itemPerProduct * productOrders * (worstCaseArrivalPeriod + 1 - worstCaseArrivalTime);
+                                totalDemandPerProcuredItem += itemPerProduct * productOrders * (worstCaseArrivalPeriod + 1 - worstCaseArrivalTime);
                             }
                             else
                             {
-                                demandPerPeriod += itemPerProduct * productOrders;
+                                totalDemandPerProcuredItem += itemPerProduct * productOrders;
                             }
                         } catch (KeyNotFoundException) {
                             continue;
                         }
                     }
-
-                    totalDemand += demandPerPeriod;
                 }
 
-                if (stock <= (totalDemand/2.0))
+                if (stock <= (totalDemandPerProcuredItem/2.0))
                 {
-                    ProcurementOrders.Add(procuredItem, new ProcurementOrder { Type = ProcurementOrder.OrderType.FAST, Quantity = (int) totalDemand });
+                    ProcurementOrders.Add(procuredItem, new ProcurementOrder { Type = ProcurementOrder.OrderType.FAST, Quantity = (int) totalDemandPerProcuredItem });
                 }
-                else if (stock <= totalDemand)
+                else if (stock <= totalDemandPerProcuredItem)
                 {
-                    ProcurementOrders.Add(procuredItem, new ProcurementOrder { Type = ProcurementOrder.OrderType.NORMAL, Quantity = (int)totalDemand });
+                    ProcurementOrders.Add(procuredItem, new ProcurementOrder { Type = ProcurementOrder.OrderType.NORMAL, Quantity = (int)totalDemandPerProcuredItem });
                 }
             }
         }

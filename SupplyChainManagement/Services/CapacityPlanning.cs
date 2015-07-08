@@ -60,46 +60,27 @@ namespace SupplyChainManagement.Services
 
         private void _CalculateOvertimeAndShifts(Workplace workplace) 
         {
-            var overtime = TotalCapacityRequirements[workplace] - Constants.SHIFT_DURATION;
-            if (overtime <= 0.0)
-            {
-                Shifts[workplace] = 1;
-                Overtime[workplace] = 0.0;
-                return;
-            }
-
-            var shiftCosts = new Dictionary<int, double>();
-            shiftCosts.Add(1, workplace.LaborCostsFirstShift);
-            shiftCosts.Add(2, workplace.LaborCostsSecondShift);
-            shiftCosts.Add(3, workplace.LaborCostsThirdShift);
-
+            var capacityRequirements = TotalCapacityRequirements[workplace] / 5.0;
+            var shiftDuration = Constants.SHIFT_DURATION / 5.0;
+            var overtime = (capacityRequirements - shiftDuration);
             Shifts[workplace] = 1;
 
-            while ((Constants.SHIFT_DURATION - overtime) > 0.0 && Shifts[workplace] < 3)
+            while (overtime >= shiftDuration)
             {
-                var overtimeCosts = overtime * workplace.LaborCostsOvertime;
-                var additionalShiftCosts = Constants.SHIFT_DURATION * shiftCosts[Shifts[workplace] + 1];
-
-                if (additionalShiftCosts < overtimeCosts)
-                {
-                    Shifts[workplace]++;
-                    overtime -= Constants.SHIFT_DURATION;
-                }
-                else
-                {
-                    break;
-                }
+                Shifts[workplace]++;
+                overtime -= Shifts[workplace];
             }
 
+            if (Shifts[workplace] > 3) {
+                Shifts[workplace] = 3;
+                overtime = shiftDuration;
+            }
 
-            if (overtime <= 0.0)
+            if (overtime < 0)
             {
-                Overtime[workplace] = 0.0;
+                overtime = 0.0;
             }
-            else
-            {
-                Overtime[workplace] = overtime/5.0;
-            }
+            Overtime[workplace] = overtime;
         }
     }
 }
