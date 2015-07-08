@@ -247,7 +247,7 @@ namespace SupplyChainManagement.Data
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = File.ReadAllText("..\\..\\..\\SupplyChainManagement\\Sql\\fixtures.sql");
+                    cmd.CommandText = File.ReadAllText(@"Sql\fixtures.sql");
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -263,7 +263,7 @@ namespace SupplyChainManagement.Data
                 // Create schema
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = File.ReadAllText("..\\..\\..\\SupplyChainManagement\\Sql\\schema.sql");
+                    cmd.CommandText = File.ReadAllText(@"Sql\schema.sql");
                     cmd.ExecuteNonQuery();
                 }
             }
