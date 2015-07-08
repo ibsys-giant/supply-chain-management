@@ -104,6 +104,10 @@ namespace SupplyChainManagementUI
             {
                 Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
             }
+            else if (comboBox1.SelectedItem.ToString().Equals("ελληνικά"))
+            {
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("el-GR");
+            }
 
             setLanguage();
         }

@@ -61,6 +61,123 @@ namespace SupplyChainManagementUI.Resources {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Nachfrage Periode n ähnelt.
+        /// </summary>
+        internal static string columnDemandN {
+            get {
+                return ResourceManager.GetString("columnDemandN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Nachfrage Periode n+1 ähnelt.
+        /// </summary>
+        internal static string columnDemandN1 {
+            get {
+                return ResourceManager.GetString("columnDemandN1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Nachfrage Periode n+2 ähnelt.
+        /// </summary>
+        internal static string columnDemandN2 {
+            get {
+                return ResourceManager.GetString("columnDemandN2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Nachfrage Periode n+3 ähnelt.
+        /// </summary>
+        internal static string columnDemandN3 {
+            get {
+                return ResourceManager.GetString("columnDemandN3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Fertiges Produkt ähnelt.
+        /// </summary>
+        internal static string columnFinishedProduct {
+            get {
+                return ResourceManager.GetString("columnFinishedProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Item ähnelt.
+        /// </summary>
+        internal static string columnItem {
+            get {
+                return ResourceManager.GetString("columnItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Bestelltyp ähnelt.
+        /// </summary>
+        internal static string columnOrderType {
+            get {
+                return ResourceManager.GetString("columnOrderType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Überstunden ähnelt.
+        /// </summary>
+        internal static string columnOvertime {
+            get {
+                return ResourceManager.GetString("columnOvertime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Beschaffungsaufträge ähnelt.
+        /// </summary>
+        internal static string columnProcurementOrders {
+            get {
+                return ResourceManager.GetString("columnProcurementOrders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Produktionsaufträge ähnelt.
+        /// </summary>
+        internal static string columnProductionOrders {
+            get {
+                return ResourceManager.GetString("columnProductionOrders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Schicht ähnelt.
+        /// </summary>
+        internal static string columnShift {
+            get {
+                return ResourceManager.GetString("columnShift", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Planbestand ähnelt.
+        /// </summary>
+        internal static string columnWarehouseStock {
+            get {
+                return ResourceManager.GetString("columnWarehouseStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Arbeitsplatz ähnelt.
+        /// </summary>
+        internal static string columnWorkplace {
+            get {
+                return ResourceManager.GetString("columnWorkplace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Berechnen ähnelt.
         /// </summary>
         internal static string DecisionTableFormButtonCalculate {

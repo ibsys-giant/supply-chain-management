@@ -68,10 +68,10 @@ namespace SupplyChainManagementUI
 
         public void SetCalculatedData() {
             dtItems = new DataTable();
-            dtItems.Columns.Add("Item");
-            dtItems.Columns.Add("Production orders");
-            dtItems.Columns.Add("Procurement orders");
-            dtItems.Columns.Add("Order type");
+            dtItems.Columns.Add(strings.columnItem);
+            dtItems.Columns.Add(strings.columnProductionOrders);
+            dtItems.Columns.Add(strings.columnProcurementOrders);
+            dtItems.Columns.Add(strings.columnOrderType);
 
             AllItems = Planner.DataSource.GetAllItems();
 
@@ -134,9 +134,9 @@ namespace SupplyChainManagementUI
 
 
             dtOvertime = new DataTable();
-            dtOvertime.Columns.Add("Workplace");
-            dtOvertime.Columns.Add("Shifts");
-            dtOvertime.Columns.Add("Overtime");
+            dtOvertime.Columns.Add(strings.columnWorkplace);
+            dtOvertime.Columns.Add(strings.columnShift);
+            dtOvertime.Columns.Add(strings.columnOvertime);
 
             AllWorkplaces = Planner.DataSource.GetAllWorkplaces();
 

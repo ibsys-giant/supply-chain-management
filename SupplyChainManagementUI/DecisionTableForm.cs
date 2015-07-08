@@ -56,12 +56,12 @@ namespace SupplyChainManagementUI
             StartValues[2, 4] = 50;
 
             DataTable dt = new DataTable();
-            dt.Columns.Add("Finished Product", typeof(string));
-            dt.Columns.Add("Planned warehouse stock", typeof(int));
-            dt.Columns.Add("Demand period n", typeof(int));
-            dt.Columns.Add("Demand period n+1", typeof(int));
-            dt.Columns.Add("Demand period n+2", typeof(int));
-            dt.Columns.Add("Demand period n+3", typeof(int));
+            dt.Columns.Add(strings.columnFinishedProduct, typeof(string));
+            dt.Columns.Add(strings.columnWarehouseStock, typeof(int));
+            dt.Columns.Add(strings.columnDemandN, typeof(int));
+            dt.Columns.Add(strings.columnDemandN1, typeof(int));
+            dt.Columns.Add(strings.columnDemandN2, typeof(int));
+            dt.Columns.Add(strings.columnDemandN3, typeof(int));
 
             var allItems = Planner.DataSource.GetAllItems();
             FinishedProducts = new List<FinishedProduct>(from item in allItems where item is FinishedProduct select item as FinishedProduct);

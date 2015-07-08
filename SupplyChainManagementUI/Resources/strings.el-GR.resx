@@ -118,75 +118,75 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="columnDemandN" xml:space="preserve">
-    <value>Nachfrage Periode n</value>
+    <value>Περίοδο η ζήτηση n</value>
   </data>
   <data name="columnDemandN1" xml:space="preserve">
-    <value>Nachfrage Periode n+1</value>
+    <value>Περίοδο η ζήτηση nn+1</value>
   </data>
   <data name="columnDemandN2" xml:space="preserve">
-    <value>Nachfrage Periode n+2</value>
+    <value>Περίοδο η ζήτηση n+2</value>
   </data>
   <data name="columnDemandN3" xml:space="preserve">
-    <value>Nachfrage Periode n+3</value>
+    <value>Περίοδο η ζήτηση n+3</value>
   </data>
   <data name="columnFinishedProduct" xml:space="preserve">
-    <value>Fertiges Produkt</value>
+    <value>Τελικό προϊόν</value>
   </data>
   <data name="columnItem" xml:space="preserve">
-    <value>Item</value>
+    <value>είδος</value>
   </data>
   <data name="columnOrderType" xml:space="preserve">
-    <value>Bestelltyp</value>
+    <value>Τύπος Παραγγελία</value>
   </data>
   <data name="columnOvertime" xml:space="preserve">
-    <value>Überstunden</value>
+    <value>υπερωρία</value>
   </data>
   <data name="columnProcurementOrders" xml:space="preserve">
-    <value>Beschaffungsaufträge</value>
+    <value>Δημόσιες συμβάσεις</value>
   </data>
   <data name="columnProductionOrders" xml:space="preserve">
-    <value>Produktionsaufträge</value>
+    <value>εντολές παραγωγής</value>
   </data>
   <data name="columnShift" xml:space="preserve">
-    <value>Schicht</value>
+    <value>στρώμα</value>
   </data>
   <data name="columnWarehouseStock" xml:space="preserve">
-    <value>Planbestand</value>
+    <value>απογραφή σχέδιο</value>
   </data>
   <data name="columnWorkplace" xml:space="preserve">
-    <value>Arbeitsplatz</value>
+    <value>Εργατικά</value>
   </data>
   <data name="DecisionTableFormButtonCalculate" xml:space="preserve">
-    <value>Berechnen</value>
+    <value>Υπολογίστε</value>
   </data>
   <data name="DecisionTableFormTitle" xml:space="preserve">
-    <value>Planung Endprodukte</value>
+    <value>Σχεδιασμός τελικών προϊόντων</value>
   </data>
   <data name="InputXmlFormContinue" xml:space="preserve">
-    <value>Weiter</value>
+    <value>περαιτέρω</value>
   </data>
   <data name="InputXmlFormFirstPeriod" xml:space="preserve">
-    <value>Erste Periode</value>
+    <value>πρώτη Περίοδος</value>
   </data>
   <data name="InputXmlFormLanguageLabel" xml:space="preserve">
-    <value>Sprache auswählen</value>
+    <value>Επιλέξτε μια γλώσσα</value>
   </data>
   <data name="InputXmlFormOpenXml" xml:space="preserve">
-    <value>XML Lesen</value>
+    <value>XML Διαβάστε</value>
   </data>
   <data name="InputXmlFormTextboxDescription" xml:space="preserve">
-    <value>Füge den Text der Input XML ein</value>
+    <value>Επικολλήστε το κείμενο της εισόδου XML</value>
   </data>
   <data name="InputXmlFormTitle" xml:space="preserve">
-    <value>Supply Chain Rechner</value>
+    <value>Υπολογιστής Εφοδιαστικής Αλυσίδας</value>
   </data>
   <data name="OutputTableFormExportXml" xml:space="preserve">
-    <value>XML Datei speichern</value>
+    <value>XML αρχείο αποθήκευσης</value>
   </data>
   <data name="OutputTableFormReset" xml:space="preserve">
-    <value>Zurücksetzen</value>
+    <value>απόδοση</value>
   </data>
   <data name="OutputTableFormTitle" xml:space="preserve">
-    <value>XML Ausgabe</value>
+    <value>εξαγωγή σε XML</value>
   </data>
 </root>

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="colFinishedProduct" xml:space="preserve">
+    <value>Finished Product</value>
+  </data>
   <data name="DecisionTableFormButtonCalculate" xml:space="preserve">
     <value>Calculate</value>
   </data>
@@ -149,5 +152,44 @@
   </data>
   <data name="OutputTableFormTitle" xml:space="preserve">
     <value>XML Output</value>
+  </data>
+  <data name="columnDemandN" xml:space="preserve">
+    <value>Demand period n</value>
+  </data>
+  <data name="columnDemandN1" xml:space="preserve">
+    <value>Demand period n+1</value>
+  </data>
+  <data name="columnDemandN2" xml:space="preserve">
+    <value>Demand period n+2</value>
+  </data>
+  <data name="columnDemandN3" xml:space="preserve">
+    <value>Demand period n+3</value>
+  </data>
+  <data name="columnFinishedProduct" xml:space="preserve">
+    <value>Finished Product</value>
+  </data>
+  <data name="columnItem" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="columnOrderType" xml:space="preserve">
+    <value>Order Type</value>
+  </data>
+  <data name="columnOvertime" xml:space="preserve">
+    <value>Overtime</value>
+  </data>
+  <data name="columnProcurementOrders" xml:space="preserve">
+    <value>Procurement orders</value>
+  </data>
+  <data name="columnProductionOrders" xml:space="preserve">
+    <value>Production orders</value>
+  </data>
+  <data name="columnShift" xml:space="preserve">
+    <value>Shift</value>
+  </data>
+  <data name="columnWarehouseStock" xml:space="preserve">
+    <value>Planned warehouse stock</value>
+  </data>
+  <data name="columnWorkplace" xml:space="preserve">
+    <value>Workplace</value>
   </data>
 </root>
