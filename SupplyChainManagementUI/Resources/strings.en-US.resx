@@ -129,6 +129,9 @@
   <data name="InputXmlFormFirstPeriod" xml:space="preserve">
     <value>First Period</value>
   </data>
+  <data name="InputXmlFormLanguageLabel" xml:space="preserve">
+    <value>Select Language</value>
+  </data>
   <data name="InputXmlFormOpenXml" xml:space="preserve">
     <value>Read XML</value>
   </data>

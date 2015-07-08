@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using SupplyChainManagement.Services;
+using SupplyChainManagementUI.Resources;
+using System.Globalization;
+using System.Threading;
 
 namespace SupplyChainManagementUI
 {
@@ -77,7 +80,33 @@ namespace SupplyChainManagementUI
 
         private void InputXmlForm_Load(object sender, EventArgs e)
         {
-
+            Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
+            comboBox1.SelectedItem = comboBox1.Items[0];
         }
+
+        private void setLanguage()
+        {
+            this.Text = strings.InputXmlFormTitle;
+            this.button1.Text = strings.InputXmlFormContinue;
+            this.loadXmlFileButton.Text = strings.InputXmlFormOpenXml;
+            this.firstPeriodCheckbox.Text = strings.InputXmlFormFirstPeriod;
+            this.label1.Text = strings.InputXmlFormTextboxDescription;
+            this.label2.Text = strings.InputXmlFormLanguageLabel;
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedItem.ToString().Equals("Deutsch"))
+            {
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("de-DE");
+            }
+            else if (comboBox1.SelectedItem.ToString().Equals("English"))
+            {
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
+            }
+
+            setLanguage();
+        }
+
     }
 }

@@ -83,15 +83,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\ResourceDe.Designer.cs">
+    <Compile Include="Resources\strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ResourceDe.resx</DependentUpon>
+      <DependentUpon>strings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\ResourceEn.Designer.cs">
+    <Compile Include="Resources\strings.en-US.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ResourceEn.resx</DependentUpon>
+      <DependentUpon>strings.en-US.resx</DependentUpon>
     </Compile>
     <EmbeddedResource Include="DecisionTableForm.resx">
       <DependentUpon>DecisionTableForm.cs</DependentUpon>
@@ -111,13 +111,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Resources\ResourceDe.resx">
+    <EmbeddedResource Include="Resources\strings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ResourceDe.Designer.cs</LastGenOutput>
+      <LastGenOutput>strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ResourceEn.resx">
+    <EmbeddedResource Include="Resources\strings.en-US.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ResourceEn.Designer.cs</LastGenOutput>
+      <LastGenOutput>strings.en-US.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

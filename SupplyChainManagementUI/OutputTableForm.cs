@@ -12,6 +12,7 @@ using System.IO;
 using SupplyChainManagement.Services;
 using SupplyChainManagement.Models.ItemManagement;
 using SupplyChainManagement.Models;
+using SupplyChainManagementUI.Resources;
 
 namespace SupplyChainManagementUI
 {
@@ -229,7 +230,9 @@ namespace SupplyChainManagementUI
 
         private void OutputTableForm_Load(object sender, EventArgs e)
         {
-
+            this.Text = strings.OutputTableFormTitle;
+            this.resetButton.Text = strings.OutputTableFormReset;
+            this.saveButton.Text = strings.OutputTableFormExportXml;
         }
 
         private void overTimeDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
