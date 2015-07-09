@@ -1,11 +1,13 @@
 ﻿using SupplyChainManagement.Models.ItemManagement;
 using SupplyChainManagement.Services;
+using SupplyChainManagementUI.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -54,12 +56,12 @@ namespace SupplyChainManagementUI
             StartValues[2, 4] = 50;
 
             DataTable dt = new DataTable();
-            dt.Columns.Add("Finished Product", typeof(string));
-            dt.Columns.Add("Planned warehouse stock", typeof(int));
-            dt.Columns.Add("Demand period n", typeof(int));
-            dt.Columns.Add("Demand period n+1", typeof(int));
-            dt.Columns.Add("Demand period n+2", typeof(int));
-            dt.Columns.Add("Demand period n+3", typeof(int));
+            dt.Columns.Add(strings.columnFinishedProduct, typeof(string));
+            dt.Columns.Add(strings.columnWarehouseStock, typeof(int));
+            dt.Columns.Add(strings.columnDemandN, typeof(int));
+            dt.Columns.Add(strings.columnDemandN1, typeof(int));
+            dt.Columns.Add(strings.columnDemandN2, typeof(int));
+            dt.Columns.Add(strings.columnDemandN3, typeof(int));
 
             var allItems = Planner.DataSource.GetAllItems();
             FinishedProducts = new List<FinishedProduct>(from item in allItems where item is FinishedProduct select item as FinishedProduct);
@@ -86,6 +88,8 @@ namespace SupplyChainManagementUI
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.Text  = strings.DecisionTableFormTitle;
+            this.calcButton.Text = strings.DecisionTableFormButtonCalculate;
 
         }
 

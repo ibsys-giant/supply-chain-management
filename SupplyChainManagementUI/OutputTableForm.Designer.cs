@@ -72,9 +72,9 @@
             // 
             // resetButton
             // 
-            this.resetButton.Location = new System.Drawing.Point(831, 449);
+            this.resetButton.Location = new System.Drawing.Point(795, 449);
             this.resetButton.Name = "resetButton";
-            this.resetButton.Size = new System.Drawing.Size(75, 23);
+            this.resetButton.Size = new System.Drawing.Size(111, 23);
             this.resetButton.TabIndex = 4;
             this.resetButton.Text = "Reset";
             this.resetButton.UseVisualStyleBackColor = true;
