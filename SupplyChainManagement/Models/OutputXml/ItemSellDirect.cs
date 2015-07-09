@@ -23,7 +23,7 @@ namespace SupplyChainManagement.Models.OutputXml
         {
             get
             {
-                return String.Format("{0:0.0}", _Price);
+                return _Price.ToString(); //String.Format("{0:0.0}", _Price);
             }
             set
             {
@@ -38,7 +38,7 @@ namespace SupplyChainManagement.Models.OutputXml
         {
             get
             {
-                return String.Format("{0:0.0}", _Penalty);
+                return _Penalty.ToString(); //String.Format("{0:0.0}", _Penalty);
             }
             set
             {

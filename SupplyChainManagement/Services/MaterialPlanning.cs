@@ -75,8 +75,12 @@ namespace SupplyChainManagement.Services
                 availableStock = product.Stock;
             }
 
-
             var orders = demand + plannedWarehouseStock - availableStock - ordersInQueue - workInProgress;
+
+            if (orders < 0)
+            {
+                orders = 0;
+            }
 
             if (ProductionOrders[period].ContainsKey(product))
             {
