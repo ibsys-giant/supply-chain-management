@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OutputTableForm));
             this.saveButton = new System.Windows.Forms.Button();
             this.itemsDataGrid = new System.Windows.Forms.DataGridView();
             this.overTimeDataGrid = new System.Windows.Forms.DataGridView();
@@ -90,6 +91,7 @@
             this.Controls.Add(this.overTimeDataGrid);
             this.Controls.Add(this.itemsDataGrid);
             this.Controls.Add(this.saveButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "OutputTableForm";
             this.Text = "OutputXmlForm";
             this.Load += new System.EventHandler(this.OutputTableForm_Load);

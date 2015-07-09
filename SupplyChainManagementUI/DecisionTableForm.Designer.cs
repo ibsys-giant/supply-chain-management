@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DecisionTableForm));
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.calcButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -63,6 +64,7 @@
             this.ClientSize = new System.Drawing.Size(925, 499);
             this.Controls.Add(this.calcButton);
             this.Controls.Add(this.dataGridView);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DecisionTableForm";
             this.Text = "Planung Endprodukte";
             this.Load += new System.EventHandler(this.Form1_Load);
